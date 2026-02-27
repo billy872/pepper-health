@@ -743,12 +743,34 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Steve Russell - Florida (HAS PHOTO) -->
+                <div class="prayer-card rounded-xl p-3 min-w-[220px] sm:min-w-[240px] flex-shrink-0" onclick="showPrayerPopup(8)">
+                    <div class="prayer-tooltip">
+                        <div class="prayer-tooltip-flag">🇺🇸</div>
+                        <img src="steve-russell.jpg" alt="Steve Russell" class="prayer-tooltip-avatar">
+                        <p class="font-bold text-base">Steve Russell</p>
+                        <p class="text-xs mt-1" style="color: var(--text-secondary)">Mark Eleven Ministries</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="avatar-container">
+                            <img src="steve-russell.jpg" alt="Steve Russell" class="prayer-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="avatar-placeholder bg-gradient-to-br from-red-500 to-rose-600 text-white font-bold text-sm hidden">SR</div>
+                            <span class="flag-badge">🇺🇸</span>
+                        </div>
+                        <div class="min-w-0">
+                            <p class="font-semibold text-sm">Steve Russell</p>
+                            <p class="text-[10px] mt-0.5" style="color: var(--text-muted)">Pensacola, Florida</p>
+                            <p class="text-[10px] mt-1 leading-tight" style="color: var(--text-secondary)">Mark Eleven Ministries</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="flex items-center justify-center flex-wrap gap-3 mt-4 text-xs relative z-10" style="color: var(--text-muted)">
                 <span class="flex items-center gap-1">
                     <span class="w-2 h-2 rounded-full bg-blue-500"></span>
-                    Florida (3)
+                    Florida (4)
                 </span>
                 <span class="flex items-center gap-1">
                     <span class="w-2 h-2 rounded-full bg-purple-500"></span>
@@ -1121,7 +1143,8 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
             { name: 'Jeremiah', location: 'Virginia, USA', flag: '🇺🇸', role: 'Director, Christian Care Connect', initials: 'J', gradient: 'from-purple-400 to-indigo-600', photo: 'jeremiah.jpg' },
             { name: 'Johnny Smulik', location: 'Virginia, USA', flag: '🇺🇸', role: 'VP Technology, AACC', photo: 'johnny.jpg', gradient: 'from-rose-400 to-pink-600' },
             { name: 'Ken & Frieda McRae', location: 'Selaqui, India', flag: '🇮🇳', role: 'Founders, Shishya Society (since 1979)', photo: 'ken-frieda.jpg', gradient: 'from-orange-400 to-red-600' },
-            { name: 'Leah Hohmann', location: 'Germany', flag: '🇩🇪', role: 'Sister in Christ 💛', photo: 'leah.jpg', gradient: 'from-yellow-400 to-amber-500' }
+            { name: 'Leah Hohmann', location: 'Germany', flag: '🇩🇪', role: 'Sister in Christ 💛', photo: 'leah.jpg', gradient: 'from-yellow-400 to-amber-500' },
+            { name: 'Steve Russell', location: 'Pensacola, Florida', flag: '🇺🇸', role: 'Mark Eleven Ministries', photo: 'steve-russell.jpg', gradient: 'from-red-500 to-rose-600' }
         ];
         
         function showPrayerPopup(index) {
