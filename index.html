@@ -397,6 +397,18 @@
         
         <!-- Dashboard Tab -->
         <div id="view-dashboard" class="tab-view">
+            
+            <!-- News Updates -->
+            <div class="mb-6">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="text-lg">📰</span>
+                    <h2 class="text-lg font-semibold">Latest Updates</h2>
+                </div>
+                <div id="news-updates" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                    <!-- Updates will be populated here -->
+                </div>
+            </div>
+            
             <!-- Quick Status -->
             <div class="mb-6">
                 <div class="flex justify-between items-center mb-3">
@@ -688,6 +700,61 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
     </footer>
 
     <script>
+        // ===== NEWS UPDATES =====
+        const NEWS_UPDATES = [
+            { date: '2026-02-27', time: '16:30', text: '🙏 Prayer supporters added to dashboard — love from Florida, Virginia & India', type: 'info' },
+            { date: '2026-02-27', time: '11:00', text: '📊 Dashboard now live at pepper.ink.gd', type: 'info' },
+            { date: '2026-02-26', time: '18:00', text: '🩸 Lab results: HGB 8.1, Platelets 64, WBC 86.7 — anemia worsening', type: 'critical' },
+            { date: '2026-02-26', time: '10:00', text: '💉 Continuing plasma transfusions + erythopoietin', type: 'treatment' },
+            { date: '2026-02-24', time: '14:00', text: '⚠️ New crisis: severe anemia & thrombocytopenia detected', type: 'critical' },
+            { date: '2026-02-21', time: '12:00', text: '📈 ALP peaked at 1026 (9x normal)', type: 'warning' },
+            { date: '2026-02-15', time: '09:00', text: '💊 Started Meropenem — showing improvement, eating again', type: 'treatment' },
+        ];
+
+        function renderNewsUpdates() {
+            const container = document.getElementById('news-updates');
+            if (!container) return;
+            
+            const typeStyles = {
+                'critical': 'border-l-4 border-red-500 bg-red-50 dark:bg-red-950/30',
+                'warning': 'border-l-4 border-amber-500 bg-amber-50 dark:bg-amber-950/30',
+                'treatment': 'border-l-4 border-blue-500 bg-blue-50 dark:bg-blue-950/30',
+                'positive': 'border-l-4 border-emerald-500 bg-emerald-50 dark:bg-emerald-950/30',
+                'info': 'border-l-4 border-gray-400 bg-gray-50 dark:bg-gray-800/50'
+            };
+            
+            container.innerHTML = NEWS_UPDATES.slice(0, 5).map(update => {
+                const style = typeStyles[update.type] || typeStyles.info;
+                const date = new Date(update.date + 'T' + update.time);
+                const timeAgo = getTimeAgo(date);
+                
+                return `
+                    <div class="p-3 rounded-lg ${style}">
+                        <p class="text-sm" style="color: var(--text-primary)">${update.text}</p>
+                        <p class="text-xs mt-1" style="color: var(--text-muted)">${formatDateShort(update.date)} at ${update.time} • ${timeAgo}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function getTimeAgo(date) {
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMs / 3600000);
+            const diffDays = Math.floor(diffMs / 86400000);
+            
+            if (diffMins < 60) return `${diffMins}m ago`;
+            if (diffHours < 24) return `${diffHours}h ago`;
+            if (diffDays === 1) return 'yesterday';
+            if (diffDays < 7) return `${diffDays}d ago`;
+            return `${Math.floor(diffDays / 7)}w ago`;
+        }
+        
+        function formatDateShort(dateStr) {
+            return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
         // ===== DARK MODE =====
         function toggleDarkMode() {
             document.documentElement.classList.toggle('dark');
@@ -1649,6 +1716,7 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
         // Init
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('report-date').value = new Date().toISOString().split('T')[0];
+            renderNewsUpdates();
             autoLoadData();
         });
     </script>
