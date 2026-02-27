@@ -327,7 +327,75 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
-        /* Hover popup for prayer cards */
+        /* Hover tooltip for prayer cards */
+        .prayer-card {
+            position: relative;
+        }
+        
+        .prayer-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-8px) scale(0.9);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.35);
+            min-width: 200px;
+            text-align: center;
+            pointer-events: none;
+        }
+        
+        .prayer-card:hover .prayer-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-8px) scale(1);
+        }
+        
+        .prayer-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: var(--bg-card);
+        }
+        
+        .prayer-tooltip-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--border);
+            margin: 0 auto 12px;
+            display: block;
+        }
+        
+        .prayer-tooltip-initials {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+            margin: 0 auto 12px;
+        }
+        
+        .prayer-tooltip-flag {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        /* Click popup (for mobile) */
         .prayer-popup {
             position: fixed;
             top: 50%;
@@ -500,6 +568,12 @@
             <div class="prayer-carousel relative z-10">
                 <!-- David Hoskins - Florida (HAS PHOTO) -->
                 <div class="prayer-card rounded-xl p-3 min-w-[220px] sm:min-w-[240px] flex-shrink-0" onclick="showPrayerPopup(0)">
+                    <div class="prayer-tooltip">
+                        <div class="prayer-tooltip-flag">🇺🇸</div>
+                        <img src="https://sanctuaryclinics.com/wp-content/uploads/2025/10/david-hoskins-1.jpg" alt="David & Sesi Hoskins" class="prayer-tooltip-avatar">
+                        <p class="font-bold text-base">Dr. David & Sesi Hoskins</p>
+                        <p class="text-xs mt-1" style="color: var(--text-secondary)">Founders, Sanctuary Clinics</p>
+                    </div>
                     <div class="flex items-start gap-3">
                         <div class="avatar-container">
                             <img src="https://sanctuaryclinics.com/wp-content/uploads/2025/10/david-hoskins-1.jpg" alt="David Hoskins" class="prayer-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -516,6 +590,12 @@
                 
                 <!-- Art Thomas - Michigan (HAS PHOTO) -->
                 <div class="prayer-card rounded-xl p-3 min-w-[220px] sm:min-w-[240px] flex-shrink-0" onclick="showPrayerPopup(1)">
+                    <div class="prayer-tooltip">
+                        <div class="prayer-tooltip-flag">🇺🇸</div>
+                        <img src="https://www.artthomas.org/wp-content/uploads/2022/07/Art-Thomas-Web-2022.jpg" alt="Art Thomas" class="prayer-tooltip-avatar">
+                        <p class="font-bold text-base">Art Thomas</p>
+                        <p class="text-xs mt-1" style="color: var(--text-secondary)">Missionary-Evangelist • Wildfire Ministries</p>
+                    </div>
                     <div class="flex items-start gap-3">
                         <div class="avatar-container">
                             <img src="https://www.artthomas.org/wp-content/uploads/2022/07/Art-Thomas-Web-2022.jpg" alt="Art Thomas" class="prayer-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -530,8 +610,14 @@
                     </div>
                 </div>
 
-                <!-- Darren - Florida -->
+                <!-- Darin - Florida -->
                 <div class="prayer-card rounded-xl p-3 min-w-[220px] sm:min-w-[240px] flex-shrink-0" onclick="showPrayerPopup(2)">
+                    <div class="prayer-tooltip">
+                        <div class="prayer-tooltip-flag">🇺🇸</div>
+                        <div class="prayer-tooltip-initials bg-gradient-to-br from-blue-400 to-blue-600">DM</div>
+                        <p class="font-bold text-base">Darin Michael Shaw</p>
+                        <p class="text-xs mt-1" style="color: var(--text-secondary)">Author & Brother in Christ</p>
+                    </div>
                     <div class="flex items-start gap-3">
                         <div class="avatar-container">
                             <div class="avatar-placeholder bg-gradient-to-br from-blue-400 to-blue-600 text-white font-bold text-sm">DM</div>
@@ -547,6 +633,12 @@
 
                 <!-- Chad - Florida -->
                 <div class="prayer-card rounded-xl p-3 min-w-[220px] sm:min-w-[240px] flex-shrink-0" onclick="showPrayerPopup(3)">
+                    <div class="prayer-tooltip">
+                        <div class="prayer-tooltip-flag">🇺🇸</div>
+                        <div class="prayer-tooltip-initials bg-gradient-to-br from-amber-400 to-orange-600">CR</div>
+                        <p class="font-bold text-base">Chad Richard</p>
+                        <p class="text-xs mt-1" style="color: var(--text-secondary)">CEO, Honey Lake • His dog was also Pepper 🐕</p>
+                    </div>
                     <div class="flex items-start gap-3">
                         <div class="avatar-container">
                             <div class="avatar-placeholder bg-gradient-to-br from-amber-400 to-orange-600 text-white font-bold text-sm">CR</div>
@@ -562,6 +654,12 @@
 
                 <!-- Jeremiah - Virginia -->
                 <div class="prayer-card rounded-xl p-3 min-w-[220px] sm:min-w-[240px] flex-shrink-0" onclick="showPrayerPopup(4)">
+                    <div class="prayer-tooltip">
+                        <div class="prayer-tooltip-flag">🇺🇸</div>
+                        <div class="prayer-tooltip-initials bg-gradient-to-br from-purple-400 to-indigo-600">J</div>
+                        <p class="font-bold text-base">Jeremiah</p>
+                        <p class="text-xs mt-1" style="color: var(--text-secondary)">Director, Christian Care Connect</p>
+                    </div>
                     <div class="flex items-start gap-3">
                         <div class="avatar-container">
                             <div class="avatar-placeholder bg-gradient-to-br from-purple-400 to-indigo-600 text-white font-bold text-sm">J</div>
@@ -577,6 +675,12 @@
 
                 <!-- Johnny - Virginia -->
                 <div class="prayer-card rounded-xl p-3 min-w-[220px] sm:min-w-[240px] flex-shrink-0" onclick="showPrayerPopup(5)">
+                    <div class="prayer-tooltip">
+                        <div class="prayer-tooltip-flag">🇺🇸</div>
+                        <div class="prayer-tooltip-initials bg-gradient-to-br from-rose-400 to-pink-600">JS</div>
+                        <p class="font-bold text-base">Johnny Smulik</p>
+                        <p class="text-xs mt-1" style="color: var(--text-secondary)">VP Technology, AACC</p>
+                    </div>
                     <div class="flex items-start gap-3">
                         <div class="avatar-container">
                             <div class="avatar-placeholder bg-gradient-to-br from-rose-400 to-pink-600 text-white font-bold text-sm">JS</div>
@@ -592,6 +696,12 @@
 
                 <!-- Ken & Frieda - India (HAS PHOTO) -->
                 <div class="prayer-card rounded-xl p-3 min-w-[220px] sm:min-w-[240px] flex-shrink-0" onclick="showPrayerPopup(6)">
+                    <div class="prayer-tooltip">
+                        <div class="prayer-tooltip-flag">🇮🇳</div>
+                        <img src="ken-frieda.jpg" alt="Ken & Frieda McRae" class="prayer-tooltip-avatar">
+                        <p class="font-bold text-base">Ken & Frieda McRae</p>
+                        <p class="text-xs mt-1" style="color: var(--text-secondary)">Founders, Shishya Society (since 1979)</p>
+                    </div>
                     <div class="flex items-start gap-3">
                         <div class="avatar-container">
                             <img src="ken-frieda.jpg" alt="Ken & Frieda McRae" class="prayer-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -608,6 +718,12 @@
                 
                 <!-- Leah - Germany (HAS PHOTO) -->
                 <div class="prayer-card rounded-xl p-3 min-w-[220px] sm:min-w-[240px] flex-shrink-0" onclick="showPrayerPopup(7)">
+                    <div class="prayer-tooltip">
+                        <div class="prayer-tooltip-flag">🇩🇪</div>
+                        <img src="leah.jpg" alt="Leah Hohmann" class="prayer-tooltip-avatar">
+                        <p class="font-bold text-base">Leah Hohmann</p>
+                        <p class="text-xs mt-1" style="color: var(--text-secondary)">Sister in Christ 💛</p>
+                    </div>
                     <div class="flex items-start gap-3">
                         <div class="avatar-container">
                             <img src="leah.jpg" alt="Leah Hohmann" class="prayer-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
