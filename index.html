@@ -211,6 +211,45 @@
             border-color: #333;
         }
         
+        /* News Ticker Animation */
+        .news-scroll {
+            animation: scrollNews 20s linear infinite;
+        }
+        
+        .news-scroll:hover {
+            animation-play-state: paused;
+        }
+        
+        @keyframes scrollNews {
+            0% { transform: translateY(0); }
+            20% { transform: translateY(0); }
+            25% { transform: translateY(-80px); }
+            45% { transform: translateY(-80px); }
+            50% { transform: translateY(-160px); }
+            70% { transform: translateY(-160px); }
+            75% { transform: translateY(-240px); }
+            95% { transform: translateY(-240px); }
+            100% { transform: translateY(0); }
+        }
+        
+        .news-item {
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Prayer card enhanced hover */
+        .prayer-card {
+            cursor: pointer;
+        }
+        
+        .prayer-avatar {
+            object-fit: cover;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        
         .btn-primary {
             background: var(--accent);
             color: white;
@@ -313,7 +352,23 @@
                                 <span class="location-dot flex-shrink-0"></span>
                                 <span class="text-xs truncate" style="color: var(--text-muted)">Florida, USA</span>
                             </div>
-                            <p class="text-[10px] mt-1.5 leading-tight" style="color: var(--text-secondary)">Founders, Honey Lake & Sanctuary Clinics</p>
+                            <p class="text-[10px] mt-1.5 leading-tight" style="color: var(--text-secondary)">Founders, Sanctuary Clinics</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Art Thomas - Michigan -->
+                <div class="prayer-card rounded-xl p-3 min-w-[200px] sm:min-w-[220px] flex-shrink-0">
+                    <div class="flex items-start gap-3">
+                        <img src="https://www.artthomas.org/wp-content/uploads/2022/07/Art-Thomas-Web-2022.jpg" alt="Art Thomas" class="prayer-avatar flex-shrink-0" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-sky-400 to-cyan-600 items-center justify-center text-white font-bold text-sm flex-shrink-0 hidden">AT</div>
+                        <div class="min-w-0">
+                            <p class="font-semibold text-sm truncate">Art Thomas</p>
+                            <div class="flex items-center gap-1 mt-0.5">
+                                <span class="location-dot flex-shrink-0"></span>
+                                <span class="text-xs truncate" style="color: var(--text-muted)">Metro Detroit, Michigan</span>
+                            </div>
+                            <p class="text-[10px] mt-1.5 leading-tight" style="color: var(--text-secondary)">Missionary-Evangelist • Wildfire Ministries</p>
                         </div>
                     </div>
                 </div>
@@ -379,7 +434,7 @@
                 </div>
             </div>
 
-            <div class="flex items-center justify-center gap-4 mt-4 text-xs relative z-10" style="color: var(--text-muted)">
+            <div class="flex items-center justify-center flex-wrap gap-3 mt-4 text-xs relative z-10" style="color: var(--text-muted)">
                 <span class="flex items-center gap-1">
                     <span class="w-2 h-2 rounded-full bg-blue-500"></span>
                     Florida (3)
@@ -387,6 +442,10 @@
                 <span class="flex items-center gap-1">
                     <span class="w-2 h-2 rounded-full bg-purple-500"></span>
                     Virginia (2)
+                </span>
+                <span class="flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+                    Michigan (1)
                 </span>
                 <span class="flex items-center gap-1">
                     <span class="w-2 h-2 rounded-full bg-orange-500"></span>
@@ -404,8 +463,10 @@
                     <span class="text-lg">📰</span>
                     <h2 class="text-lg font-semibold">Latest Updates</h2>
                 </div>
-                <div id="news-updates" class="space-y-2 max-h-48 overflow-y-auto pr-1">
-                    <!-- Updates will be populated here -->
+                <div id="news-ticker" class="relative overflow-hidden h-20">
+                    <div id="news-updates" class="news-scroll absolute w-full">
+                        <!-- Updates will be populated here -->
+                    </div>
                 </div>
             </div>
             
@@ -723,15 +784,18 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                 'info': 'border-l-4 border-gray-400 bg-gray-50 dark:bg-gray-800/50'
             };
             
-            container.innerHTML = NEWS_UPDATES.slice(0, 5).map(update => {
+            // Show 4 items for the ticker rotation
+            container.innerHTML = NEWS_UPDATES.slice(0, 4).map(update => {
                 const style = typeStyles[update.type] || typeStyles.info;
                 const date = new Date(update.date + 'T' + update.time);
                 const timeAgo = getTimeAgo(date);
                 
                 return `
-                    <div class="p-3 rounded-lg ${style}">
-                        <p class="text-sm" style="color: var(--text-primary)">${update.text}</p>
-                        <p class="text-xs mt-1" style="color: var(--text-muted)">${formatDateShort(update.date)} at ${update.time} • ${timeAgo}</p>
+                    <div class="news-item">
+                        <div class="p-3 rounded-lg w-full ${style}">
+                            <p class="text-sm" style="color: var(--text-primary)">${update.text}</p>
+                            <p class="text-xs mt-1" style="color: var(--text-muted)">${formatDateShort(update.date)} at ${update.time} • ${timeAgo}</p>
+                        </div>
                     </div>
                 `;
             }).join('');
