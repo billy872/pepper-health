@@ -124,7 +124,7 @@
                     <img src="pepper.jpg" alt="Pepper" class="w-10 h-10 rounded-full object-cover border-2 border-white/30">
                     <div>
                         <h1 class="font-bold text-base sm:text-lg">Pepper</h1>
-                        <p class="text-[10px] sm:text-xs text-white/70 hidden sm:block">Health Dashboard</p>
+                        <p class="text-[10px] sm:text-xs text-white/70">Female • 7 yrs 2 mo</p>
                     </div>
                 </div>
                 <button onclick="toggleDarkMode()" id="dark-toggle" class="p-2 rounded-lg hover:bg-white/10" title="Toggle dark mode">
@@ -470,9 +470,9 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
     <div id="pdf-content" class="hidden"></div>
 
     <!-- Footer -->
-    <footer class="max-w-6xl mx-auto px-4 py-6 text-center">
+    <footer class="max-w-6xl mx-auto px-4 py-6 pb-24 sm:pb-6 text-center">
         <p class="text-xs mb-2" style="color: var(--text-muted)">⚠️ This is not veterinary advice. Always consult your veterinarian for medical decisions.</p>
-        <p class="text-xs" style="color: var(--text-muted)"><a href="https://siddatwork.com" class="hover:underline">SIDDATWORK®</a></p>
+        <p class="text-xs" style="color: var(--text-muted)">Built by <a href="https://siddatwork.com" class="hover:underline" style="color: var(--text-secondary)">siddatwork.com</a></p>
     </footer>
 
     <script>
@@ -482,11 +482,15 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
             const isDark = document.documentElement.classList.contains('dark');
             localStorage.setItem('pepper_dark_mode', isDark);
             updateDarkModeUI(isDark);
+            // Re-render charts with new colors
+            renderDashboard();
+            renderWeightChart();
         }
         
         function updateDarkModeUI(isDark) {
             document.getElementById('dark-icon').textContent = isDark ? '☀️' : '🌙';
-            document.getElementById('dark-mode-text').textContent = isDark ? 'Disable' : 'Enable';
+            const darkModeText = document.getElementById('dark-mode-text');
+            if (darkModeText) darkModeText.textContent = isDark ? 'Disable' : 'Enable';
         }
         
         // Init dark mode
