@@ -9,43 +9,133 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#fefdfb',
+                        warmgray: { 50: '#faf9f7', 100: '#f5f3f0', 200: '#e8e6e1', 300: '#d3d0c9' },
+                        sage: { 50: '#f6f9f6', 100: '#e8f0e8', 200: '#c8dcc8', 300: '#9fc49f', 400: '#6ba36b', 500: '#4d8f4d' },
+                        amber: { 50: '#fffbeb', 100: '#fef3c7', 200: '#fde68a', 300: '#fcd34d', 400: '#fbbf24', 500: '#f59e0b' },
+                        coral: { 50: '#fef2f2', 100: '#fee2e2', 200: '#fecaca', 300: '#fca5a5', 400: '#f87171', 500: '#ef4444' }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        * { font-family: 'Inter', sans-serif; }
-        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .card-shadow { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-        .status-normal { background: #10b981; }
-        .status-borderline { background: #f59e0b; }
-        .status-danger { background: #ef4444; }
-        .chart-container { position: relative; height: 200px; }
-        @media (min-width: 768px) { .chart-container { height: 250px; } }
+        * { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+        
+        /* Light mode */
+        :root {
+            --bg-primary: #fefdfb;
+            --bg-secondary: #f5f3f0;
+            --bg-card: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --border: #e8e6e1;
+            --accent: #6ba36b;
+            --accent-light: #e8f0e8;
+            --normal: #4d8f4d;
+            --normal-bg: #e8f0e8;
+            --warning: #f59e0b;
+            --warning-bg: #fef3c7;
+            --danger: #ef4444;
+            --danger-bg: #fee2e2;
+        }
+        
+        /* Dark mode */
+        .dark {
+            --bg-primary: #0f1419;
+            --bg-secondary: #192734;
+            --bg-card: #1e2d3d;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #334155;
+            --accent: #6ba36b;
+            --accent-light: #1a2e1a;
+            --normal: #6ba36b;
+            --normal-bg: #1a2e1a;
+            --warning: #fbbf24;
+            --warning-bg: #422006;
+            --danger: #f87171;
+            --danger-bg: #450a0a;
+        }
+        
+        body { background: var(--bg-primary); color: var(--text-primary); transition: all 0.3s; }
+        .card { background: var(--bg-card); border: 1px solid var(--border); }
+        .card-shadow { box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.04); }
+        .chart-container { position: relative; height: 180px; }
+        @media (min-width: 768px) { .chart-container { height: 220px; } }
+        
         .slide-up { animation: slideUp 0.3s ease-out; }
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(16px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        
+        .status-normal { background: var(--normal-bg); color: var(--normal); }
+        .status-warning { background: var(--warning-bg); color: var(--warning); }
+        .status-danger { background: var(--danger-bg); color: var(--danger); }
+        
         .interpretation-card {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            border-left: 4px solid #0ea5e9;
+            background: linear-gradient(135deg, var(--accent-light) 0%, var(--bg-secondary) 100%);
+            border-left: 3px solid var(--accent);
+        }
+        
+        input, textarea, select {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        .btn-primary:hover { opacity: 0.9; }
+        
+        .nav-gradient {
+            background: linear-gradient(135deg, #4d8f4d 0%, #3d7a3d 100%);
+        }
+        .dark .nav-gradient {
+            background: linear-gradient(135deg, #1e2d3d 0%, #192734 100%);
+            border-bottom: 1px solid var(--border);
         }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="min-h-screen">
     <!-- Navigation -->
-    <nav class="gradient-bg text-white sticky top-0 z-50 shadow-lg">
-        <div class="max-w-6xl mx-auto px-4 py-4">
+    <nav class="nav-gradient text-white sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-2xl">🐕</div>
                     <div>
                         <h1 class="font-bold text-lg">Pepper's Health</h1>
-                        <p class="text-xs text-white/80">Lab Results Tracker</p>
+                        <p class="text-xs text-white/70">Lab Results Tracker</p>
                     </div>
                 </div>
-                <div class="flex gap-2">
-                    <button onclick="showTab('dashboard')" id="tab-dashboard" class="tab-btn px-3 py-2 rounded-lg text-sm font-medium bg-white/20">Dashboard</button>
-                    <button onclick="showTab('add')" id="tab-add" class="tab-btn px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10">+ Add</button>
-                    <button onclick="showTab('history')" id="tab-history" class="tab-btn px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10">History</button>
+                <div class="flex items-center gap-2">
+                    <button onclick="toggleDarkMode()" id="dark-toggle" class="p-2 rounded-lg hover:bg-white/10" title="Toggle dark mode">
+                        <span id="dark-icon">🌙</span>
+                    </button>
+                    <button onclick="showTab('dashboard')" id="tab-dashboard" class="tab-btn px-3 py-2 rounded-lg text-sm font-medium bg-white/20">📊</button>
+                    <button onclick="showTab('add')" id="tab-add" class="tab-btn px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10">➕</button>
+                    <button onclick="showTab('weight')" id="tab-weight" class="tab-btn px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10">⚖️</button>
+                    <button onclick="showTab('history')" id="tab-history" class="tab-btn px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10">📋</button>
+                    <button onclick="showTab('settings')" id="tab-settings" class="tab-btn px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10">⚙️</button>
                 </div>
             </div>
         </div>
@@ -57,27 +147,31 @@
         <div id="view-dashboard" class="tab-view">
             <!-- Quick Status -->
             <div class="mb-6">
-                <h2 class="text-lg font-semibold text-gray-800 mb-3">Latest Status</h2>
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-lg font-semibold">Latest Status</h2>
+                    <div id="last-weight" class="text-sm text-gray-500"></div>
+                </div>
                 <div id="status-badges" class="flex flex-wrap gap-2">
-                    <span class="text-gray-500 text-sm">No reports yet. Add your first lab report!</span>
+                    <span class="text-sm" style="color: var(--text-muted)">No reports yet. Add your first lab report!</span>
                 </div>
             </div>
 
             <!-- Filters -->
             <div class="flex flex-col sm:flex-row gap-3 mb-6">
                 <input type="text" id="search-filter" placeholder="Search lab values..." 
-                    class="flex-1 px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                    class="flex-1 px-4 py-2.5 rounded-xl text-sm">
                 <div class="flex gap-2">
-                    <button onclick="setFilter('all')" id="filter-all" class="filter-btn px-4 py-2 rounded-lg bg-purple-600 text-white text-sm font-medium">All Values</button>
-                    <button onclick="setFilter('flagged')" id="filter-flagged" class="filter-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 text-sm font-medium">Flagged Only</button>
+                    <button onclick="setFilter('all')" id="filter-all" class="filter-btn px-4 py-2 rounded-xl btn-primary text-sm font-medium">All Values</button>
+                    <button onclick="setFilter('flagged')" id="filter-flagged" class="filter-btn px-4 py-2 rounded-xl text-sm font-medium" style="background: var(--bg-secondary); color: var(--text-secondary)">Flagged Only</button>
                 </div>
             </div>
 
             <!-- Charts Grid -->
             <div id="charts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div class="text-center text-gray-500 py-12 col-span-full">
-                    <p class="text-4xl mb-4">📊</p>
-                    <p>Charts will appear here after you add lab reports</p>
+                <div class="text-center py-16 col-span-full" style="color: var(--text-muted)">
+                    <p class="text-5xl mb-4 opacity-50">📊</p>
+                    <p class="text-lg">Charts will appear here after you add lab reports</p>
+                    <button onclick="showTab('add')" class="mt-4 px-6 py-2 btn-primary rounded-xl text-sm font-medium">Add First Report</button>
                 </div>
             </div>
         </div>
@@ -85,52 +179,53 @@
         <!-- Add Report Tab -->
         <div id="view-add" class="tab-view hidden">
             <div class="max-w-2xl mx-auto">
-                <div class="bg-white rounded-2xl card-shadow p-6">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Add Lab Report</h2>
+                <div class="card rounded-2xl card-shadow p-6">
+                    <h2 class="text-xl font-semibold mb-4">Add Lab Report</h2>
                     
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Report Date</label>
-                        <input type="date" id="report-date" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-purple-500">
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Paste Lab Report Text</label>
-                        <textarea id="report-text" rows="10" placeholder="Paste the full lab report here... Include all values like:
-
-WBC: 12.5 (6.0-17.0 x10^9/L)
-RBC: 6.8 (5.5-8.5 x10^12/L)
-Hemoglobin: 15.2 (12-18 g/dL)
-BUN: 25 (7-27 mg/dL)
-Creatinine: 1.4 (0.5-1.8 mg/dL)
-..."
-                            class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-purple-500 text-sm"></textarea>
-                    </div>
-
-                    <div class="mb-6">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Or Upload Image/PDF</label>
-                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-purple-400 transition-colors">
-                            <input type="file" id="report-file" accept="image/*,.pdf" class="hidden">
-                            <button onclick="document.getElementById('report-file').click()" class="text-purple-600 font-medium">
-                                📎 Click to upload
-                            </button>
-                            <p class="text-xs text-gray-500 mt-2">Image OCR coming soon. For now, please paste text.</p>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2" style="color: var(--text-secondary)">Report Date</label>
+                            <input type="date" id="report-date" class="w-full px-4 py-3 rounded-xl text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2" style="color: var(--text-secondary)">Weight (kg)</label>
+                            <input type="number" step="0.1" id="report-weight" placeholder="e.g., 25.5" class="w-full px-4 py-3 rounded-xl text-sm">
                         </div>
                     </div>
 
-                    <button onclick="parseAndSaveReport()" class="w-full py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-colors">
-                        Parse & Save Report
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2" style="color: var(--text-secondary)">Paste Lab Report Text</label>
+                        <textarea id="report-text" rows="8" placeholder="Paste the full lab report here...
+
+Example formats:
+WBC: 12.5 (6.0-17.0 x10^9/L)
+RBC: 6.8 (5.5-8.5 x10^12/L)
+BUN: 25 (7-27 mg/dL)
+Creatinine: 1.4 (0.5-1.8 mg/dL)
+..."
+                            class="w-full px-4 py-3 rounded-xl text-sm"></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2" style="color: var(--text-secondary)">Vet Notes (optional)</label>
+                        <textarea id="report-notes" rows="3" placeholder="Any observations from this visit..."
+                            class="w-full px-4 py-3 rounded-xl text-sm"></textarea>
+                    </div>
+
+                    <button onclick="parseAndSaveReport()" class="w-full py-3 btn-primary rounded-xl font-semibold">
+                        Parse & Preview
                     </button>
                 </div>
 
                 <!-- Parsed Preview -->
                 <div id="parsed-preview" class="mt-6 hidden">
-                    <div class="bg-white rounded-2xl card-shadow p-6">
+                    <div class="card rounded-2xl card-shadow p-6">
                         <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-lg font-semibold text-gray-800">Parsed Values</h3>
-                            <button onclick="clearPreview()" class="text-gray-500 hover:text-gray-700">✕</button>
+                            <h3 class="text-lg font-semibold">Parsed Values</h3>
+                            <span id="parsed-count" class="text-sm px-3 py-1 rounded-full" style="background: var(--accent-light); color: var(--accent)">0 values</span>
                         </div>
-                        <div id="parsed-values" class="space-y-2"></div>
-                        <button onclick="confirmSave()" class="w-full mt-4 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700">
+                        <div id="parsed-values" class="space-y-2 max-h-80 overflow-y-auto"></div>
+                        <button onclick="confirmSave()" class="w-full mt-4 py-3 rounded-xl font-semibold text-white" style="background: #4d8f4d">
                             ✓ Confirm & Save
                         </button>
                     </div>
@@ -138,53 +233,266 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
             </div>
         </div>
 
+        <!-- Weight Tab -->
+        <div id="view-weight" class="tab-view hidden">
+            <div class="max-w-2xl mx-auto">
+                <div class="card rounded-2xl card-shadow p-6 mb-6">
+                    <h2 class="text-xl font-semibold mb-4">Weight Tracking</h2>
+                    <div class="chart-container" style="height: 250px;">
+                        <canvas id="weight-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="card rounded-2xl card-shadow p-6">
+                    <h3 class="text-lg font-semibold mb-4">Add Weight Entry</h3>
+                    <div class="flex gap-4">
+                        <input type="date" id="weight-date" class="flex-1 px-4 py-3 rounded-xl text-sm">
+                        <input type="number" step="0.1" id="weight-value" placeholder="Weight (kg)" class="w-32 px-4 py-3 rounded-xl text-sm">
+                        <button onclick="addWeight()" class="px-6 py-3 btn-primary rounded-xl font-medium">Add</button>
+                    </div>
+                    <div id="weight-history" class="mt-4 space-y-2"></div>
+                </div>
+            </div>
+        </div>
+
         <!-- History Tab -->
         <div id="view-history" class="tab-view hidden">
             <div class="max-w-2xl mx-auto">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Report History</h2>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold">Report History</h2>
+                    <button onclick="exportPDF()" class="px-4 py-2 rounded-xl text-sm font-medium" style="background: var(--bg-secondary)">📄 Export PDF</button>
+                </div>
                 <div id="history-list" class="space-y-4">
-                    <p class="text-gray-500 text-center py-8">No reports saved yet.</p>
+                    <p class="text-center py-12" style="color: var(--text-muted)">No reports saved yet.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="view-settings" class="tab-view hidden">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="text-xl font-semibold mb-6">Settings & Data</h2>
+                
+                <div class="card rounded-2xl card-shadow p-6 mb-4">
+                    <h3 class="font-semibold mb-4">Appearance</h3>
+                    <div class="flex items-center justify-between">
+                        <span>Dark Mode</span>
+                        <button onclick="toggleDarkMode()" class="px-4 py-2 rounded-xl text-sm" style="background: var(--bg-secondary)">
+                            <span id="dark-mode-text">Enable</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card rounded-2xl card-shadow p-6 mb-4">
+                    <h3 class="font-semibold mb-4">Data Backup</h3>
+                    <div class="flex gap-3">
+                        <button onclick="exportData()" class="flex-1 py-3 rounded-xl text-sm font-medium" style="background: var(--bg-secondary)">
+                            📤 Export JSON
+                        </button>
+                        <label class="flex-1">
+                            <input type="file" id="import-file" accept=".json" onchange="importData(event)" class="hidden">
+                            <div class="py-3 rounded-xl text-sm font-medium text-center cursor-pointer" style="background: var(--bg-secondary)">
+                                📥 Import JSON
+                            </div>
+                        </label>
+                    </div>
+                    <p class="text-xs mt-3" style="color: var(--text-muted)">Export your data regularly for backup. All data is stored locally in your browser.</p>
+                </div>
+
+                <div class="card rounded-2xl card-shadow p-6">
+                    <h3 class="font-semibold mb-4 text-red-500">Danger Zone</h3>
+                    <button onclick="clearAllData()" class="w-full py-3 rounded-xl text-sm font-medium border-2 border-red-300 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20">
+                        🗑️ Clear All Data
+                    </button>
                 </div>
             </div>
         </div>
     </main>
 
     <!-- Interpretation Modal -->
-    <div id="interpretation-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-end sm:items-center justify-center">
-        <div class="bg-white w-full sm:max-w-lg sm:rounded-2xl rounded-t-2xl max-h-[80vh] overflow-y-auto">
-            <div class="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
+    <div id="interpretation-modal" class="fixed inset-0 z-50 hidden flex items-end sm:items-center justify-center" style="background: rgba(0,0,0,0.5)">
+        <div class="w-full sm:max-w-lg sm:rounded-2xl rounded-t-2xl max-h-[85vh] overflow-y-auto" style="background: var(--bg-card)">
+            <div class="sticky top-0 p-4 border-b flex justify-between items-center" style="background: var(--bg-card); border-color: var(--border)">
                 <h3 id="modal-title" class="font-semibold text-lg">Lab Value Details</h3>
-                <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">✕</button>
+                <button onclick="closeModal()" class="w-8 h-8 rounded-full flex items-center justify-center" style="background: var(--bg-secondary)">✕</button>
             </div>
             <div id="modal-content" class="p-4"></div>
         </div>
     </div>
 
-    <!-- Disclaimer -->
+    <!-- PDF Export Container (Hidden) -->
+    <div id="pdf-content" class="hidden"></div>
+
+    <!-- Footer -->
     <footer class="max-w-6xl mx-auto px-4 py-6 text-center">
-        <p class="text-xs text-gray-400 mb-2">⚠️ This is not veterinary advice. Always consult your veterinarian for medical decisions.</p>
-        <p class="text-xs text-gray-300"><a href="https://siddatwork.com" class="hover:text-gray-500">SIDDATWORK®</a></p>
+        <p class="text-xs mb-2" style="color: var(--text-muted)">⚠️ This is not veterinary advice. Always consult your veterinarian for medical decisions.</p>
+        <p class="text-xs" style="color: var(--text-muted)"><a href="https://siddatwork.com" class="hover:underline">SIDDATWORK®</a></p>
     </footer>
 
     <script>
+        // ===== DARK MODE =====
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('pepper_dark_mode', isDark);
+            updateDarkModeUI(isDark);
+        }
+        
+        function updateDarkModeUI(isDark) {
+            document.getElementById('dark-icon').textContent = isDark ? '☀️' : '🌙';
+            document.getElementById('dark-mode-text').textContent = isDark ? 'Disable' : 'Enable';
+        }
+        
+        // Init dark mode
+        if (localStorage.getItem('pepper_dark_mode') === 'true') {
+            document.documentElement.classList.add('dark');
+            updateDarkModeUI(true);
+        }
+
         // ===== DATA STORAGE =====
         const STORAGE_KEY = 'pepper_health_data';
         
         function getData() {
             const data = localStorage.getItem(STORAGE_KEY);
-            return data ? JSON.parse(data) : { reports: [], values: {} };
+            return data ? JSON.parse(data) : { reports: [], values: {}, weights: [] };
         }
         
         function saveData(data) {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
         }
 
+        // ===== EXPORT/IMPORT =====
+        function exportData() {
+            const data = getData();
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `pepper-health-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.reports && data.values) {
+                        saveData(data);
+                        alert('Data imported successfully!');
+                        renderDashboard();
+                        renderWeightChart();
+                    } else {
+                        alert('Invalid data format');
+                    }
+                } catch (err) {
+                    alert('Error reading file');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure? This will delete ALL your data permanently.')) {
+                localStorage.removeItem(STORAGE_KEY);
+                location.reload();
+            }
+        }
+
+        // ===== PDF EXPORT =====
+        function exportPDF() {
+            const data = getData();
+            if (data.reports.length === 0) {
+                alert('No reports to export');
+                return;
+            }
+
+            const container = document.getElementById('pdf-content');
+            const latestReport = data.reports[data.reports.length - 1];
+            
+            let html = `
+                <div style="font-family: Inter, sans-serif; padding: 20px; max-width: 800px;">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h1 style="font-size: 24px; margin: 0;">🐕 Pepper's Health Summary</h1>
+                        <p style="color: #666; margin-top: 8px;">Generated ${new Date().toLocaleDateString()}</p>
+                    </div>
+                    
+                    <h2 style="font-size: 18px; border-bottom: 2px solid #4d8f4d; padding-bottom: 8px;">Latest Values (${latestReport.date})</h2>
+                    <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
+                        <tr style="background: #f5f5f5;">
+                            <th style="text-align: left; padding: 8px; border: 1px solid #ddd;">Value</th>
+                            <th style="text-align: center; padding: 8px; border: 1px solid #ddd;">Result</th>
+                            <th style="text-align: center; padding: 8px; border: 1px solid #ddd;">Reference</th>
+                            <th style="text-align: center; padding: 8px; border: 1px solid #ddd;">Status</th>
+                        </tr>
+            `;
+
+            for (const [key, val] of Object.entries(data.values)) {
+                const latest = val.readings[val.readings.length - 1];
+                const ref = LAB_REFERENCES[key];
+                let status = '✅ Normal';
+                let statusColor = '#4d8f4d';
+                
+                if (ref) {
+                    if (latest.value < ref.low) {
+                        status = '🔻 Low';
+                        statusColor = '#ef4444';
+                    } else if (latest.value > ref.high) {
+                        status = '🔺 High';
+                        statusColor = '#ef4444';
+                    }
+                }
+
+                html += `
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;">${val.name}</td>
+                        <td style="text-align: center; padding: 8px; border: 1px solid #ddd; font-weight: bold;">${latest.value} ${val.unit}</td>
+                        <td style="text-align: center; padding: 8px; border: 1px solid #ddd; color: #666;">${ref ? `${ref.low} - ${ref.high}` : '-'}</td>
+                        <td style="text-align: center; padding: 8px; border: 1px solid #ddd; color: ${statusColor}">${status}</td>
+                    </tr>
+                `;
+            }
+
+            html += `
+                    </table>
+                    
+                    ${data.weights.length > 0 ? `
+                    <h2 style="font-size: 18px; border-bottom: 2px solid #4d8f4d; padding-bottom: 8px; margin-top: 30px;">Weight History</h2>
+                    <p>Latest: <strong>${data.weights[data.weights.length-1].value} kg</strong> (${data.weights[data.weights.length-1].date})</p>
+                    ` : ''}
+                    
+                    <div style="margin-top: 40px; padding: 16px; background: #fff3cd; border-radius: 8px;">
+                        <p style="margin: 0; font-size: 12px; color: #856404;">⚠️ This summary is for reference only. Always consult your veterinarian for medical decisions.</p>
+                    </div>
+                    
+                    <p style="text-align: center; margin-top: 30px; font-size: 11px; color: #999;">Generated by Pepper Health Dashboard • SIDDATWORK®</p>
+                </div>
+            `;
+
+            container.innerHTML = html;
+            container.classList.remove('hidden');
+
+            html2pdf().set({
+                margin: 10,
+                filename: `pepper-health-${new Date().toISOString().split('T')[0]}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            }).from(container).save().then(() => {
+                container.classList.add('hidden');
+            });
+        }
+
         // ===== VETERINARY REFERENCE DATA =====
         const LAB_REFERENCES = {
-            // Complete Blood Count (CBC)
+            // CBC
             'wbc': { name: 'White Blood Cells', unit: 'x10⁹/L', low: 6.0, high: 17.0, category: 'CBC',
-                desc: 'White blood cells fight infection. They\'re part of the immune system.',
-                highMeaning: 'Elevated WBC may indicate infection, inflammation, stress, or in rare cases, leukemia.',
+                desc: 'White blood cells fight infection and are part of the immune system.',
+                highMeaning: 'Elevated WBC may indicate infection, inflammation, stress, or rarely leukemia.',
                 lowMeaning: 'Low WBC can indicate bone marrow problems, severe infection, or immune suppression.' },
             'rbc': { name: 'Red Blood Cells', unit: 'x10¹²/L', low: 5.5, high: 8.5, category: 'CBC',
                 desc: 'Red blood cells carry oxygen throughout the body.',
@@ -204,7 +512,7 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                 lowMeaning: 'Low PCV indicates anemia.' },
             'mcv': { name: 'Mean Corpuscular Volume', unit: 'fL', low: 60, high: 77, category: 'CBC',
                 desc: 'Average size of red blood cells.',
-                highMeaning: 'Large RBCs may indicate regenerative anemia or B12/folate issues.',
+                highMeaning: 'Large RBCs may indicate regenerative anemia or vitamin deficiency.',
                 lowMeaning: 'Small RBCs may indicate iron deficiency.' },
             'mch': { name: 'Mean Corpuscular Hemoglobin', unit: 'pg', low: 19, high: 25, category: 'CBC',
                 desc: 'Average amount of hemoglobin per red blood cell.',
@@ -219,11 +527,31 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                 highMeaning: 'High platelets may indicate inflammation, infection, or iron deficiency.',
                 lowMeaning: 'Low platelets increase bleeding risk — may indicate immune destruction or bone marrow issues.' },
             'reticulocytes': { name: 'Reticulocytes', unit: '%', low: 0, high: 1.5, category: 'CBC',
-                desc: 'Young red blood cells — indicates bone marrow response.',
-                highMeaning: 'High reticulocytes show the body is making new RBCs (regenerative response).',
-                lowMeaning: 'Low with anemia suggests bone marrow isn\'t responding (non-regenerative).' },
+                desc: 'Young red blood cells — indicates bone marrow activity.',
+                highMeaning: 'High reticulocytes show the body is actively making new RBCs (regenerative response).',
+                lowMeaning: 'Low with anemia suggests bone marrow isn\'t responding properly.' },
+            'neutrophils': { name: 'Neutrophils', unit: 'x10⁹/L', low: 3.0, high: 11.5, category: 'CBC',
+                desc: 'Most common white blood cell — first responders to infection.',
+                highMeaning: 'High neutrophils suggest bacterial infection, inflammation, or stress.',
+                lowMeaning: 'Low neutrophils increase infection risk.' },
+            'lymphocytes': { name: 'Lymphocytes', unit: 'x10⁹/L', low: 1.0, high: 4.8, category: 'CBC',
+                desc: 'White blood cells that fight viruses and produce antibodies.',
+                highMeaning: 'High lymphocytes may indicate viral infection or leukemia.',
+                lowMeaning: 'Low lymphocytes may indicate stress or immune suppression.' },
+            'monocytes': { name: 'Monocytes', unit: 'x10⁹/L', low: 0.1, high: 1.4, category: 'CBC',
+                desc: 'White blood cells that clean up dead cells and fight infection.',
+                highMeaning: 'High monocytes may indicate chronic infection or inflammation.',
+                lowMeaning: 'Low monocytes are usually not significant.' },
+            'eosinophils': { name: 'Eosinophils', unit: 'x10⁹/L', low: 0.1, high: 1.2, category: 'CBC',
+                desc: 'White blood cells that fight parasites and allergies.',
+                highMeaning: 'High eosinophils suggest parasites, allergies, or skin disease.',
+                lowMeaning: 'Low eosinophils are usually not significant.' },
+            'basophils': { name: 'Basophils', unit: 'x10⁹/L', low: 0, high: 0.1, category: 'CBC',
+                desc: 'Rare white blood cells involved in allergic reactions.',
+                highMeaning: 'High basophils are rare — may indicate allergic reaction.',
+                lowMeaning: 'Low/absent basophils are normal.' },
 
-            // Chemistry Panel - Kidney
+            // Kidney
             'bun': { name: 'Blood Urea Nitrogen', unit: 'mg/dL', low: 7, high: 27, category: 'Kidney',
                 desc: 'A waste product filtered by the kidneys.',
                 highMeaning: 'High BUN may indicate kidney disease, dehydration, high-protein diet, or GI bleeding.',
@@ -233,21 +561,21 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                 highMeaning: 'High creatinine strongly suggests reduced kidney function.',
                 lowMeaning: 'Low creatinine may indicate muscle wasting.' },
             'sdma': { name: 'SDMA', unit: 'μg/dL', low: 0, high: 14, category: 'Kidney',
-                desc: 'Symmetric dimethylarginine — an early kidney disease marker.',
+                desc: 'An early kidney disease marker that can detect problems before creatinine rises.',
                 highMeaning: 'Elevated SDMA can detect kidney disease earlier than creatinine.',
-                lowMeaning: 'Low/normal SDMA is good — kidneys filtering well.' },
+                lowMeaning: 'Low/normal SDMA is good — kidneys are filtering well.' },
             'phosphorus': { name: 'Phosphorus', unit: 'mg/dL', low: 2.5, high: 6.8, category: 'Kidney',
-                desc: 'A mineral important for bones and energy — kidneys regulate levels.',
+                desc: 'A mineral important for bones — kidneys regulate levels.',
                 highMeaning: 'High phosphorus often indicates kidney disease or parathyroid issues.',
-                lowMeaning: 'Low phosphorus may indicate malnutrition or insulin issues.' },
+                lowMeaning: 'Low phosphorus may indicate malnutrition.' },
 
-            // Chemistry Panel - Liver
+            // Liver
             'alt': { name: 'ALT (SGPT)', unit: 'U/L', low: 10, high: 125, category: 'Liver',
                 desc: 'An enzyme released when liver cells are damaged.',
                 highMeaning: 'Elevated ALT indicates liver cell damage — could be hepatitis, toxins, or other issues.',
-                lowMeaning: 'Low ALT is normal and not concerning.' },
+                lowMeaning: 'Low ALT is normal.' },
             'ast': { name: 'AST (SGOT)', unit: 'U/L', low: 0, high: 50, category: 'Liver',
-                desc: 'An enzyme found in liver and muscle — less specific than ALT.',
+                desc: 'An enzyme found in liver and muscle.',
                 highMeaning: 'High AST may indicate liver or muscle damage.',
                 lowMeaning: 'Low AST is normal.' },
             'alp': { name: 'Alkaline Phosphatase', unit: 'U/L', low: 23, high: 212, category: 'Liver',
@@ -263,23 +591,23 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                 highMeaning: 'High bilirubin causes jaundice — may indicate liver disease or hemolysis.',
                 lowMeaning: 'Low bilirubin is normal.' },
             'albumin': { name: 'Albumin', unit: 'g/dL', low: 2.3, high: 4.0, category: 'Liver',
-                desc: 'A protein made by the liver — important for fluid balance.',
+                desc: 'A protein made by the liver for fluid balance.',
                 highMeaning: 'High albumin usually indicates dehydration.',
                 lowMeaning: 'Low albumin may indicate liver disease, kidney loss, or malnutrition.' },
-            'globulin': { name: 'Globulin', unit: 'g/dL', low: 2.5, high: 4.5, category: 'Liver',
+            'globulin': { name: 'Globulin', unit: 'g/dL', low: 2.5, high: 4.5, category: 'Protein',
                 desc: 'Proteins including antibodies.',
-                highMeaning: 'High globulin may indicate chronic infection, inflammation, or immune disease.',
+                highMeaning: 'High globulin may indicate chronic infection or inflammation.',
                 lowMeaning: 'Low globulin may indicate immune deficiency.' },
-            'totalprotein': { name: 'Total Protein', unit: 'g/dL', low: 5.2, high: 8.2, category: 'Liver',
+            'totalprotein': { name: 'Total Protein', unit: 'g/dL', low: 5.2, high: 8.2, category: 'Protein',
                 desc: 'Sum of albumin and globulin.',
                 highMeaning: 'High protein may indicate dehydration or chronic inflammation.',
-                lowMeaning: 'Low protein may indicate malnutrition, liver, or kidney disease.' },
+                lowMeaning: 'Low protein may indicate malnutrition or organ disease.' },
 
-            // Chemistry Panel - Pancreas/Glucose
+            // Metabolic
             'glucose': { name: 'Glucose', unit: 'mg/dL', low: 74, high: 143, category: 'Metabolic',
                 desc: 'Blood sugar — the body\'s main energy source.',
                 highMeaning: 'High glucose may indicate diabetes or stress response.',
-                lowMeaning: 'Low glucose can cause weakness, seizures — may indicate insulin issues or liver disease.' },
+                lowMeaning: 'Low glucose can cause weakness or seizures — may indicate insulin issues.' },
             'amylase': { name: 'Amylase', unit: 'U/L', low: 500, high: 1500, category: 'Pancreas',
                 desc: 'A digestive enzyme from the pancreas.',
                 highMeaning: 'High amylase may indicate pancreatitis.',
@@ -290,73 +618,51 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                 lowMeaning: 'Low lipase is usually not significant.' },
             'cholesterol': { name: 'Cholesterol', unit: 'mg/dL', low: 110, high: 320, category: 'Metabolic',
                 desc: 'A fat used for cell membranes and hormones.',
-                highMeaning: 'High cholesterol may indicate hypothyroidism, diabetes, or liver issues.',
-                lowMeaning: 'Low cholesterol may indicate malabsorption or liver disease.' },
+                highMeaning: 'High cholesterol may indicate hypothyroidism or diabetes.',
+                lowMeaning: 'Low cholesterol may indicate malabsorption.' },
             'triglycerides': { name: 'Triglycerides', unit: 'mg/dL', low: 50, high: 150, category: 'Metabolic',
-                desc: 'Fats from food and made by the body.',
-                highMeaning: 'High triglycerides may indicate recent meal, diabetes, or hypothyroidism.',
+                desc: 'Fats from food.',
+                highMeaning: 'High triglycerides may indicate recent meal or diabetes.',
                 lowMeaning: 'Low triglycerides are usually not concerning.' },
 
             // Electrolytes
             'sodium': { name: 'Sodium', unit: 'mEq/L', low: 144, high: 160, category: 'Electrolytes',
-                desc: 'An electrolyte important for fluid balance and nerve function.',
-                highMeaning: 'High sodium may indicate dehydration or diabetes insipidus.',
-                lowMeaning: 'Low sodium may indicate overhydration, kidney disease, or Addison\'s.' },
+                desc: 'An electrolyte for fluid balance and nerve function.',
+                highMeaning: 'High sodium may indicate dehydration.',
+                lowMeaning: 'Low sodium may indicate kidney disease or Addison\'s.' },
             'potassium': { name: 'Potassium', unit: 'mEq/L', low: 3.5, high: 5.8, category: 'Electrolytes',
                 desc: 'An electrolyte vital for heart and muscle function.',
-                highMeaning: 'High potassium is dangerous for the heart — may indicate kidney disease or Addison\'s.',
-                lowMeaning: 'Low potassium may cause weakness — may indicate vomiting, diarrhea, or kidney loss.' },
+                highMeaning: 'High potassium is dangerous for the heart — may indicate kidney disease.',
+                lowMeaning: 'Low potassium may cause weakness.' },
             'chloride': { name: 'Chloride', unit: 'mEq/L', low: 109, high: 122, category: 'Electrolytes',
-                desc: 'An electrolyte that helps maintain acid-base balance.',
-                highMeaning: 'High chloride may indicate dehydration or kidney disease.',
-                lowMeaning: 'Low chloride may indicate vomiting or respiratory issues.' },
+                desc: 'An electrolyte for acid-base balance.',
+                highMeaning: 'High chloride may indicate dehydration.',
+                lowMeaning: 'Low chloride may indicate vomiting.' },
             'calcium': { name: 'Calcium', unit: 'mg/dL', low: 7.9, high: 12.0, category: 'Electrolytes',
                 desc: 'Important for bones, muscles, and nerves.',
-                highMeaning: 'High calcium may indicate cancer, kidney disease, or parathyroid issues.',
-                lowMeaning: 'Low calcium may cause tremors — may indicate pancreatitis or eclampsia.' },
-
-            // Urinalysis
-            'usg': { name: 'Urine Specific Gravity', unit: '', low: 1.015, high: 1.045, category: 'Urinalysis',
-                desc: 'Measures how concentrated the urine is.',
-                highMeaning: 'Very concentrated urine — may indicate dehydration.',
-                lowMeaning: 'Dilute urine may indicate kidney disease or diabetes insipidus.' },
-            'uph': { name: 'Urine pH', unit: '', low: 5.5, high: 7.5, category: 'Urinalysis',
-                desc: 'Measures urine acidity.',
-                highMeaning: 'Alkaline urine may indicate UTI or certain crystal types.',
-                lowMeaning: 'Acidic urine may indicate protein-rich diet or metabolic issues.' },
-            'uprotein': { name: 'Urine Protein', unit: '', low: 0, high: 0.5, category: 'Urinalysis',
-                desc: 'Protein shouldn\'t normally be in urine.',
-                highMeaning: 'Protein in urine may indicate kidney disease or UTI.',
-                lowMeaning: 'No protein is normal.' },
+                highMeaning: 'High calcium may indicate cancer or kidney disease.',
+                lowMeaning: 'Low calcium may cause tremors.' },
 
             // Thyroid
             't4': { name: 'T4 (Thyroxine)', unit: 'μg/dL', low: 1.0, high: 4.0, category: 'Thyroid',
                 desc: 'The main thyroid hormone — controls metabolism.',
-                highMeaning: 'High T4 is rare in dogs — may indicate thyroid tumor.',
-                lowMeaning: 'Low T4 may indicate hypothyroidism — causes weight gain, lethargy, skin issues.' },
-            'tsh': { name: 'TSH', unit: 'ng/mL', low: 0.03, high: 0.5, category: 'Thyroid',
-                desc: 'Thyroid stimulating hormone from the pituitary.',
-                highMeaning: 'High TSH with low T4 confirms hypothyroidism.',
-                lowMeaning: 'Low TSH is usually normal.' },
+                highMeaning: 'High T4 is rare in dogs.',
+                lowMeaning: 'Low T4 may indicate hypothyroidism.' },
 
-            // Coagulation
-            'pt': { name: 'Prothrombin Time', unit: 'seconds', low: 11, high: 17, category: 'Coagulation',
-                desc: 'How long blood takes to clot.',
-                highMeaning: 'Prolonged PT indicates bleeding risk — may be liver disease or rodenticide poisoning.',
-                lowMeaning: 'Short PT is usually not significant.' },
-            'aptt': { name: 'aPTT', unit: 'seconds', low: 72, high: 102, category: 'Coagulation',
-                desc: 'Another clotting time test.',
-                highMeaning: 'Prolonged aPTT indicates bleeding risk.',
-                lowMeaning: 'Short aPTT is usually not significant.' },
+            // Urinalysis
+            'usg': { name: 'Urine Specific Gravity', unit: '', low: 1.015, high: 1.045, category: 'Urinalysis',
+                desc: 'Measures how concentrated the urine is.',
+                highMeaning: 'Very concentrated — may indicate dehydration.',
+                lowMeaning: 'Dilute urine may indicate kidney disease.' },
         };
 
-        // Aliases for common variations
+        // Aliases
         const VALUE_ALIASES = {
             'white blood cells': 'wbc', 'white blood cell': 'wbc', 'leucocytes': 'wbc', 'leukocytes': 'wbc',
             'red blood cells': 'rbc', 'red blood cell': 'rbc', 'erythrocytes': 'rbc',
             'hgb': 'hemoglobin', 'hb': 'hemoglobin',
             'hct': 'hematocrit', 'packed cell volume': 'pcv',
-            'plt': 'platelets', 'thrombocytes': 'platelets',
+            'plt': 'platelets', 'thrombocytes': 'platelets', 'platelet count': 'platelets',
             'blood urea nitrogen': 'bun', 'urea': 'bun',
             'creat': 'creatinine',
             'sgpt': 'alt', 'alanine aminotransferase': 'alt',
@@ -364,26 +670,23 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
             'alkaline phosphatase': 'alp', 'alk phos': 'alp', 'alkp': 'alp',
             'total bilirubin': 'bilirubin', 'tbil': 'bilirubin',
             'alb': 'albumin', 'glob': 'globulin', 'tp': 'totalprotein', 'total protein': 'totalprotein',
-            'glu': 'glucose', 'blood sugar': 'glucose',
-            'amy': 'amylase', 'lip': 'lipase',
-            'chol': 'cholesterol', 'trig': 'triglycerides',
+            'glu': 'glucose', 'blood sugar': 'glucose', 'blood glucose': 'glucose',
             'na': 'sodium', 'k': 'potassium', 'cl': 'chloride', 'ca': 'calcium',
-            'specific gravity': 'usg', 'sp gr': 'usg', 'sg': 'usg',
-            'ph': 'uph', 'urine ph': 'uph',
-            'protein': 'uprotein',
+            'neut': 'neutrophils', 'lymph': 'lymphocytes', 'mono': 'monocytes', 'eos': 'eosinophils', 'baso': 'basophils',
+            'retic': 'reticulocytes', 'retics': 'reticulocytes',
             'thyroxine': 't4', 'free t4': 't4',
-            'prothrombin': 'pt',
-            'retic': 'reticulocytes', 'retics': 'reticulocytes'
+            'specific gravity': 'usg', 'sp gr': 'usg', 'sg': 'usg',
         };
 
-        // ===== PARSING LOGIC =====
+        // ===== PARSING =====
         let pendingValues = [];
+        let pendingNotes = '';
+        let pendingWeight = null;
 
         function normalizeKey(text) {
             const lower = text.toLowerCase().trim();
             if (LAB_REFERENCES[lower]) return lower;
             if (VALUE_ALIASES[lower]) return VALUE_ALIASES[lower];
-            // Try partial matches
             for (const alias in VALUE_ALIASES) {
                 if (lower.includes(alias)) return VALUE_ALIASES[alias];
             }
@@ -397,10 +700,9 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
             const results = [];
             const lines = text.split('\n');
             
-            // Pattern: Name: Value (Range) Unit OR Name Value Unit (Range)
             const patterns = [
-                /^(.+?):\s*([\d.]+)\s*(?:\(?([\d.]+)\s*[-–]\s*([\d.]+)\)?)?[\s]*([a-zA-Z%\/\^μµ⁹¹²³⁰]+)?/i,
-                /^(.+?)\s+([\d.]+)\s+([a-zA-Z%\/\^μµ⁹¹²³⁰]+)?\s*(?:\(?([\d.]+)\s*[-–]\s*([\d.]+)\)?)?/i,
+                /^(.+?):\s*([\d.]+)\s*(?:\(?([\d.]+)\s*[-–]\s*([\d.]+)\)?)?[\s]*([a-zA-Z%\/\^μµ⁹¹²³⁰\*]+)?/i,
+                /^(.+?)\s+([\d.]+)\s+([a-zA-Z%\/\^μµ⁹¹²³⁰\*]+)?\s*(?:\(?([\d.]+)\s*[-–]\s*([\d.]+)\)?)?/i,
                 /(.+?)\s*[:\-]\s*([\d.]+)\s*(?:\/\s*[\d.]+)?/i
             ];
 
@@ -414,9 +716,12 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                         const name = match[1]?.trim();
                         const value = parseFloat(match[2]);
                         
-                        if (name && !isNaN(value)) {
+                        if (name && !isNaN(value) && name.length < 50) {
                             const key = normalizeKey(name);
                             const ref = LAB_REFERENCES[key];
+                            
+                            // Avoid duplicates
+                            if (results.find(r => r.key === key)) continue;
                             
                             results.push({
                                 key: key,
@@ -439,6 +744,8 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
         function parseAndSaveReport() {
             const dateInput = document.getElementById('report-date');
             const textInput = document.getElementById('report-text');
+            const notesInput = document.getElementById('report-notes');
+            const weightInput = document.getElementById('report-weight');
             
             const date = dateInput.value || new Date().toISOString().split('T')[0];
             const text = textInput.value;
@@ -450,37 +757,49 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
 
             pendingValues = parseLabReport(text);
             pendingValues.forEach(v => v.date = date);
+            pendingNotes = notesInput.value;
+            pendingWeight = weightInput.value ? parseFloat(weightInput.value) : null;
 
             if (pendingValues.length === 0) {
                 alert('Could not parse any lab values. Try reformatting the text.');
                 return;
             }
 
-            // Show preview
             const preview = document.getElementById('parsed-preview');
             const container = document.getElementById('parsed-values');
-            container.innerHTML = pendingValues.map((v, i) => `
-                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                    <div>
-                        <span class="font-medium">${v.name}</span>
-                        <span class="text-purple-600 font-semibold ml-2">${v.value}</span>
-                        <span class="text-gray-500 text-sm">${v.unit}</span>
-                        ${v.refLow !== null ? `<span class="text-xs text-gray-400 ml-2">(${v.refLow}-${v.refHigh})</span>` : ''}
+            document.getElementById('parsed-count').textContent = `${pendingValues.length} values`;
+            
+            container.innerHTML = pendingValues.map((v, i) => {
+                const ref = LAB_REFERENCES[v.key];
+                let statusClass = 'status-normal';
+                let statusIcon = '✅';
+                if (ref) {
+                    if (v.value < ref.low) { statusClass = 'status-danger'; statusIcon = '🔻'; }
+                    else if (v.value > ref.high) { statusClass = 'status-danger'; statusIcon = '🔺'; }
+                }
+                return `
+                <div class="flex items-center justify-between p-3 rounded-xl" style="background: var(--bg-secondary)">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-full flex items-center justify-center text-sm ${statusClass}">${statusIcon}</span>
+                        <div>
+                            <span class="font-medium">${v.name}</span>
+                            <span class="font-bold ml-2" style="color: var(--accent)">${v.value}</span>
+                            <span class="text-sm" style="color: var(--text-muted)">${v.unit}</span>
+                        </div>
                     </div>
-                    <button onclick="removePending(${i})" class="text-red-500 hover:text-red-700">✕</button>
+                    <button onclick="removePending(${i})" class="text-red-400 hover:text-red-600 p-1">✕</button>
                 </div>
-            `).join('');
+            `}).join('');
             preview.classList.remove('hidden');
         }
 
         function removePending(index) {
             pendingValues.splice(index, 1);
-            parseAndSaveReport(); // Refresh preview
-        }
-
-        function clearPreview() {
-            document.getElementById('parsed-preview').classList.add('hidden');
-            pendingValues = [];
+            if (pendingValues.length === 0) {
+                document.getElementById('parsed-preview').classList.add('hidden');
+            } else {
+                parseAndSaveReport();
+            }
         }
 
         function confirmSave() {
@@ -489,16 +808,23 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
             const data = getData();
             const date = pendingValues[0].date;
             
-            // Add to reports list
             const report = {
                 id: Date.now(),
                 date: date,
                 valueCount: pendingValues.length,
-                values: pendingValues
+                values: pendingValues,
+                notes: pendingNotes,
+                weight: pendingWeight
             };
             data.reports.push(report);
 
-            // Add to values timeline
+            // Add weight if provided
+            if (pendingWeight) {
+                data.weights = data.weights || [];
+                data.weights.push({ date: date, value: pendingWeight });
+                data.weights.sort((a, b) => new Date(a.date) - new Date(b.date));
+            }
+
             for (const v of pendingValues) {
                 if (!data.values[v.key]) {
                     data.values[v.key] = {
@@ -510,25 +836,95 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                         readings: []
                     };
                 }
-                data.values[v.key].readings.push({
-                    date: date,
-                    value: v.value
-                });
-                // Sort readings by date
+                data.values[v.key].readings.push({ date: date, value: v.value });
                 data.values[v.key].readings.sort((a, b) => new Date(a.date) - new Date(b.date));
             }
 
             saveData(data);
-            clearPreview();
-            document.getElementById('report-text').value = '';
-            document.getElementById('report-date').value = '';
             
-            alert(`Saved ${pendingValues.length} lab values!`);
+            document.getElementById('parsed-preview').classList.add('hidden');
+            document.getElementById('report-text').value = '';
+            document.getElementById('report-notes').value = '';
+            document.getElementById('report-weight').value = '';
+            pendingValues = [];
+            
+            alert(`Saved ${report.valueCount} lab values!`);
             showTab('dashboard');
             renderDashboard();
         }
 
-        // ===== DASHBOARD RENDERING =====
+        // ===== WEIGHT TRACKING =====
+        let weightChart = null;
+
+        function addWeight() {
+            const date = document.getElementById('weight-date').value || new Date().toISOString().split('T')[0];
+            const value = parseFloat(document.getElementById('weight-value').value);
+            
+            if (isNaN(value)) {
+                alert('Please enter a valid weight');
+                return;
+            }
+
+            const data = getData();
+            data.weights = data.weights || [];
+            data.weights.push({ date, value });
+            data.weights.sort((a, b) => new Date(a.date) - new Date(b.date));
+            saveData(data);
+            
+            document.getElementById('weight-value').value = '';
+            renderWeightChart();
+        }
+
+        function renderWeightChart() {
+            const data = getData();
+            const weights = data.weights || [];
+            
+            const historyContainer = document.getElementById('weight-history');
+            historyContainer.innerHTML = weights.slice().reverse().slice(0, 5).map(w => `
+                <div class="flex justify-between items-center p-3 rounded-xl" style="background: var(--bg-secondary)">
+                    <span style="color: var(--text-secondary)">${formatDateLong(w.date)}</span>
+                    <span class="font-bold">${w.value} kg</span>
+                </div>
+            `).join('');
+
+            if (weightChart) weightChart.destroy();
+            
+            const ctx = document.getElementById('weight-chart');
+            if (!ctx || weights.length === 0) return;
+
+            const isDark = document.documentElement.classList.contains('dark');
+            
+            weightChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: weights.map(w => formatDate(w.date)),
+                    datasets: [{
+                        label: 'Weight (kg)',
+                        data: weights.map(w => w.value),
+                        borderColor: '#6ba36b',
+                        backgroundColor: 'rgba(107, 163, 107, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#6ba36b',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: isDark ? '#94a3b8' : '#6b7280' } },
+                        y: { grid: { color: isDark ? '#334155' : '#e8e6e1' }, ticks: { color: isDark ? '#94a3b8' : '#6b7280' } }
+                    }
+                }
+            });
+        }
+
+        // ===== DASHBOARD =====
         let charts = {};
         let currentFilter = 'all';
 
@@ -537,6 +933,16 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
             renderStatusBadges(data);
             renderCharts(data);
             renderHistory(data);
+            renderLastWeight(data);
+        }
+
+        function renderLastWeight(data) {
+            const container = document.getElementById('last-weight');
+            const weights = data.weights || [];
+            if (weights.length > 0) {
+                const latest = weights[weights.length - 1];
+                container.innerHTML = `⚖️ ${latest.value} kg (${formatDate(latest.date)})`;
+            }
         }
 
         function renderStatusBadges(data) {
@@ -544,31 +950,27 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
             const values = Object.entries(data.values);
             
             if (values.length === 0) {
-                container.innerHTML = '<span class="text-gray-500 text-sm">No reports yet. Add your first lab report!</span>';
+                container.innerHTML = '<span style="color: var(--text-muted)">No reports yet. Add your first lab report!</span>';
                 return;
             }
 
             container.innerHTML = values.map(([key, val]) => {
                 const latest = val.readings[val.readings.length - 1];
                 const ref = LAB_REFERENCES[key];
-                let status = 'normal';
+                let statusClass = 'status-normal';
                 let icon = '✅';
                 
                 if (ref) {
                     if (latest.value < ref.low || latest.value > ref.high) {
-                        status = 'danger';
+                        statusClass = 'status-danger';
                         icon = '🔴';
                     } else if (latest.value < ref.low * 1.1 || latest.value > ref.high * 0.9) {
-                        status = 'borderline';
+                        statusClass = 'status-warning';
                         icon = '⚠️';
                     }
                 }
                 
-                return `<span class="px-3 py-1 rounded-full text-xs font-medium cursor-pointer hover:opacity-80 ${
-                    status === 'normal' ? 'bg-green-100 text-green-800' :
-                    status === 'borderline' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-red-100 text-red-800'
-                }" onclick="showInterpretation('${key}')">${icon} ${val.name}</span>`;
+                return `<span class="px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer hover:opacity-80 ${statusClass}" onclick="showInterpretation('${key}')">${icon} ${val.name}</span>`;
             }).join('');
         }
 
@@ -579,15 +981,15 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
 
             if (values.length === 0) {
                 container.innerHTML = `
-                    <div class="text-center text-gray-500 py-12 col-span-full">
-                        <p class="text-4xl mb-4">📊</p>
-                        <p>Charts will appear here after you add lab reports</p>
+                    <div class="text-center py-16 col-span-full" style="color: var(--text-muted)">
+                        <p class="text-5xl mb-4 opacity-50">📊</p>
+                        <p class="text-lg">Charts will appear here after you add lab reports</p>
+                        <button onclick="showTab('add')" class="mt-4 px-6 py-2 btn-primary rounded-xl text-sm font-medium">Add First Report</button>
                     </div>
                 `;
                 return;
             }
 
-            // Destroy existing charts
             Object.values(charts).forEach(c => c.destroy());
             charts = {};
 
@@ -595,10 +997,8 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                 const ref = LAB_REFERENCES[key];
                 const latest = val.readings[val.readings.length - 1];
                 
-                // Search filter
                 if (searchTerm && !val.name.toLowerCase().includes(searchTerm)) return false;
                 
-                // Flagged filter
                 if (currentFilter === 'flagged' && ref) {
                     if (latest.value >= ref.low && latest.value <= ref.high) return false;
                 }
@@ -606,29 +1006,38 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                 return true;
             });
 
-            container.innerHTML = filteredValues.map(([key, val]) => `
-                <div class="bg-white rounded-2xl card-shadow p-4 slide-up">
+            if (filteredValues.length === 0) {
+                container.innerHTML = `<div class="text-center py-12 col-span-full" style="color: var(--text-muted)">No matching values found</div>`;
+                return;
+            }
+
+            container.innerHTML = filteredValues.map(([key, val]) => {
+                const latest = val.readings[val.readings.length - 1];
+                const ref = LAB_REFERENCES[key];
+                let statusClass = '';
+                if (ref) {
+                    if (latest.value < ref.low || latest.value > ref.high) statusClass = 'border-l-4 border-red-400';
+                }
+                return `
+                <div class="card rounded-2xl card-shadow p-4 slide-up ${statusClass}">
                     <div class="flex justify-between items-start mb-2">
                         <div>
-                            <h3 class="font-semibold text-gray-800">${val.name}</h3>
-                            <p class="text-xs text-gray-500">${val.category || 'General'}</p>
+                            <h3 class="font-semibold">${val.name}</h3>
+                            <p class="text-xs" style="color: var(--text-muted)">${val.category || 'General'}</p>
                         </div>
-                        <button onclick="showInterpretation('${key}')" class="text-purple-500 text-sm">ℹ️</button>
+                        <button onclick="showInterpretation('${key}')" class="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">ℹ️</button>
                     </div>
                     <div class="chart-container">
                         <canvas id="chart-${key}"></canvas>
                     </div>
-                    <div class="mt-2 text-center">
-                        <span class="text-lg font-bold text-gray-800">${val.readings[val.readings.length-1].value}</span>
-                        <span class="text-sm text-gray-500">${val.unit}</span>
+                    <div class="mt-3 text-center">
+                        <span class="text-2xl font-bold">${latest.value}</span>
+                        <span class="text-sm" style="color: var(--text-muted)">${val.unit}</span>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
 
-            // Create charts
-            filteredValues.forEach(([key, val]) => {
-                createChart(key, val);
-            });
+            filteredValues.forEach(([key, val]) => createChart(key, val));
         }
 
         function createChart(key, val) {
@@ -637,27 +1046,26 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
 
             const ref = LAB_REFERENCES[key];
             const readings = val.readings;
+            const isDark = document.documentElement.classList.contains('dark');
             
-            const config = {
+            charts[key] = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: readings.map(r => formatDate(r.date)),
                     datasets: [{
                         label: val.name,
                         data: readings.map(r => r.value),
-                        borderColor: '#8b5cf6',
-                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        borderColor: '#6ba36b',
+                        backgroundColor: 'rgba(107, 163, 107, 0.1)',
                         borderWidth: 2,
                         fill: true,
                         tension: 0.3,
                         pointRadius: 4,
                         pointBackgroundColor: readings.map(r => {
-                            if (ref && (r.value < ref.low || r.value > ref.high)) {
-                                return '#ef4444';
-                            }
-                            return '#8b5cf6';
+                            if (ref && (r.value < ref.low || r.value > ref.high)) return '#ef4444';
+                            return '#6ba36b';
                         }),
-                        pointBorderColor: '#fff',
+                        pointBorderColor: isDark ? '#1e2d3d' : '#fff',
                         pointBorderWidth: 2
                     }]
                 },
@@ -672,34 +1080,29 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                                     type: 'box',
                                     yMin: ref.low,
                                     yMax: ref.high,
-                                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                                    backgroundColor: isDark ? 'rgba(107, 163, 107, 0.15)' : 'rgba(107, 163, 107, 0.1)',
                                     borderWidth: 0
                                 }
                             }
                         } : {}
                     },
                     scales: {
-                        x: {
-                            grid: { display: false },
-                            ticks: { font: { size: 10 } }
-                        },
-                        y: {
-                            grid: { color: 'rgba(0,0,0,0.05)' },
-                            ticks: { font: { size: 10 } }
-                        }
+                        x: { grid: { display: false }, ticks: { font: { size: 10 }, color: isDark ? '#64748b' : '#9ca3af' } },
+                        y: { grid: { color: isDark ? '#334155' : '#f0f0f0' }, ticks: { font: { size: 10 }, color: isDark ? '#64748b' : '#9ca3af' } }
                     }
                 }
-            };
-
-            charts[key] = new Chart(ctx, config);
+            });
         }
 
         function formatDate(dateStr) {
-            const d = new Date(dateStr);
-            return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
         }
 
-        // ===== INTERPRETATION =====
+        function formatDateLong(dateStr) {
+            return new Date(dateStr).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        // ===== INTERPRETATION MODAL =====
         function showInterpretation(key) {
             const data = getData();
             const val = data.values[key];
@@ -708,67 +1111,64 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
             const latest = readings[readings.length - 1];
 
             let trend = 'stable';
+            let trendIcon = '➡️';
             if (readings.length >= 2) {
                 const prev = readings[readings.length - 2];
                 const change = ((latest.value - prev.value) / prev.value) * 100;
-                if (change > 10) trend = 'increasing';
-                else if (change < -10) trend = 'decreasing';
+                if (change > 10) { trend = 'increasing'; trendIcon = '📈'; }
+                else if (change < -10) { trend = 'decreasing'; trendIcon = '📉'; }
             }
 
             let status = 'normal';
             let statusText = 'Within normal range';
+            let statusClass = 'status-normal';
             if (ref) {
                 if (latest.value < ref.low) {
-                    status = 'low';
-                    statusText = `Below normal (${ref.low} ${ref.unit || ''})`;
+                    status = 'low'; statusText = `Below normal (ref: ${ref.low})`;
+                    statusClass = 'status-danger';
                 } else if (latest.value > ref.high) {
-                    status = 'high';
-                    statusText = `Above normal (${ref.high} ${ref.unit || ''})`;
+                    status = 'high'; statusText = `Above normal (ref: ${ref.high})`;
+                    statusClass = 'status-danger';
                 }
             }
 
             document.getElementById('modal-title').textContent = val.name;
             document.getElementById('modal-content').innerHTML = `
                 <div class="space-y-4">
-                    <div class="text-center p-4 bg-gray-50 rounded-xl">
-                        <p class="text-3xl font-bold text-gray-800">${latest.value} <span class="text-lg text-gray-500">${val.unit}</span></p>
-                        <p class="text-sm text-gray-500 mt-1">${latest.date}</p>
+                    <div class="text-center p-6 rounded-2xl" style="background: var(--bg-secondary)">
+                        <p class="text-4xl font-bold">${latest.value} <span class="text-lg font-normal" style="color: var(--text-muted)">${val.unit}</span></p>
+                        <p class="text-sm mt-2" style="color: var(--text-muted)">${formatDateLong(latest.date)}</p>
                     </div>
 
-                    <div class="flex gap-2">
-                        <span class="px-3 py-1 rounded-full text-xs font-medium ${
-                            status === 'normal' ? 'bg-green-100 text-green-800' :
-                            status === 'low' ? 'bg-blue-100 text-blue-800' : 'bg-red-100 text-red-800'
-                        }">${statusText}</span>
-                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
-                            ${trend === 'increasing' ? '📈 Trending Up' : trend === 'decreasing' ? '📉 Trending Down' : '➡️ Stable'}
-                        </span>
+                    <div class="flex gap-2 flex-wrap">
+                        <span class="px-3 py-1.5 rounded-full text-xs font-medium ${statusClass}">${statusText}</span>
+                        <span class="px-3 py-1.5 rounded-full text-xs font-medium" style="background: var(--bg-secondary)">${trendIcon} ${trend.charAt(0).toUpperCase() + trend.slice(1)}</span>
                     </div>
 
                     ${ref ? `
                     <div class="interpretation-card rounded-xl p-4">
-                        <h4 class="font-semibold text-gray-800 mb-2">What This Measures</h4>
-                        <p class="text-sm text-gray-600">${ref.desc}</p>
+                        <h4 class="font-semibold mb-2">What This Measures</h4>
+                        <p class="text-sm" style="color: var(--text-secondary)">${ref.desc}</p>
                     </div>
 
                     ${status !== 'normal' ? `
-                    <div class="bg-amber-50 border-l-4 border-amber-400 rounded-xl p-4">
-                        <h4 class="font-semibold text-gray-800 mb-2">What ${status === 'high' ? 'High' : 'Low'} Values May Mean</h4>
-                        <p class="text-sm text-gray-600">${status === 'high' ? ref.highMeaning : ref.lowMeaning}</p>
+                    <div class="rounded-xl p-4" style="background: var(--${status === 'high' ? 'danger' : 'warning'}-bg)">
+                        <h4 class="font-semibold mb-2" style="color: var(--${status === 'high' ? 'danger' : 'warning'})">What ${status === 'high' ? 'Elevated' : 'Low'} Values May Mean</h4>
+                        <p class="text-sm" style="color: var(--text-secondary)">${status === 'high' ? ref.highMeaning : ref.lowMeaning}</p>
                     </div>
                     ` : ''}
 
-                    <div class="bg-gray-50 rounded-xl p-4">
-                        <h4 class="font-semibold text-gray-800 mb-2">Reference Range</h4>
-                        <p class="text-sm text-gray-600">${ref.low} – ${ref.high} ${ref.unit}</p>
+                    <div class="rounded-xl p-4" style="background: var(--bg-secondary)">
+                        <h4 class="font-semibold mb-2">Reference Range</h4>
+                        <p class="text-sm" style="color: var(--text-secondary)">${ref.low} – ${ref.high} ${ref.unit}</p>
                     </div>
                     ` : `
-                    <div class="bg-gray-50 rounded-xl p-4">
-                        <p class="text-sm text-gray-500">No reference data available for this value.</p>
+                    <div class="rounded-xl p-4" style="background: var(--bg-secondary)">
+                        <p class="text-sm" style="color: var(--text-muted)">No reference data available for this value.</p>
                     </div>
                     `}
 
-                    <p class="text-xs text-gray-400 text-center">⚠️ This is not veterinary advice. Always consult your vet.</p>
+                    <p class="text-xs text-center" style="color: var(--text-muted)">⚠️ This is not veterinary advice. Always consult your vet.</p>
                 </div>
             `;
 
@@ -784,35 +1184,33 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
             const container = document.getElementById('history-list');
             
             if (data.reports.length === 0) {
-                container.innerHTML = '<p class="text-gray-500 text-center py-8">No reports saved yet.</p>';
+                container.innerHTML = '<p class="text-center py-12" style="color: var(--text-muted)">No reports saved yet.</p>';
                 return;
             }
 
             const sorted = [...data.reports].sort((a, b) => new Date(b.date) - new Date(a.date));
             
             container.innerHTML = sorted.map(report => `
-                <div class="bg-white rounded-xl card-shadow p-4">
-                    <div class="flex justify-between items-start">
+                <div class="card rounded-2xl card-shadow p-4">
+                    <div class="flex justify-between items-start mb-3">
                         <div>
-                            <p class="font-semibold text-gray-800">${formatDateLong(report.date)}</p>
-                            <p class="text-sm text-gray-500">${report.valueCount} values recorded</p>
+                            <p class="font-semibold">${formatDateLong(report.date)}</p>
+                            <p class="text-sm" style="color: var(--text-muted)">${report.valueCount} values${report.weight ? ` • ${report.weight} kg` : ''}</p>
                         </div>
-                        <button onclick="deleteReport(${report.id})" class="text-red-400 hover:text-red-600 text-sm">🗑️</button>
+                        <button onclick="deleteReport(${report.id})" class="text-red-400 hover:text-red-600 p-1">🗑️</button>
                     </div>
-                    <div class="mt-3 flex flex-wrap gap-1">
-                        ${report.values.slice(0, 5).map(v => `
-                            <span class="px-2 py-1 bg-gray-100 rounded text-xs">${v.name}: ${v.value}</span>
-                        `).join('')}
-                        ${report.values.length > 5 ? `<span class="px-2 py-1 bg-gray-100 rounded text-xs">+${report.values.length - 5} more</span>` : ''}
+                    ${report.notes ? `<p class="text-sm mb-3 p-3 rounded-xl" style="background: var(--bg-secondary); color: var(--text-secondary)">📝 ${report.notes}</p>` : ''}
+                    <div class="flex flex-wrap gap-1">
+                        ${report.values.slice(0, 6).map(v => {
+                            const ref = LAB_REFERENCES[v.key];
+                            let color = 'var(--text-secondary)';
+                            if (ref && (v.value < ref.low || v.value > ref.high)) color = 'var(--danger)';
+                            return `<span class="px-2 py-1 rounded text-xs" style="background: var(--bg-secondary); color: ${color}">${v.name}: ${v.value}</span>`;
+                        }).join('')}
+                        ${report.values.length > 6 ? `<span class="px-2 py-1 rounded text-xs" style="background: var(--bg-secondary); color: var(--text-muted)">+${report.values.length - 6} more</span>` : ''}
                     </div>
                 </div>
             `).join('');
-        }
-
-        function formatDateLong(dateStr) {
-            return new Date(dateStr).toLocaleDateString('en-US', { 
-                weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' 
-            });
         }
 
         function deleteReport(id) {
@@ -822,19 +1220,12 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
             const report = data.reports.find(r => r.id === id);
             
             if (report) {
-                // Remove readings from values
                 for (const v of report.values) {
                     if (data.values[v.key]) {
-                        data.values[v.key].readings = data.values[v.key].readings.filter(
-                            r => r.date !== report.date
-                        );
-                        // Remove value entirely if no readings left
-                        if (data.values[v.key].readings.length === 0) {
-                            delete data.values[v.key];
-                        }
+                        data.values[v.key].readings = data.values[v.key].readings.filter(r => r.date !== report.date);
+                        if (data.values[v.key].readings.length === 0) delete data.values[v.key];
                     }
                 }
-                // Remove report
                 data.reports = data.reports.filter(r => r.id !== id);
             }
             
@@ -842,7 +1233,7 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
             renderDashboard();
         }
 
-        // ===== TAB NAVIGATION =====
+        // ===== NAVIGATION =====
         function showTab(tab) {
             document.querySelectorAll('.tab-view').forEach(v => v.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('bg-white/20'));
@@ -851,30 +1242,29 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
             document.getElementById(`tab-${tab}`).classList.add('bg-white/20');
             
             if (tab === 'dashboard') renderDashboard();
+            if (tab === 'weight') {
+                document.getElementById('weight-date').value = new Date().toISOString().split('T')[0];
+                renderWeightChart();
+            }
         }
 
         function setFilter(filter) {
             currentFilter = filter;
-            document.getElementById('filter-all').classList.toggle('bg-purple-600', filter === 'all');
-            document.getElementById('filter-all').classList.toggle('text-white', filter === 'all');
-            document.getElementById('filter-all').classList.toggle('bg-gray-200', filter !== 'all');
-            document.getElementById('filter-all').classList.toggle('text-gray-700', filter !== 'all');
-            document.getElementById('filter-flagged').classList.toggle('bg-purple-600', filter === 'flagged');
-            document.getElementById('filter-flagged').classList.toggle('text-white', filter === 'flagged');
-            document.getElementById('filter-flagged').classList.toggle('bg-gray-200', filter !== 'flagged');
-            document.getElementById('filter-flagged').classList.toggle('text-gray-700', filter !== 'flagged');
+            document.getElementById('filter-all').className = `filter-btn px-4 py-2 rounded-xl text-sm font-medium ${filter === 'all' ? 'btn-primary' : ''}`;
+            document.getElementById('filter-all').style.background = filter === 'all' ? '' : 'var(--bg-secondary)';
+            document.getElementById('filter-all').style.color = filter === 'all' ? '' : 'var(--text-secondary)';
+            document.getElementById('filter-flagged').className = `filter-btn px-4 py-2 rounded-xl text-sm font-medium ${filter === 'flagged' ? 'btn-primary' : ''}`;
+            document.getElementById('filter-flagged').style.background = filter === 'flagged' ? '' : 'var(--bg-secondary)';
+            document.getElementById('filter-flagged').style.color = filter === 'flagged' ? '' : 'var(--text-secondary)';
             renderDashboard();
         }
 
-        // Search filter
         document.getElementById('search-filter').addEventListener('input', () => renderDashboard());
-
-        // Close modal on backdrop click
         document.getElementById('interpretation-modal').addEventListener('click', (e) => {
             if (e.target.id === 'interpretation-modal') closeModal();
         });
 
-        // Initialize
+        // Init
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('report-date').value = new Date().toISOString().split('T')[0];
             renderDashboard();
