@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pepper Health Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-shadow { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .status-normal { background: #10b981; }
+        .status-borderline { background: #f59e0b; }
+        .status-danger { background: #ef4444; }
+        .chart-container { position: relative; height: 200px; }
+        @media (min-width: 768px) { .chart-container { height: 250px; } }
+        .slide-up { animation: slideUp 0.3s ease-out; }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .interpretation-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-left: 4px solid #0ea5e9;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="gradient-bg text-white sticky top-0 z-50 shadow-lg">
+        <div class="max-w-6xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-2xl">🐕</div>
+                    <div>
+                        <h1 class="font-bold text-lg">Pepper's Health</h1>
+                        <p class="text-xs text-white/80">Lab Results Tracker</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="showTab('dashboard')" id="tab-dashboard" class="tab-btn px-3 py-2 rounded-lg text-sm font-medium bg-white/20">Dashboard</button>
+                    <button onclick="showTab('add')" id="tab-add" class="tab-btn px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10">+ Add</button>
+                    <button onclick="showTab('history')" id="tab-history" class="tab-btn px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10">History</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-6">
+        <!-- Dashboard Tab -->
+        <div id="view-dashboard" class="tab-view">
+            <!-- Quick Status -->
+            <div class="mb-6">
+                <h2 class="text-lg font-semibold text-gray-800 mb-3">Latest Status</h2>
+                <div id="status-badges" class="flex flex-wrap gap-2">
+                    <span class="text-gray-500 text-sm">No reports yet. Add your first lab report!</span>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="flex flex-col sm:flex-row gap-3 mb-6">
+                <input type="text" id="search-filter" placeholder="Search lab values..." 
+                    class="flex-1 px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                <div class="flex gap-2">
+                    <button onclick="setFilter('all')" id="filter-all" class="filter-btn px-4 py-2 rounded-lg bg-purple-600 text-white text-sm font-medium">All Values</button>
+                    <button onclick="setFilter('flagged')" id="filter-flagged" class="filter-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 text-sm font-medium">Flagged Only</button>
+                </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div id="charts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="text-center text-gray-500 py-12 col-span-full">
+                    <p class="text-4xl mb-4">📊</p>
+                    <p>Charts will appear here after you add lab reports</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Report Tab -->
+        <div id="view-add" class="tab-view hidden">
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-white rounded-2xl card-shadow p-6">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Add Lab Report</h2>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Report Date</label>
+                        <input type="date" id="report-date" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-purple-500">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Paste Lab Report Text</label>
+                        <textarea id="report-text" rows="10" placeholder="Paste the full lab report here... Include all values like:
+
+WBC: 12.5 (6.0-17.0 x10^9/L)
+RBC: 6.8 (5.5-8.5 x10^12/L)
+Hemoglobin: 15.2 (12-18 g/dL)
+BUN: 25 (7-27 mg/dL)
+Creatinine: 1.4 (0.5-1.8 mg/dL)
+..."
+                            class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-purple-500 text-sm"></textarea>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Or Upload Image/PDF</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-purple-400 transition-colors">
+                            <input type="file" id="report-file" accept="image/*,.pdf" class="hidden">
+                            <button onclick="document.getElementById('report-file').click()" class="text-purple-600 font-medium">
+                                📎 Click to upload
+                            </button>
+                            <p class="text-xs text-gray-500 mt-2">Image OCR coming soon. For now, please paste text.</p>
+                        </div>
+                    </div>
+
+                    <button onclick="parseAndSaveReport()" class="w-full py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-colors">
+                        Parse & Save Report
+                    </button>
+                </div>
+
+                <!-- Parsed Preview -->
+                <div id="parsed-preview" class="mt-6 hidden">
+                    <div class="bg-white rounded-2xl card-shadow p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-semibold text-gray-800">Parsed Values</h3>
+                            <button onclick="clearPreview()" class="text-gray-500 hover:text-gray-700">✕</button>
+                        </div>
+                        <div id="parsed-values" class="space-y-2"></div>
+                        <button onclick="confirmSave()" class="w-full mt-4 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700">
+                            ✓ Confirm & Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Tab -->
+        <div id="view-history" class="tab-view hidden">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Report History</h2>
+                <div id="history-list" class="space-y-4">
+                    <p class="text-gray-500 text-center py-8">No reports saved yet.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Interpretation Modal -->
+    <div id="interpretation-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-end sm:items-center justify-center">
+        <div class="bg-white w-full sm:max-w-lg sm:rounded-2xl rounded-t-2xl max-h-[80vh] overflow-y-auto">
+            <div class="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
+                <h3 id="modal-title" class="font-semibold text-lg">Lab Value Details</h3>
+                <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">✕</button>
+            </div>
+            <div id="modal-content" class="p-4"></div>
+        </div>
+    </div>
+
+    <!-- Disclaimer -->
+    <footer class="max-w-6xl mx-auto px-4 py-6 text-center">
+        <p class="text-xs text-gray-400">⚠️ This is not veterinary advice. Always consult your veterinarian for medical decisions.</p>
+    </footer>
+
+    <script>
+        // ===== DATA STORAGE =====
+        const STORAGE_KEY = 'pepper_health_data';
+        
+        function getData() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : { reports: [], values: {} };
+        }
+        
+        function saveData(data) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+
+        // ===== VETERINARY REFERENCE DATA =====
+        const LAB_REFERENCES = {
+            // Complete Blood Count (CBC)
+            'wbc': { name: 'White Blood Cells', unit: 'x10⁹/L', low: 6.0, high: 17.0, category: 'CBC',
+                desc: 'White blood cells fight infection. They\'re part of the immune system.',
+                highMeaning: 'Elevated WBC may indicate infection, inflammation, stress, or in rare cases, leukemia.',
+                lowMeaning: 'Low WBC can indicate bone marrow problems, severe infection, or immune suppression.' },
+            'rbc': { name: 'Red Blood Cells', unit: 'x10¹²/L', low: 5.5, high: 8.5, category: 'CBC',
+                desc: 'Red blood cells carry oxygen throughout the body.',
+                highMeaning: 'High RBC may indicate dehydration or polycythemia.',
+                lowMeaning: 'Low RBC indicates anemia — may be from blood loss, destruction, or poor production.' },
+            'hemoglobin': { name: 'Hemoglobin', unit: 'g/dL', low: 12, high: 18, category: 'CBC',
+                desc: 'The oxygen-carrying protein in red blood cells.',
+                highMeaning: 'High hemoglobin often accompanies high RBC — usually dehydration.',
+                lowMeaning: 'Low hemoglobin means reduced oxygen-carrying capacity (anemia).' },
+            'hematocrit': { name: 'Hematocrit (PCV)', unit: '%', low: 37, high: 55, category: 'CBC',
+                desc: 'The percentage of blood volume that is red blood cells.',
+                highMeaning: 'High PCV suggests dehydration or polycythemia.',
+                lowMeaning: 'Low PCV indicates anemia.' },
+            'pcv': { name: 'Packed Cell Volume', unit: '%', low: 37, high: 55, category: 'CBC',
+                desc: 'Same as hematocrit — percentage of red cells in blood.',
+                highMeaning: 'Elevated PCV often means dehydration.',
+                lowMeaning: 'Low PCV indicates anemia.' },
+            'mcv': { name: 'Mean Corpuscular Volume', unit: 'fL', low: 60, high: 77, category: 'CBC',
+                desc: 'Average size of red blood cells.',
+                highMeaning: 'Large RBCs may indicate regenerative anemia or B12/folate issues.',
+                lowMeaning: 'Small RBCs may indicate iron deficiency.' },
+            'mch': { name: 'Mean Corpuscular Hemoglobin', unit: 'pg', low: 19, high: 25, category: 'CBC',
+                desc: 'Average amount of hemoglobin per red blood cell.',
+                highMeaning: 'May indicate macrocytic anemia.',
+                lowMeaning: 'May indicate iron deficiency.' },
+            'mchc': { name: 'MCHC', unit: 'g/dL', low: 32, high: 36, category: 'CBC',
+                desc: 'Average concentration of hemoglobin in red cells.',
+                highMeaning: 'Rare — may indicate hereditary spherocytosis.',
+                lowMeaning: 'May indicate iron deficiency or chronic disease.' },
+            'platelets': { name: 'Platelets', unit: 'x10⁹/L', low: 175, high: 500, category: 'CBC',
+                desc: 'Platelets help blood clot to stop bleeding.',
+                highMeaning: 'High platelets may indicate inflammation, infection, or iron deficiency.',
+                lowMeaning: 'Low platelets increase bleeding risk — may indicate immune destruction or bone marrow issues.' },
+            'reticulocytes': { name: 'Reticulocytes', unit: '%', low: 0, high: 1.5, category: 'CBC',
+                desc: 'Young red blood cells — indicates bone marrow response.',
+                highMeaning: 'High reticulocytes show the body is making new RBCs (regenerative response).',
+                lowMeaning: 'Low with anemia suggests bone marrow isn\'t responding (non-regenerative).' },
+
+            // Chemistry Panel - Kidney
+            'bun': { name: 'Blood Urea Nitrogen', unit: 'mg/dL', low: 7, high: 27, category: 'Kidney',
+                desc: 'A waste product filtered by the kidneys.',
+                highMeaning: 'High BUN may indicate kidney disease, dehydration, high-protein diet, or GI bleeding.',
+                lowMeaning: 'Low BUN is usually not concerning — may indicate low protein diet or liver disease.' },
+            'creatinine': { name: 'Creatinine', unit: 'mg/dL', low: 0.5, high: 1.8, category: 'Kidney',
+                desc: 'A muscle waste product filtered by kidneys — best indicator of kidney function.',
+                highMeaning: 'High creatinine strongly suggests reduced kidney function.',
+                lowMeaning: 'Low creatinine may indicate muscle wasting.' },
+            'sdma': { name: 'SDMA', unit: 'μg/dL', low: 0, high: 14, category: 'Kidney',
+                desc: 'Symmetric dimethylarginine — an early kidney disease marker.',
+                highMeaning: 'Elevated SDMA can detect kidney disease earlier than creatinine.',
+                lowMeaning: 'Low/normal SDMA is good — kidneys filtering well.' },
+            'phosphorus': { name: 'Phosphorus', unit: 'mg/dL', low: 2.5, high: 6.8, category: 'Kidney',
+                desc: 'A mineral important for bones and energy — kidneys regulate levels.',
+                highMeaning: 'High phosphorus often indicates kidney disease or parathyroid issues.',
+                lowMeaning: 'Low phosphorus may indicate malnutrition or insulin issues.' },
+
+            // Chemistry Panel - Liver
+            'alt': { name: 'ALT (SGPT)', unit: 'U/L', low: 10, high: 125, category: 'Liver',
+                desc: 'An enzyme released when liver cells are damaged.',
+                highMeaning: 'Elevated ALT indicates liver cell damage — could be hepatitis, toxins, or other issues.',
+                lowMeaning: 'Low ALT is normal and not concerning.' },
+            'ast': { name: 'AST (SGOT)', unit: 'U/L', low: 0, high: 50, category: 'Liver',
+                desc: 'An enzyme found in liver and muscle — less specific than ALT.',
+                highMeaning: 'High AST may indicate liver or muscle damage.',
+                lowMeaning: 'Low AST is normal.' },
+            'alp': { name: 'Alkaline Phosphatase', unit: 'U/L', low: 23, high: 212, category: 'Liver',
+                desc: 'An enzyme from liver, bone, and intestines.',
+                highMeaning: 'High ALP may indicate liver disease, bone growth, or Cushing\'s disease.',
+                lowMeaning: 'Low ALP is usually not significant.' },
+            'ggt': { name: 'GGT', unit: 'U/L', low: 0, high: 11, category: 'Liver',
+                desc: 'An enzyme that helps identify bile duct issues.',
+                highMeaning: 'High GGT suggests bile duct obstruction or liver disease.',
+                lowMeaning: 'Low GGT is normal.' },
+            'bilirubin': { name: 'Bilirubin', unit: 'mg/dL', low: 0, high: 0.9, category: 'Liver',
+                desc: 'A yellow pigment from red blood cell breakdown.',
+                highMeaning: 'High bilirubin causes jaundice — may indicate liver disease or hemolysis.',
+                lowMeaning: 'Low bilirubin is normal.' },
+            'albumin': { name: 'Albumin', unit: 'g/dL', low: 2.3, high: 4.0, category: 'Liver',
+                desc: 'A protein made by the liver — important for fluid balance.',
+                highMeaning: 'High albumin usually indicates dehydration.',
+                lowMeaning: 'Low albumin may indicate liver disease, kidney loss, or malnutrition.' },
+            'globulin': { name: 'Globulin', unit: 'g/dL', low: 2.5, high: 4.5, category: 'Liver',
+                desc: 'Proteins including antibodies.',
+                highMeaning: 'High globulin may indicate chronic infection, inflammation, or immune disease.',
+                lowMeaning: 'Low globulin may indicate immune deficiency.' },
+            'totalprotein': { name: 'Total Protein', unit: 'g/dL', low: 5.2, high: 8.2, category: 'Liver',
+                desc: 'Sum of albumin and globulin.',
+                highMeaning: 'High protein may indicate dehydration or chronic inflammation.',
+                lowMeaning: 'Low protein may indicate malnutrition, liver, or kidney disease.' },
+
+            // Chemistry Panel - Pancreas/Glucose
+            'glucose': { name: 'Glucose', unit: 'mg/dL', low: 74, high: 143, category: 'Metabolic',
+                desc: 'Blood sugar — the body\'s main energy source.',
+                highMeaning: 'High glucose may indicate diabetes or stress response.',
+                lowMeaning: 'Low glucose can cause weakness, seizures — may indicate insulin issues or liver disease.' },
+            'amylase': { name: 'Amylase', unit: 'U/L', low: 500, high: 1500, category: 'Pancreas',
+                desc: 'A digestive enzyme from the pancreas.',
+                highMeaning: 'High amylase may indicate pancreatitis.',
+                lowMeaning: 'Low amylase is usually not significant.' },
+            'lipase': { name: 'Lipase', unit: 'U/L', low: 200, high: 1800, category: 'Pancreas',
+                desc: 'A fat-digesting enzyme from the pancreas.',
+                highMeaning: 'High lipase may indicate pancreatitis.',
+                lowMeaning: 'Low lipase is usually not significant.' },
+            'cholesterol': { name: 'Cholesterol', unit: 'mg/dL', low: 110, high: 320, category: 'Metabolic',
+                desc: 'A fat used for cell membranes and hormones.',
+                highMeaning: 'High cholesterol may indicate hypothyroidism, diabetes, or liver issues.',
+                lowMeaning: 'Low cholesterol may indicate malabsorption or liver disease.' },
+            'triglycerides': { name: 'Triglycerides', unit: 'mg/dL', low: 50, high: 150, category: 'Metabolic',
+                desc: 'Fats from food and made by the body.',
+                highMeaning: 'High triglycerides may indicate recent meal, diabetes, or hypothyroidism.',
+                lowMeaning: 'Low triglycerides are usually not concerning.' },
+
+            // Electrolytes
+            'sodium': { name: 'Sodium', unit: 'mEq/L', low: 144, high: 160, category: 'Electrolytes',
+                desc: 'An electrolyte important for fluid balance and nerve function.',
+                highMeaning: 'High sodium may indicate dehydration or diabetes insipidus.',
+                lowMeaning: 'Low sodium may indicate overhydration, kidney disease, or Addison\'s.' },
+            'potassium': { name: 'Potassium', unit: 'mEq/L', low: 3.5, high: 5.8, category: 'Electrolytes',
+                desc: 'An electrolyte vital for heart and muscle function.',
+                highMeaning: 'High potassium is dangerous for the heart — may indicate kidney disease or Addison\'s.',
+                lowMeaning: 'Low potassium may cause weakness — may indicate vomiting, diarrhea, or kidney loss.' },
+            'chloride': { name: 'Chloride', unit: 'mEq/L', low: 109, high: 122, category: 'Electrolytes',
+                desc: 'An electrolyte that helps maintain acid-base balance.',
+                highMeaning: 'High chloride may indicate dehydration or kidney disease.',
+                lowMeaning: 'Low chloride may indicate vomiting or respiratory issues.' },
+            'calcium': { name: 'Calcium', unit: 'mg/dL', low: 7.9, high: 12.0, category: 'Electrolytes',
+                desc: 'Important for bones, muscles, and nerves.',
+                highMeaning: 'High calcium may indicate cancer, kidney disease, or parathyroid issues.',
+                lowMeaning: 'Low calcium may cause tremors — may indicate pancreatitis or eclampsia.' },
+
+            // Urinalysis
+            'usg': { name: 'Urine Specific Gravity', unit: '', low: 1.015, high: 1.045, category: 'Urinalysis',
+                desc: 'Measures how concentrated the urine is.',
+                highMeaning: 'Very concentrated urine — may indicate dehydration.',
+                lowMeaning: 'Dilute urine may indicate kidney disease or diabetes insipidus.' },
+            'uph': { name: 'Urine pH', unit: '', low: 5.5, high: 7.5, category: 'Urinalysis',
+                desc: 'Measures urine acidity.',
+                highMeaning: 'Alkaline urine may indicate UTI or certain crystal types.',
+                lowMeaning: 'Acidic urine may indicate protein-rich diet or metabolic issues.' },
+            'uprotein': { name: 'Urine Protein', unit: '', low: 0, high: 0.5, category: 'Urinalysis',
+                desc: 'Protein shouldn\'t normally be in urine.',
+                highMeaning: 'Protein in urine may indicate kidney disease or UTI.',
+                lowMeaning: 'No protein is normal.' },
+
+            // Thyroid
+            't4': { name: 'T4 (Thyroxine)', unit: 'μg/dL', low: 1.0, high: 4.0, category: 'Thyroid',
+                desc: 'The main thyroid hormone — controls metabolism.',
+                highMeaning: 'High T4 is rare in dogs — may indicate thyroid tumor.',
+                lowMeaning: 'Low T4 may indicate hypothyroidism — causes weight gain, lethargy, skin issues.' },
+            'tsh': { name: 'TSH', unit: 'ng/mL', low: 0.03, high: 0.5, category: 'Thyroid',
+                desc: 'Thyroid stimulating hormone from the pituitary.',
+                highMeaning: 'High TSH with low T4 confirms hypothyroidism.',
+                lowMeaning: 'Low TSH is usually normal.' },
+
+            // Coagulation
+            'pt': { name: 'Prothrombin Time', unit: 'seconds', low: 11, high: 17, category: 'Coagulation',
+                desc: 'How long blood takes to clot.',
+                highMeaning: 'Prolonged PT indicates bleeding risk — may be liver disease or rodenticide poisoning.',
+                lowMeaning: 'Short PT is usually not significant.' },
+            'aptt': { name: 'aPTT', unit: 'seconds', low: 72, high: 102, category: 'Coagulation',
+                desc: 'Another clotting time test.',
+                highMeaning: 'Prolonged aPTT indicates bleeding risk.',
+                lowMeaning: 'Short aPTT is usually not significant.' },
+        };
+
+        // Aliases for common variations
+        const VALUE_ALIASES = {
+            'white blood cells': 'wbc', 'white blood cell': 'wbc', 'leucocytes': 'wbc', 'leukocytes': 'wbc',
+            'red blood cells': 'rbc', 'red blood cell': 'rbc', 'erythrocytes': 'rbc',
+            'hgb': 'hemoglobin', 'hb': 'hemoglobin',
+            'hct': 'hematocrit', 'packed cell volume': 'pcv',
+            'plt': 'platelets', 'thrombocytes': 'platelets',
+            'blood urea nitrogen': 'bun', 'urea': 'bun',
+            'creat': 'creatinine',
+            'sgpt': 'alt', 'alanine aminotransferase': 'alt',
+            'sgot': 'ast', 'aspartate aminotransferase': 'ast',
+            'alkaline phosphatase': 'alp', 'alk phos': 'alp', 'alkp': 'alp',
+            'total bilirubin': 'bilirubin', 'tbil': 'bilirubin',
+            'alb': 'albumin', 'glob': 'globulin', 'tp': 'totalprotein', 'total protein': 'totalprotein',
+            'glu': 'glucose', 'blood sugar': 'glucose',
+            'amy': 'amylase', 'lip': 'lipase',
+            'chol': 'cholesterol', 'trig': 'triglycerides',
+            'na': 'sodium', 'k': 'potassium', 'cl': 'chloride', 'ca': 'calcium',
+            'specific gravity': 'usg', 'sp gr': 'usg', 'sg': 'usg',
+            'ph': 'uph', 'urine ph': 'uph',
+            'protein': 'uprotein',
+            'thyroxine': 't4', 'free t4': 't4',
+            'prothrombin': 'pt',
+            'retic': 'reticulocytes', 'retics': 'reticulocytes'
+        };
+
+        // ===== PARSING LOGIC =====
+        let pendingValues = [];
+
+        function normalizeKey(text) {
+            const lower = text.toLowerCase().trim();
+            if (LAB_REFERENCES[lower]) return lower;
+            if (VALUE_ALIASES[lower]) return VALUE_ALIASES[lower];
+            // Try partial matches
+            for (const alias in VALUE_ALIASES) {
+                if (lower.includes(alias)) return VALUE_ALIASES[alias];
+            }
+            for (const key in LAB_REFERENCES) {
+                if (lower.includes(key) || lower.includes(LAB_REFERENCES[key].name.toLowerCase())) return key;
+            }
+            return lower.replace(/[^a-z0-9]/g, '');
+        }
+
+        function parseLabReport(text) {
+            const results = [];
+            const lines = text.split('\n');
+            
+            // Pattern: Name: Value (Range) Unit OR Name Value Unit (Range)
+            const patterns = [
+                /^(.+?):\s*([\d.]+)\s*(?:\(?([\d.]+)\s*[-–]\s*([\d.]+)\)?)?[\s]*([a-zA-Z%\/\^μµ⁹¹²³⁰]+)?/i,
+                /^(.+?)\s+([\d.]+)\s+([a-zA-Z%\/\^μµ⁹¹²³⁰]+)?\s*(?:\(?([\d.]+)\s*[-–]\s*([\d.]+)\)?)?/i,
+                /(.+?)\s*[:\-]\s*([\d.]+)\s*(?:\/\s*[\d.]+)?/i
+            ];
+
+            for (const line of lines) {
+                const trimmed = line.trim();
+                if (!trimmed || trimmed.length < 3) continue;
+
+                for (const pattern of patterns) {
+                    const match = trimmed.match(pattern);
+                    if (match) {
+                        const name = match[1]?.trim();
+                        const value = parseFloat(match[2]);
+                        
+                        if (name && !isNaN(value)) {
+                            const key = normalizeKey(name);
+                            const ref = LAB_REFERENCES[key];
+                            
+                            results.push({
+                                key: key,
+                                name: ref?.name || name,
+                                value: value,
+                                unit: match[5] || match[3] || ref?.unit || '',
+                                refLow: parseFloat(match[3]) || parseFloat(match[4]) || ref?.low || null,
+                                refHigh: parseFloat(match[4]) || parseFloat(match[5]) || ref?.high || null,
+                                category: ref?.category || 'Other',
+                                hasReference: !!ref
+                            });
+                            break;
+                        }
+                    }
+                }
+            }
+            return results;
+        }
+
+        function parseAndSaveReport() {
+            const dateInput = document.getElementById('report-date');
+            const textInput = document.getElementById('report-text');
+            
+            const date = dateInput.value || new Date().toISOString().split('T')[0];
+            const text = textInput.value;
+
+            if (!text.trim()) {
+                alert('Please paste lab report text');
+                return;
+            }
+
+            pendingValues = parseLabReport(text);
+            pendingValues.forEach(v => v.date = date);
+
+            if (pendingValues.length === 0) {
+                alert('Could not parse any lab values. Try reformatting the text.');
+                return;
+            }
+
+            // Show preview
+            const preview = document.getElementById('parsed-preview');
+            const container = document.getElementById('parsed-values');
+            container.innerHTML = pendingValues.map((v, i) => `
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div>
+                        <span class="font-medium">${v.name}</span>
+                        <span class="text-purple-600 font-semibold ml-2">${v.value}</span>
+                        <span class="text-gray-500 text-sm">${v.unit}</span>
+                        ${v.refLow !== null ? `<span class="text-xs text-gray-400 ml-2">(${v.refLow}-${v.refHigh})</span>` : ''}
+                    </div>
+                    <button onclick="removePending(${i})" class="text-red-500 hover:text-red-700">✕</button>
+                </div>
+            `).join('');
+            preview.classList.remove('hidden');
+        }
+
+        function removePending(index) {
+            pendingValues.splice(index, 1);
+            parseAndSaveReport(); // Refresh preview
+        }
+
+        function clearPreview() {
+            document.getElementById('parsed-preview').classList.add('hidden');
+            pendingValues = [];
+        }
+
+        function confirmSave() {
+            if (pendingValues.length === 0) return;
+
+            const data = getData();
+            const date = pendingValues[0].date;
+            
+            // Add to reports list
+            const report = {
+                id: Date.now(),
+                date: date,
+                valueCount: pendingValues.length,
+                values: pendingValues
+            };
+            data.reports.push(report);
+
+            // Add to values timeline
+            for (const v of pendingValues) {
+                if (!data.values[v.key]) {
+                    data.values[v.key] = {
+                        name: v.name,
+                        unit: v.unit,
+                        category: v.category,
+                        refLow: v.refLow,
+                        refHigh: v.refHigh,
+                        readings: []
+                    };
+                }
+                data.values[v.key].readings.push({
+                    date: date,
+                    value: v.value
+                });
+                // Sort readings by date
+                data.values[v.key].readings.sort((a, b) => new Date(a.date) - new Date(b.date));
+            }
+
+            saveData(data);
+            clearPreview();
+            document.getElementById('report-text').value = '';
+            document.getElementById('report-date').value = '';
+            
+            alert(`Saved ${pendingValues.length} lab values!`);
+            showTab('dashboard');
+            renderDashboard();
+        }
+
+        // ===== DASHBOARD RENDERING =====
+        let charts = {};
+        let currentFilter = 'all';
+
+        function renderDashboard() {
+            const data = getData();
+            renderStatusBadges(data);
+            renderCharts(data);
+            renderHistory(data);
+        }
+
+        function renderStatusBadges(data) {
+            const container = document.getElementById('status-badges');
+            const values = Object.entries(data.values);
+            
+            if (values.length === 0) {
+                container.innerHTML = '<span class="text-gray-500 text-sm">No reports yet. Add your first lab report!</span>';
+                return;
+            }
+
+            container.innerHTML = values.map(([key, val]) => {
+                const latest = val.readings[val.readings.length - 1];
+                const ref = LAB_REFERENCES[key];
+                let status = 'normal';
+                let icon = '✅';
+                
+                if (ref) {
+                    if (latest.value < ref.low || latest.value > ref.high) {
+                        status = 'danger';
+                        icon = '🔴';
+                    } else if (latest.value < ref.low * 1.1 || latest.value > ref.high * 0.9) {
+                        status = 'borderline';
+                        icon = '⚠️';
+                    }
+                }
+                
+                return `<span class="px-3 py-1 rounded-full text-xs font-medium cursor-pointer hover:opacity-80 ${
+                    status === 'normal' ? 'bg-green-100 text-green-800' :
+                    status === 'borderline' ? 'bg-yellow-100 text-yellow-800' :
+                    'bg-red-100 text-red-800'
+                }" onclick="showInterpretation('${key}')">${icon} ${val.name}</span>`;
+            }).join('');
+        }
+
+        function renderCharts(data) {
+            const container = document.getElementById('charts-grid');
+            const searchTerm = document.getElementById('search-filter').value.toLowerCase();
+            const values = Object.entries(data.values);
+
+            if (values.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center text-gray-500 py-12 col-span-full">
+                        <p class="text-4xl mb-4">📊</p>
+                        <p>Charts will appear here after you add lab reports</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Destroy existing charts
+            Object.values(charts).forEach(c => c.destroy());
+            charts = {};
+
+            const filteredValues = values.filter(([key, val]) => {
+                const ref = LAB_REFERENCES[key];
+                const latest = val.readings[val.readings.length - 1];
+                
+                // Search filter
+                if (searchTerm && !val.name.toLowerCase().includes(searchTerm)) return false;
+                
+                // Flagged filter
+                if (currentFilter === 'flagged' && ref) {
+                    if (latest.value >= ref.low && latest.value <= ref.high) return false;
+                }
+                
+                return true;
+            });
+
+            container.innerHTML = filteredValues.map(([key, val]) => `
+                <div class="bg-white rounded-2xl card-shadow p-4 slide-up">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="font-semibold text-gray-800">${val.name}</h3>
+                            <p class="text-xs text-gray-500">${val.category || 'General'}</p>
+                        </div>
+                        <button onclick="showInterpretation('${key}')" class="text-purple-500 text-sm">ℹ️</button>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chart-${key}"></canvas>
+                    </div>
+                    <div class="mt-2 text-center">
+                        <span class="text-lg font-bold text-gray-800">${val.readings[val.readings.length-1].value}</span>
+                        <span class="text-sm text-gray-500">${val.unit}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Create charts
+            filteredValues.forEach(([key, val]) => {
+                createChart(key, val);
+            });
+        }
+
+        function createChart(key, val) {
+            const ctx = document.getElementById(`chart-${key}`);
+            if (!ctx) return;
+
+            const ref = LAB_REFERENCES[key];
+            const readings = val.readings;
+            
+            const config = {
+                type: 'line',
+                data: {
+                    labels: readings.map(r => formatDate(r.date)),
+                    datasets: [{
+                        label: val.name,
+                        data: readings.map(r => r.value),
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 4,
+                        pointBackgroundColor: readings.map(r => {
+                            if (ref && (r.value < ref.low || r.value > ref.high)) {
+                                return '#ef4444';
+                            }
+                            return '#8b5cf6';
+                        }),
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        annotation: ref ? {
+                            annotations: {
+                                normalRange: {
+                                    type: 'box',
+                                    yMin: ref.low,
+                                    yMax: ref.high,
+                                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                                    borderWidth: 0
+                                }
+                            }
+                        } : {}
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 10 } }
+                        },
+                        y: {
+                            grid: { color: 'rgba(0,0,0,0.05)' },
+                            ticks: { font: { size: 10 } }
+                        }
+                    }
+                }
+            };
+
+            charts[key] = new Chart(ctx, config);
+        }
+
+        function formatDate(dateStr) {
+            const d = new Date(dateStr);
+            return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        // ===== INTERPRETATION =====
+        function showInterpretation(key) {
+            const data = getData();
+            const val = data.values[key];
+            const ref = LAB_REFERENCES[key];
+            const readings = val.readings;
+            const latest = readings[readings.length - 1];
+
+            let trend = 'stable';
+            if (readings.length >= 2) {
+                const prev = readings[readings.length - 2];
+                const change = ((latest.value - prev.value) / prev.value) * 100;
+                if (change > 10) trend = 'increasing';
+                else if (change < -10) trend = 'decreasing';
+            }
+
+            let status = 'normal';
+            let statusText = 'Within normal range';
+            if (ref) {
+                if (latest.value < ref.low) {
+                    status = 'low';
+                    statusText = `Below normal (${ref.low} ${ref.unit || ''})`;
+                } else if (latest.value > ref.high) {
+                    status = 'high';
+                    statusText = `Above normal (${ref.high} ${ref.unit || ''})`;
+                }
+            }
+
+            document.getElementById('modal-title').textContent = val.name;
+            document.getElementById('modal-content').innerHTML = `
+                <div class="space-y-4">
+                    <div class="text-center p-4 bg-gray-50 rounded-xl">
+                        <p class="text-3xl font-bold text-gray-800">${latest.value} <span class="text-lg text-gray-500">${val.unit}</span></p>
+                        <p class="text-sm text-gray-500 mt-1">${latest.date}</p>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <span class="px-3 py-1 rounded-full text-xs font-medium ${
+                            status === 'normal' ? 'bg-green-100 text-green-800' :
+                            status === 'low' ? 'bg-blue-100 text-blue-800' : 'bg-red-100 text-red-800'
+                        }">${statusText}</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                            ${trend === 'increasing' ? '📈 Trending Up' : trend === 'decreasing' ? '📉 Trending Down' : '➡️ Stable'}
+                        </span>
+                    </div>
+
+                    ${ref ? `
+                    <div class="interpretation-card rounded-xl p-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">What This Measures</h4>
+                        <p class="text-sm text-gray-600">${ref.desc}</p>
+                    </div>
+
+                    ${status !== 'normal' ? `
+                    <div class="bg-amber-50 border-l-4 border-amber-400 rounded-xl p-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">What ${status === 'high' ? 'High' : 'Low'} Values May Mean</h4>
+                        <p class="text-sm text-gray-600">${status === 'high' ? ref.highMeaning : ref.lowMeaning}</p>
+                    </div>
+                    ` : ''}
+
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">Reference Range</h4>
+                        <p class="text-sm text-gray-600">${ref.low} – ${ref.high} ${ref.unit}</p>
+                    </div>
+                    ` : `
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <p class="text-sm text-gray-500">No reference data available for this value.</p>
+                    </div>
+                    `}
+
+                    <p class="text-xs text-gray-400 text-center">⚠️ This is not veterinary advice. Always consult your vet.</p>
+                </div>
+            `;
+
+            document.getElementById('interpretation-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('interpretation-modal').classList.add('hidden');
+        }
+
+        // ===== HISTORY =====
+        function renderHistory(data) {
+            const container = document.getElementById('history-list');
+            
+            if (data.reports.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-8">No reports saved yet.</p>';
+                return;
+            }
+
+            const sorted = [...data.reports].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            container.innerHTML = sorted.map(report => `
+                <div class="bg-white rounded-xl card-shadow p-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="font-semibold text-gray-800">${formatDateLong(report.date)}</p>
+                            <p class="text-sm text-gray-500">${report.valueCount} values recorded</p>
+                        </div>
+                        <button onclick="deleteReport(${report.id})" class="text-red-400 hover:text-red-600 text-sm">🗑️</button>
+                    </div>
+                    <div class="mt-3 flex flex-wrap gap-1">
+                        ${report.values.slice(0, 5).map(v => `
+                            <span class="px-2 py-1 bg-gray-100 rounded text-xs">${v.name}: ${v.value}</span>
+                        `).join('')}
+                        ${report.values.length > 5 ? `<span class="px-2 py-1 bg-gray-100 rounded text-xs">+${report.values.length - 5} more</span>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function formatDateLong(dateStr) {
+            return new Date(dateStr).toLocaleDateString('en-US', { 
+                weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' 
+            });
+        }
+
+        function deleteReport(id) {
+            if (!confirm('Delete this report? This will remove all values from this date.')) return;
+            
+            const data = getData();
+            const report = data.reports.find(r => r.id === id);
+            
+            if (report) {
+                // Remove readings from values
+                for (const v of report.values) {
+                    if (data.values[v.key]) {
+                        data.values[v.key].readings = data.values[v.key].readings.filter(
+                            r => r.date !== report.date
+                        );
+                        // Remove value entirely if no readings left
+                        if (data.values[v.key].readings.length === 0) {
+                            delete data.values[v.key];
+                        }
+                    }
+                }
+                // Remove report
+                data.reports = data.reports.filter(r => r.id !== id);
+            }
+            
+            saveData(data);
+            renderDashboard();
+        }
+
+        // ===== TAB NAVIGATION =====
+        function showTab(tab) {
+            document.querySelectorAll('.tab-view').forEach(v => v.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('bg-white/20'));
+            
+            document.getElementById(`view-${tab}`).classList.remove('hidden');
+            document.getElementById(`tab-${tab}`).classList.add('bg-white/20');
+            
+            if (tab === 'dashboard') renderDashboard();
+        }
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.getElementById('filter-all').classList.toggle('bg-purple-600', filter === 'all');
+            document.getElementById('filter-all').classList.toggle('text-white', filter === 'all');
+            document.getElementById('filter-all').classList.toggle('bg-gray-200', filter !== 'all');
+            document.getElementById('filter-all').classList.toggle('text-gray-700', filter !== 'all');
+            document.getElementById('filter-flagged').classList.toggle('bg-purple-600', filter === 'flagged');
+            document.getElementById('filter-flagged').classList.toggle('text-white', filter === 'flagged');
+            document.getElementById('filter-flagged').classList.toggle('bg-gray-200', filter !== 'flagged');
+            document.getElementById('filter-flagged').classList.toggle('text-gray-700', filter !== 'flagged');
+            renderDashboard();
+        }
+
+        // Search filter
+        document.getElementById('search-filter').addEventListener('input', () => renderDashboard());
+
+        // Close modal on backdrop click
+        document.getElementById('interpretation-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'interpretation-modal') closeModal();
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('report-date').value = new Date().toISOString().split('T')[0];
+            renderDashboard();
+        });
+    </script>
+</body>
+</html>
