@@ -238,16 +238,66 @@
             align-items: center;
         }
         
-        /* Prayer card enhanced hover */
+        /* Prayer card enhanced animations */
         .prayer-card {
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .prayer-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.05) 50%, transparent 70%);
+            transform: rotate(45deg);
+            animation: cardShine 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes cardShine {
+            0%, 100% { transform: rotate(45deg) translateX(-150%); }
+            50% { transform: rotate(45deg) translateX(150%); }
         }
         
         .prayer-avatar {
             object-fit: cover;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.2);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        
+        .flag-badge {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            font-size: 12px;
+            background: var(--bg-card);
+            border-radius: 50%;
+            padding: 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .avatar-container {
+            position: relative;
+            flex-shrink: 0;
+        }
+        
+        .avatar-placeholder {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            border: 2px solid rgba(255,255,255,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
         .btn-primary {
@@ -327,122 +377,124 @@
             </div>
 
             <div class="prayer-carousel relative z-10">
-                <!-- Darren - Florida -->
-                <div class="prayer-card rounded-xl p-3 min-w-[200px] sm:min-w-[220px] flex-shrink-0">
+                <!-- David Hoskins - Florida (HAS PHOTO) -->
+                <div class="prayer-card rounded-xl p-3 min-w-[220px] sm:min-w-[240px] flex-shrink-0">
                     <div class="flex items-start gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-2xl flex-shrink-0">🇺🇸</div>
-                        <div class="min-w-0">
-                            <p class="font-semibold text-sm truncate">Darren Michael Shaw</p>
-                            <div class="flex items-center gap-1 mt-0.5">
-                                <span class="location-dot flex-shrink-0"></span>
-                                <span class="text-xs truncate" style="color: var(--text-muted)">Florida, USA</span>
-                            </div>
-                            <p class="text-[10px] mt-1.5 leading-tight" style="color: var(--text-secondary)">Friend & Brother in Christ</p>
+                        <div class="avatar-container">
+                            <img src="https://sanctuaryclinics.com/wp-content/uploads/2025/10/david-hoskins-1.jpg" alt="David Hoskins" class="prayer-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="avatar-placeholder bg-gradient-to-br from-emerald-400 to-teal-600 hidden">DH</div>
+                            <span class="flag-badge">🇺🇸</span>
                         </div>
-                    </div>
-                </div>
-
-                <!-- David & Ceci - Florida -->
-                <div class="prayer-card rounded-xl p-3 min-w-[200px] sm:min-w-[220px] flex-shrink-0">
-                    <div class="flex items-start gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-2xl flex-shrink-0">🇺🇸</div>
                         <div class="min-w-0">
-                            <p class="font-semibold text-sm truncate">Dr. David & Ceci Hoskins</p>
-                            <div class="flex items-center gap-1 mt-0.5">
-                                <span class="location-dot flex-shrink-0"></span>
-                                <span class="text-xs truncate" style="color: var(--text-muted)">Florida, USA</span>
-                            </div>
-                            <p class="text-[10px] mt-1.5 leading-tight" style="color: var(--text-secondary)">Founders, Sanctuary Clinics</p>
+                            <p class="font-semibold text-sm">Dr. David Hoskins</p>
+                            <p class="text-[10px] mt-0.5" style="color: var(--text-muted)">Florida, USA</p>
+                            <p class="text-[10px] mt-1 leading-tight" style="color: var(--text-secondary)">Founder, Sanctuary Clinics</p>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Art Thomas - Michigan (HAS PHOTO) -->
-                <div class="prayer-card rounded-xl p-3 min-w-[200px] sm:min-w-[220px] flex-shrink-0">
+                <div class="prayer-card rounded-xl p-3 min-w-[220px] sm:min-w-[240px] flex-shrink-0">
                     <div class="flex items-start gap-3">
-                        <img src="https://www.artthomas.org/wp-content/uploads/2022/07/Art-Thomas-Web-2022.jpg" alt="Art Thomas" class="prayer-avatar flex-shrink-0" onerror="this.outerHTML='<div class=\'w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-2xl flex-shrink-0\'>🇺🇸</div>';">
+                        <div class="avatar-container">
+                            <img src="https://www.artthomas.org/wp-content/uploads/2022/07/Art-Thomas-Web-2022.jpg" alt="Art Thomas" class="prayer-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="avatar-placeholder bg-gradient-to-br from-sky-400 to-cyan-600 hidden">AT</div>
+                            <span class="flag-badge">🇺🇸</span>
+                        </div>
                         <div class="min-w-0">
-                            <p class="font-semibold text-sm truncate">Art Thomas</p>
-                            <div class="flex items-center gap-1 mt-0.5">
-                                <span class="location-dot flex-shrink-0"></span>
-                                <span class="text-xs truncate" style="color: var(--text-muted)">Metro Detroit, Michigan</span>
-                            </div>
-                            <p class="text-[10px] mt-1.5 leading-tight" style="color: var(--text-secondary)">Missionary-Evangelist • Wildfire Ministries</p>
+                            <p class="font-semibold text-sm">Art Thomas</p>
+                            <p class="text-[10px] mt-0.5" style="color: var(--text-muted)">Michigan, USA</p>
+                            <p class="text-[10px] mt-1 leading-tight" style="color: var(--text-secondary)">Missionary-Evangelist • Wildfire Ministries</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Darren - Florida -->
+                <div class="prayer-card rounded-xl p-3 min-w-[220px] sm:min-w-[240px] flex-shrink-0">
+                    <div class="flex items-start gap-3">
+                        <div class="avatar-container">
+                            <div class="avatar-placeholder bg-gradient-to-br from-blue-400 to-blue-600 text-white font-bold text-sm">DM</div>
+                            <span class="flag-badge">🇺🇸</span>
+                        </div>
+                        <div class="min-w-0">
+                            <p class="font-semibold text-sm">Darren Michael Shaw</p>
+                            <p class="text-[10px] mt-0.5" style="color: var(--text-muted)">Florida, USA</p>
+                            <p class="text-[10px] mt-1 leading-tight" style="color: var(--text-secondary)">Author & Brother in Christ</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Chad - Florida -->
-                <div class="prayer-card rounded-xl p-3 min-w-[200px] sm:min-w-[220px] flex-shrink-0">
+                <div class="prayer-card rounded-xl p-3 min-w-[220px] sm:min-w-[240px] flex-shrink-0">
                     <div class="flex items-start gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-2xl flex-shrink-0">🇺🇸</div>
+                        <div class="avatar-container">
+                            <div class="avatar-placeholder bg-gradient-to-br from-amber-400 to-orange-600 text-white font-bold text-sm">CR</div>
+                            <span class="flag-badge">🇺🇸</span>
+                        </div>
                         <div class="min-w-0">
-                            <p class="font-semibold text-sm truncate">Chad Richard</p>
-                            <div class="flex items-center gap-1 mt-0.5">
-                                <span class="location-dot flex-shrink-0"></span>
-                                <span class="text-xs truncate" style="color: var(--text-muted)">Florida, USA</span>
-                            </div>
-                            <p class="text-[10px] mt-1.5 leading-tight" style="color: var(--text-secondary)">CEO, Honey Lake Clinic • His dog was also named Pepper 🐕</p>
+                            <p class="font-semibold text-sm">Chad Richard</p>
+                            <p class="text-[10px] mt-0.5" style="color: var(--text-muted)">Florida, USA</p>
+                            <p class="text-[10px] mt-1 leading-tight" style="color: var(--text-secondary)">CEO, Honey Lake • His dog was also Pepper 🐕</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Jeremiah - Virginia -->
-                <div class="prayer-card rounded-xl p-3 min-w-[200px] sm:min-w-[220px] flex-shrink-0">
+                <div class="prayer-card rounded-xl p-3 min-w-[220px] sm:min-w-[240px] flex-shrink-0">
                     <div class="flex items-start gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-2xl flex-shrink-0">🇺🇸</div>
+                        <div class="avatar-container">
+                            <div class="avatar-placeholder bg-gradient-to-br from-purple-400 to-indigo-600 text-white font-bold text-sm">J</div>
+                            <span class="flag-badge">🇺🇸</span>
+                        </div>
                         <div class="min-w-0">
-                            <p class="font-semibold text-sm truncate">Jeremiah</p>
-                            <div class="flex items-center gap-1 mt-0.5">
-                                <span class="location-dot flex-shrink-0"></span>
-                                <span class="text-xs truncate" style="color: var(--text-muted)">Lynchburg, Virginia</span>
-                            </div>
-                            <p class="text-[10px] mt-1.5 leading-tight" style="color: var(--text-secondary)">Director, Christian Care Connect</p>
+                            <p class="font-semibold text-sm">Jeremiah</p>
+                            <p class="text-[10px] mt-0.5" style="color: var(--text-muted)">Virginia, USA</p>
+                            <p class="text-[10px] mt-1 leading-tight" style="color: var(--text-secondary)">Director, Christian Care Connect</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Johnny - Virginia -->
-                <div class="prayer-card rounded-xl p-3 min-w-[200px] sm:min-w-[220px] flex-shrink-0">
+                <div class="prayer-card rounded-xl p-3 min-w-[220px] sm:min-w-[240px] flex-shrink-0">
                     <div class="flex items-start gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-2xl flex-shrink-0">🇺🇸</div>
+                        <div class="avatar-container">
+                            <div class="avatar-placeholder bg-gradient-to-br from-rose-400 to-pink-600 text-white font-bold text-sm">JS</div>
+                            <span class="flag-badge">🇺🇸</span>
+                        </div>
                         <div class="min-w-0">
-                            <p class="font-semibold text-sm truncate">Johnny Smulik</p>
-                            <div class="flex items-center gap-1 mt-0.5">
-                                <span class="location-dot flex-shrink-0"></span>
-                                <span class="text-xs truncate" style="color: var(--text-muted)">Lynchburg, Virginia</span>
-                            </div>
-                            <p class="text-[10px] mt-1.5 leading-tight" style="color: var(--text-secondary)">VP Technology, AACC</p>
+                            <p class="font-semibold text-sm">Johnny Smulik</p>
+                            <p class="text-[10px] mt-0.5" style="color: var(--text-muted)">Virginia, USA</p>
+                            <p class="text-[10px] mt-1 leading-tight" style="color: var(--text-secondary)">VP Technology, AACC</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Ken & Frida - India -->
-                <div class="prayer-card rounded-xl p-3 min-w-[200px] sm:min-w-[220px] flex-shrink-0">
+                <!-- Ken & Frieda - India -->
+                <div class="prayer-card rounded-xl p-3 min-w-[220px] sm:min-w-[240px] flex-shrink-0">
                     <div class="flex items-start gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-2xl flex-shrink-0">🇮🇳</div>
+                        <div class="avatar-container">
+                            <div class="avatar-placeholder bg-gradient-to-br from-orange-400 to-red-600 text-white font-bold text-sm">K&F</div>
+                            <span class="flag-badge">🇮🇳</span>
+                        </div>
                         <div class="min-w-0">
-                            <p class="font-semibold text-sm truncate">Ken & Frieda McRae</p>
-                            <div class="flex items-center gap-1 mt-0.5">
-                                <span class="location-dot flex-shrink-0"></span>
-                                <span class="text-xs truncate" style="color: var(--text-muted)">Selaqui, India</span>
-                            </div>
-                            <p class="text-[10px] mt-1.5 leading-tight" style="color: var(--text-secondary)">Founders, Shishya Society (since 1979)</p>
+                            <p class="font-semibold text-sm">Ken & Frieda McRae</p>
+                            <p class="text-[10px] mt-0.5" style="color: var(--text-muted)">Selaqui, India</p>
+                            <p class="text-[10px] mt-1 leading-tight" style="color: var(--text-secondary)">Founders, Shishya Society (since 1979)</p>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Leah - Germany -->
-                <div class="prayer-card rounded-xl p-3 min-w-[200px] sm:min-w-[220px] flex-shrink-0">
+                <div class="prayer-card rounded-xl p-3 min-w-[220px] sm:min-w-[240px] flex-shrink-0">
                     <div class="flex items-start gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-2xl flex-shrink-0">🇩🇪</div>
+                        <div class="avatar-container">
+                            <div class="avatar-placeholder bg-gradient-to-br from-yellow-400 to-amber-500 text-white font-bold text-sm">LH</div>
+                            <span class="flag-badge">🇩🇪</span>
+                        </div>
                         <div class="min-w-0">
-                            <p class="font-semibold text-sm truncate">Leah Hohmann</p>
-                            <div class="flex items-center gap-1 mt-0.5">
-                                <span class="location-dot flex-shrink-0"></span>
-                                <span class="text-xs truncate" style="color: var(--text-muted)">Germany</span>
-                            </div>
-                            <p class="text-[10px] mt-1.5 leading-tight" style="color: var(--text-secondary)">Sister in Christ 💛</p>
+                            <p class="font-semibold text-sm">Leah Hohmann</p>
+                            <p class="text-[10px] mt-0.5" style="color: var(--text-muted)">Germany</p>
+                            <p class="text-[10px] mt-1 leading-tight" style="color: var(--text-secondary)">Sister in Christ 💛</p>
                         </div>
                     </div>
                 </div>
