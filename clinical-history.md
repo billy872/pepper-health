@@ -75,7 +75,7 @@
 - **Protein crisis:** Total protein 3.48 g/dL — critically low
 - **Treatment:** Plasma transfusion, Erythopoietin started
 
-### February 26 — Current Status (Most Recent)
+### February 26-27 — Current Status (Most Recent)
 - **Anemia worsening:**
   - Hemoglobin: 8.1 g/dL ↓
   - RBC: 3.50 ↓
@@ -86,6 +86,8 @@
   - RR slightly better in mornings (cyclic pattern)
   - Appetite fluctuating (comes and goes)
   - Energy declining over past 4 days
+  - **Burping for 2 days** (since Feb 25) — possible GI distress
+  - **Mild coughing for 1 day** (since Feb 26) — monitor for respiratory/fluid issues
   - Receiving daily IV fluids, plasma, erythopoietin, meropenem
 
 ---

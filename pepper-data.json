@@ -169,7 +169,7 @@
       "id": 1740528000000,
       "date": "2026-02-26",
       "valueCount": 12,
-      "notes": "🔴 CURRENT: Anemia worsening (HGB 8.1). Platelets 64. WBC 86.7 (extreme). RR better in AM (cyclic). Appetite fluctuates. Energy ↓ past 4 days.",
+      "notes": "🔴 CURRENT: Anemia worsening (HGB 8.1). Platelets 64. WBC 86.7 (extreme). RR better in AM (cyclic). Appetite fluctuates. Energy ↓ past 4 days. NEW: Burping ×2 days, mild coughing ×1 day.",
       "values": [
         {"key": "hemoglobin", "name": "Hemoglobin", "value": 8.10, "unit": "g/dL", "refLow": 12, "refHigh": 19, "category": "CBC"},
         {"key": "rbc", "name": "Red Blood Cells", "value": 3.50, "unit": "x10⁶/µL", "refLow": 5.0, "refHigh": 7.9, "category": "CBC"},
