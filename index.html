@@ -476,29 +476,56 @@
         <div id="view-dashboard" class="tab-view">
             
             <!-- News Updates -->
-            <div class="mb-6">
-                <div class="flex items-center gap-2 mb-3">
-                    <span class="text-lg">📰</span>
-                    <h2 class="text-lg font-semibold">Latest Updates</h2>
+            <div class="mb-8">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center shadow-sm">
+                        <span class="text-sm">📰</span>
+                    </div>
+                    <div>
+                        <h2 class="text-base font-semibold">Live Updates</h2>
+                        <p class="text-[10px] uppercase tracking-wider" style="color: var(--text-muted)">News & Progress</p>
+                    </div>
                 </div>
-                <div id="news-ticker" class="relative overflow-hidden h-20">
-                    <div id="news-updates" class="news-scroll absolute w-full">
+                <div id="news-ticker" class="relative overflow-hidden h-20 rounded-xl" style="background: var(--bg-secondary)">
+                    <div id="news-updates" class="news-scroll absolute w-full p-2">
                         <!-- Updates will be populated here -->
                     </div>
                 </div>
             </div>
             
-            <!-- Quick Status -->
+            <!-- Section Divider -->
+            <div class="flex items-center gap-4 mb-8">
+                <div class="flex-1 h-px" style="background: linear-gradient(to right, transparent, var(--border), transparent)"></div>
+                <span class="text-[10px] uppercase tracking-widest font-medium" style="color: var(--text-muted)">Medical Data</span>
+                <div class="flex-1 h-px" style="background: linear-gradient(to right, transparent, var(--border), transparent)"></div>
+            </div>
+            
+            <!-- Health Status -->
             <div class="mb-6">
-                <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-lg font-semibold">Latest Status</h2>
-                    <div id="last-weight" class="text-sm text-gray-500"></div>
+                <div class="flex justify-between items-center mb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-red-500 to-rose-700 flex items-center justify-center shadow-sm">
+                            <span class="text-sm">🩺</span>
+                        </div>
+                        <div>
+                            <h2 class="text-base font-semibold">Health Report</h2>
+                            <p class="text-[10px] uppercase tracking-wider" style="color: var(--text-muted)">Latest Lab Values</p>
+                        </div>
+                    </div>
+                    <div id="last-weight" class="text-xs px-2 py-1 rounded-full" style="background: var(--bg-secondary); color: var(--text-muted)"></div>
                 </div>
-                <div id="status-badges" class="flex flex-wrap gap-2">
+                <div id="status-badges" class="flex flex-wrap gap-2 mt-3">
                     <span class="text-sm" style="color: var(--text-muted)">No reports yet. Add your first lab report!</span>
                 </div>
             </div>
 
+            <!-- Section Divider -->
+            <div class="flex items-center gap-4 mb-6 mt-8">
+                <div class="flex-1 h-px" style="background: linear-gradient(to right, transparent, var(--border), transparent)"></div>
+                <span class="text-[10px] uppercase tracking-widest font-medium" style="color: var(--text-muted)">Trends & Charts</span>
+                <div class="flex-1 h-px" style="background: linear-gradient(to right, transparent, var(--border), transparent)"></div>
+            </div>
+            
             <!-- Filters -->
             <div class="flex flex-col gap-3 mb-6">
                 <input type="text" id="search-filter" placeholder="🔍 Search lab values..." 
@@ -810,9 +837,9 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                 
                 return `
                     <div class="news-item">
-                        <div class="p-3 rounded-lg w-full ${style}">
-                            <p class="text-sm" style="color: var(--text-primary)">${update.text}</p>
-                            <p class="text-xs mt-1" style="color: var(--text-muted)">${formatDateShort(update.date)} at ${update.time} • ${timeAgo}</p>
+                        <div class="p-3 rounded-xl w-full ${style}" style="background: var(--bg-card)">
+                            <p class="text-sm leading-snug" style="color: var(--text-primary)">${update.text}</p>
+                            <p class="text-[10px] mt-1.5 font-medium" style="color: var(--text-muted)">${formatDateShort(update.date)} • ${update.time} • ${timeAgo}</p>
                         </div>
                     </div>
                 `;
