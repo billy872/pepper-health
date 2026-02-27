@@ -19,7 +19,7 @@
                     colors: {
                         cream: '#fefdfb',
                         warmgray: { 50: '#faf9f7', 100: '#f5f3f0', 200: '#e8e6e1', 300: '#d3d0c9' },
-                        sage: { 50: '#f6f9f6', 100: '#e8f0e8', 200: '#c8dcc8', 300: '#9fc49f', 400: '#6ba36b', 500: '#4d8f4d' },
+                        sage: { 50: '#f6f9f6', 100: '#e8f0e8', 200: '#c8dcc8', 300: '#9fc49f', 400: '#404040', 500: '#333333' },
                         amber: { 50: '#fffbeb', 100: '#fef3c7', 200: '#fde68a', 300: '#fcd34d', 400: '#fbbf24', 500: '#f59e0b' },
                         coral: { 50: '#fef2f2', 100: '#fee2e2', 200: '#fecaca', 300: '#fca5a5', 400: '#f87171', 500: '#ef4444' }
                     }
@@ -32,39 +32,39 @@
         
         /* Light mode */
         :root {
-            --bg-primary: #fefdfb;
-            --bg-secondary: #f5f3f0;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
             --bg-card: #ffffff;
-            --text-primary: #1f2937;
-            --text-secondary: #6b7280;
-            --text-muted: #9ca3af;
-            --border: #e8e6e1;
-            --accent: #6ba36b;
-            --accent-light: #e8f0e8;
-            --normal: #4d8f4d;
-            --normal-bg: #e8f0e8;
+            --text-primary: #111111;
+            --text-secondary: #555555;
+            --text-muted: #888888;
+            --border: #e0e0e0;
+            --accent: #111111;
+            --accent-light: #f0f0f0;
+            --normal: #333333;
+            --normal-bg: #f0f0f0;
             --warning: #f59e0b;
             --warning-bg: #fef3c7;
-            --danger: #ef4444;
+            --danger: #dc2626;
             --danger-bg: #fee2e2;
         }
         
         /* Dark mode */
         .dark {
-            --bg-primary: #0f1419;
-            --bg-secondary: #192734;
-            --bg-card: #1e2d3d;
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --border: #334155;
-            --accent: #6ba36b;
-            --accent-light: #1a2e1a;
-            --normal: #6ba36b;
-            --normal-bg: #1a2e1a;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #171717;
+            --bg-card: #1a1a1a;
+            --text-primary: #fafafa;
+            --text-secondary: #a3a3a3;
+            --text-muted: #737373;
+            --border: #262626;
+            --accent: #fafafa;
+            --accent-light: #262626;
+            --normal: #e5e5e5;
+            --normal-bg: #262626;
             --warning: #fbbf24;
             --warning-bg: #422006;
-            --danger: #f87171;
+            --danger: #ef4444;
             --danger-bg: #450a0a;
         }
         
@@ -107,10 +107,10 @@
         .btn-primary:hover { opacity: 0.9; }
         
         .nav-gradient {
-            background: linear-gradient(135deg, #4d8f4d 0%, #3d7a3d 100%);
+            background: #111111;
         }
         .dark .nav-gradient {
-            background: linear-gradient(135deg, #1e2d3d 0%, #192734 100%);
+            background: #0a0a0a;
             border-bottom: 1px solid var(--border);
         }
     </style>
@@ -250,7 +250,7 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                             <span id="parsed-count" class="text-sm px-3 py-1 rounded-full" style="background: var(--accent-light); color: var(--accent)">0 values</span>
                         </div>
                         <div id="parsed-values" class="space-y-2 max-h-80 overflow-y-auto"></div>
-                        <button onclick="confirmSave()" class="w-full mt-4 py-3 rounded-xl font-semibold text-white" style="background: #4d8f4d">
+                        <button onclick="confirmSave()" class="w-full mt-4 py-3 rounded-xl font-semibold text-white" style="background: #333333">
                             ✓ Confirm & Save
                         </button>
                     </div>
@@ -325,7 +325,7 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                         <p class="text-sm" style="color: var(--text-secondary)"><strong>Jaundice developed.</strong> Bilirubin 3.47 (5x normal). ALT 529, AST 270 — severe liver stress. Albumin critically low at 1.90.</p>
                     </div>
 
-                    <div class="card rounded-2xl card-shadow p-4 border-l-4" style="border-color: #10b981;">
+                    <div class="card rounded-2xl card-shadow p-4 border-l-4" style="border-color: #555555;">
                         <div class="flex items-center gap-2 mb-2">
                             <span class="text-xs px-2 py-1 rounded-full" style="background: var(--bg-secondary)">Feb 4-7</span>
                             <span class="font-semibold">Treatment Response</span>
@@ -567,7 +567,7 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                         <p style="color: #666; margin-top: 8px;">Generated ${new Date().toLocaleDateString()}</p>
                     </div>
                     
-                    <h2 style="font-size: 18px; border-bottom: 2px solid #4d8f4d; padding-bottom: 8px;">Latest Values (${latestReport.date})</h2>
+                    <h2 style="font-size: 18px; border-bottom: 2px solid #333333; padding-bottom: 8px;">Latest Values (${latestReport.date})</h2>
                     <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
                         <tr style="background: #f5f5f5;">
                             <th style="text-align: left; padding: 8px; border: 1px solid #ddd;">Value</th>
@@ -581,7 +581,7 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                 const latest = val.readings[val.readings.length - 1];
                 const ref = LAB_REFERENCES[key];
                 let status = '✅ Normal';
-                let statusColor = '#4d8f4d';
+                let statusColor = '#333333';
                 
                 if (ref) {
                     if (latest.value < ref.low) {
@@ -607,7 +607,7 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                     </table>
                     
                     ${data.weights.length > 0 ? `
-                    <h2 style="font-size: 18px; border-bottom: 2px solid #4d8f4d; padding-bottom: 8px; margin-top: 30px;">Weight History</h2>
+                    <h2 style="font-size: 18px; border-bottom: 2px solid #333333; padding-bottom: 8px; margin-top: 30px;">Weight History</h2>
                     <p>Latest: <strong>${data.weights[data.weights.length-1].value} kg</strong> (${data.weights[data.weights.length-1].date})</p>
                     ` : ''}
                     
@@ -1047,13 +1047,13 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                     datasets: [{
                         label: 'Weight (kg)',
                         data: weights.map(w => w.value),
-                        borderColor: '#6ba36b',
+                        borderColor: '#404040',
                         backgroundColor: 'rgba(107, 163, 107, 0.1)',
                         borderWidth: 2,
                         fill: true,
                         tension: 0.3,
                         pointRadius: 5,
-                        pointBackgroundColor: '#6ba36b',
+                        pointBackgroundColor: '#404040',
                         pointBorderColor: '#fff',
                         pointBorderWidth: 2
                     }]
@@ -1201,7 +1201,7 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                     datasets: [{
                         label: val.name,
                         data: readings.map(r => r.value),
-                        borderColor: '#6ba36b',
+                        borderColor: '#404040',
                         backgroundColor: 'rgba(107, 163, 107, 0.1)',
                         borderWidth: 2,
                         fill: true,
@@ -1209,7 +1209,7 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                         pointRadius: 4,
                         pointBackgroundColor: readings.map(r => {
                             if (ref && (r.value < ref.low || r.value > ref.high)) return '#ef4444';
-                            return '#6ba36b';
+                            return '#404040';
                         }),
                         pointBorderColor: isDark ? '#1e2d3d' : '#fff',
                         pointBorderWidth: 2
