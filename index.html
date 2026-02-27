@@ -211,6 +211,33 @@
             border-color: #333;
         }
         
+        /* Dark mode for filter buttons */
+        .dark .filter-btn {
+            border: 1px solid #333;
+        }
+        
+        /* Dark mode for inputs */
+        .dark input, .dark textarea, .dark select {
+            background: #1a1a1a;
+            border-color: #333;
+            color: #fafafa;
+        }
+        
+        /* Dark mode for interpretation card */
+        .dark .interpretation-card {
+            background: linear-gradient(135deg, #262626 0%, #1a1a1a 100%);
+            border-left-color: #fafafa;
+        }
+        
+        /* Dark mode for section dividers */
+        .dark .bg-gray-100 {
+            background: #262626 !important;
+        }
+        
+        .dark .bg-gray-50 {
+            background: #1a1a1a !important;
+        }
+        
         /* News Ticker Animation */
         .news-scroll {
             animation: scrollNews 20s linear infinite;
@@ -371,9 +398,34 @@
         
         .btn-primary {
             background: var(--accent);
-            color: white;
+            color: var(--bg-primary);
         }
         .btn-primary:hover { opacity: 0.9; }
+        
+        .dark .btn-primary {
+            background: #fafafa;
+            color: #0a0a0a;
+        }
+        
+        /* Dark mode fixes for status badges */
+        .dark .status-normal {
+            background: #262626;
+            color: #e5e5e5;
+        }
+        .dark .status-warning {
+            background: #422006;
+            color: #fbbf24;
+        }
+        .dark .status-danger {
+            background: #450a0a;
+            color: #f87171;
+        }
+        
+        /* Dark mode for cards */
+        .dark .card {
+            background: #1a1a1a;
+            border-color: #333;
+        }
         
         .nav-gradient {
             background: #111111;
@@ -1618,14 +1670,14 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                     datasets: [{
                         label: 'Weight (kg)',
                         data: weights.map(w => w.value),
-                        borderColor: '#262626',
-                        backgroundColor: 'rgba(160, 160, 160, 0.15)',
+                        borderColor: isDark ? '#a3a3a3' : '#262626',
+                        backgroundColor: isDark ? 'rgba(163, 163, 163, 0.15)' : 'rgba(160, 160, 160, 0.15)',
                         borderWidth: 2,
                         fill: true,
                         tension: 0.3,
                         pointRadius: 5,
-                        pointBackgroundColor: '#262626',
-                        pointBorderColor: '#fff',
+                        pointBackgroundColor: isDark ? '#a3a3a3' : '#262626',
+                        pointBorderColor: isDark ? '#1a1a1a' : '#fff',
                         pointBorderWidth: 2
                     }]
                 },
@@ -1772,17 +1824,17 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                     datasets: [{
                         label: val.name,
                         data: readings.map(r => r.value),
-                        borderColor: '#262626',
-                        backgroundColor: 'rgba(160, 160, 160, 0.15)',
+                        borderColor: isDark ? '#a3a3a3' : '#262626',
+                        backgroundColor: isDark ? 'rgba(163, 163, 163, 0.15)' : 'rgba(160, 160, 160, 0.15)',
                         borderWidth: 2,
                         fill: true,
                         tension: 0.3,
                         pointRadius: 4,
                         pointBackgroundColor: readings.map(r => {
                             if (ref && (r.value < ref.low || r.value > ref.high)) return '#ef4444';
-                            return '#404040';
+                            return isDark ? '#a3a3a3' : '#404040';
                         }),
-                        pointBorderColor: isDark ? '#1e2d3d' : '#fff',
+                        pointBorderColor: isDark ? '#1a1a1a' : '#fff',
                         pointBorderWidth: 2
                     }]
                 },
