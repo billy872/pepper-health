@@ -1,0 +1,370 @@
+{
+  "reports": [
+    {
+      "id": 1737244800000,
+      "date": "2026-01-19",
+      "valueCount": 20,
+      "notes": "Baseline labs. Vitamin D deficient (17.2). Mild liver enzyme elevation. Low calcium.",
+      "values": [
+        {"key": "bilirubin", "name": "Bilirubin", "value": 0.20, "unit": "mg/dL", "refLow": 0.2, "refHigh": 0.7, "category": "Liver"},
+        {"key": "totalprotein", "name": "Total Protein", "value": 5.75, "unit": "g/dL", "refLow": 6.4, "refHigh": 8.3, "category": "Protein"},
+        {"key": "albumin", "name": "Albumin", "value": 2.03, "unit": "g/dL", "refLow": 2.3, "refHigh": 3.1, "category": "Liver"},
+        {"key": "globulin", "name": "Globulin", "value": 3.72, "unit": "g/dL", "refLow": 2.4, "refHigh": 4.4, "category": "Protein"},
+        {"key": "ast", "name": "AST (SGOT)", "value": 67.70, "unit": "U/L", "refLow": 13, "refHigh": 56, "category": "Liver"},
+        {"key": "alt", "name": "ALT (SGPT)", "value": 101.90, "unit": "U/L", "refLow": 10, "refHigh": 88, "category": "Liver"},
+        {"key": "alp", "name": "Alkaline Phosphatase", "value": 30.00, "unit": "U/L", "refLow": 1, "refHigh": 114, "category": "Liver"},
+        {"key": "urea", "name": "Urea", "value": 31.90, "unit": "mg/dL", "refLow": 14, "refHigh": 51, "category": "Kidney"},
+        {"key": "bun", "name": "BUN", "value": 14.91, "unit": "mg/dL", "refLow": 7, "refHigh": 28, "category": "Kidney"},
+        {"key": "creatinine", "name": "Creatinine", "value": 1.14, "unit": "mg/dL", "refLow": 0.5, "refHigh": 1.4, "category": "Kidney"},
+        {"key": "calcium", "name": "Calcium", "value": 7.8, "unit": "mg/dL", "refLow": 9.1, "refHigh": 11.7, "category": "Electrolytes"},
+        {"key": "phosphorus", "name": "Phosphorus", "value": 3.40, "unit": "mg/dL", "refLow": 2.9, "refHigh": 5.3, "category": "Kidney"},
+        {"key": "sodium", "name": "Sodium", "value": 140.7, "unit": "mEq/L", "refLow": 142, "refHigh": 152, "category": "Electrolytes"},
+        {"key": "potassium", "name": "Potassium", "value": 4.44, "unit": "mEq/L", "refLow": 3.9, "refHigh": 5.1, "category": "Electrolytes"},
+        {"key": "chloride", "name": "Chloride", "value": 103.7, "unit": "mEq/L", "refLow": 102, "refHigh": 117, "category": "Electrolytes"},
+        {"key": "vitamind", "name": "Vitamin D", "value": 17.2, "unit": "ng/mL", "refLow": 30, "refHigh": 100, "category": "Metabolic"}
+      ]
+    },
+    {
+      "id": 1738627200000,
+      "date": "2026-02-04",
+      "valueCount": 10,
+      "notes": "CRISIS - Severe liver dysfunction. Bilirubin 3.47 (jaundice), ALT 529, AST 270. Liver in distress.",
+      "values": [
+        {"key": "bilirubin", "name": "Bilirubin", "value": 3.47, "unit": "mg/dL", "refLow": 0.2, "refHigh": 0.7, "category": "Liver"},
+        {"key": "totalprotein", "name": "Total Protein", "value": 5.26, "unit": "g/dL", "refLow": 6.4, "refHigh": 8.3, "category": "Protein"},
+        {"key": "albumin", "name": "Albumin", "value": 1.90, "unit": "g/dL", "refLow": 2.3, "refHigh": 3.1, "category": "Liver"},
+        {"key": "globulin", "name": "Globulin", "value": 3.36, "unit": "g/dL", "refLow": 2.4, "refHigh": 4.4, "category": "Protein"},
+        {"key": "ast", "name": "AST (SGOT)", "value": 270.30, "unit": "U/L", "refLow": 13, "refHigh": 56, "category": "Liver"},
+        {"key": "alt", "name": "ALT (SGPT)", "value": 529.60, "unit": "U/L", "refLow": 10, "refHigh": 88, "category": "Liver"},
+        {"key": "alp", "name": "Alkaline Phosphatase", "value": 363.00, "unit": "U/L", "refLow": 1, "refHigh": 114, "category": "Liver"}
+      ]
+    },
+    {
+      "id": 1738886400000,
+      "date": "2026-02-07",
+      "valueCount": 25,
+      "notes": "Post-crisis. Bilirubin normalized. ALT still high (191). WBC elevated (43.89) - infection/inflammation response. First CBC.",
+      "values": [
+        {"key": "bilirubin", "name": "Bilirubin", "value": 0.39, "unit": "mg/dL", "refLow": 0.2, "refHigh": 0.7, "category": "Liver"},
+        {"key": "totalprotein", "name": "Total Protein", "value": 5.18, "unit": "g/dL", "refLow": 6.4, "refHigh": 8.3, "category": "Protein"},
+        {"key": "albumin", "name": "Albumin", "value": 2.10, "unit": "g/dL", "refLow": 2.3, "refHigh": 3.1, "category": "Liver"},
+        {"key": "globulin", "name": "Globulin", "value": 3.08, "unit": "g/dL", "refLow": 2.4, "refHigh": 4.4, "category": "Protein"},
+        {"key": "ast", "name": "AST (SGOT)", "value": 52.70, "unit": "U/L", "refLow": 13, "refHigh": 56, "category": "Liver"},
+        {"key": "alt", "name": "ALT (SGPT)", "value": 191.30, "unit": "U/L", "refLow": 10, "refHigh": 88, "category": "Liver"},
+        {"key": "alp", "name": "Alkaline Phosphatase", "value": 343.00, "unit": "U/L", "refLow": 1, "refHigh": 114, "category": "Liver"},
+        {"key": "urea", "name": "Urea", "value": 34.50, "unit": "mg/dL", "refLow": 14, "refHigh": 51, "category": "Kidney"},
+        {"key": "bun", "name": "BUN", "value": 16.12, "unit": "mg/dL", "refLow": 7, "refHigh": 28, "category": "Kidney"},
+        {"key": "creatinine", "name": "Creatinine", "value": 0.84, "unit": "mg/dL", "refLow": 0.5, "refHigh": 1.4, "category": "Kidney"},
+        {"key": "calcium", "name": "Calcium", "value": 9.0, "unit": "mg/dL", "refLow": 9.1, "refHigh": 11.7, "category": "Electrolytes"},
+        {"key": "phosphorus", "name": "Phosphorus", "value": 5.18, "unit": "mg/dL", "refLow": 2.9, "refHigh": 5.3, "category": "Kidney"},
+        {"key": "sodium", "name": "Sodium", "value": 141.5, "unit": "mEq/L", "refLow": 142, "refHigh": 152, "category": "Electrolytes"},
+        {"key": "potassium", "name": "Potassium", "value": 4.62, "unit": "mEq/L", "refLow": 3.9, "refHigh": 5.1, "category": "Electrolytes"},
+        {"key": "chloride", "name": "Chloride", "value": 105.7, "unit": "mEq/L", "refLow": 102, "refHigh": 117, "category": "Electrolytes"},
+        {"key": "hemoglobin", "name": "Hemoglobin", "value": 11.60, "unit": "g/dL", "refLow": 12, "refHigh": 19, "category": "CBC"},
+        {"key": "rbc", "name": "Red Blood Cells", "value": 5.29, "unit": "x10⁶/µL", "refLow": 5.0, "refHigh": 7.9, "category": "CBC"},
+        {"key": "wbc", "name": "White Blood Cells", "value": 43.89, "unit": "x10³/µL", "refLow": 6, "refHigh": 17, "category": "CBC"},
+        {"key": "pcv", "name": "PCV/Hematocrit", "value": 37.30, "unit": "%", "refLow": 35, "refHigh": 57, "category": "CBC"},
+        {"key": "platelets", "name": "Platelets", "value": 225.00, "unit": "x10³/µL", "refLow": 200, "refHigh": 600, "category": "CBC"},
+        {"key": "neutrophils", "name": "Neutrophils", "value": 69, "unit": "%", "refLow": 60, "refHigh": 75, "category": "CBC"},
+        {"key": "lymphocytes", "name": "Lymphocytes", "value": 26, "unit": "%", "refLow": 12, "refHigh": 30, "category": "CBC"}
+      ]
+    },
+    {
+      "id": 1739318400000,
+      "date": "2026-02-12",
+      "valueCount": 7,
+      "notes": "ALT spiked again (599!) - highest ever. AST 97. Liver struggling.",
+      "values": [
+        {"key": "bilirubin", "name": "Bilirubin", "value": 0.22, "unit": "mg/dL", "refLow": 0.2, "refHigh": 0.7, "category": "Liver"},
+        {"key": "totalprotein", "name": "Total Protein", "value": 6.02, "unit": "g/dL", "refLow": 6.4, "refHigh": 8.3, "category": "Protein"},
+        {"key": "albumin", "name": "Albumin", "value": 2.25, "unit": "g/dL", "refLow": 2.3, "refHigh": 3.1, "category": "Liver"},
+        {"key": "globulin", "name": "Globulin", "value": 3.77, "unit": "g/dL", "refLow": 2.4, "refHigh": 4.4, "category": "Protein"},
+        {"key": "ast", "name": "AST (SGOT)", "value": 97.40, "unit": "U/L", "refLow": 13, "refHigh": 56, "category": "Liver"},
+        {"key": "alt", "name": "ALT (SGPT)", "value": 599.40, "unit": "U/L", "refLow": 10, "refHigh": 88, "category": "Liver"},
+        {"key": "alp", "name": "Alkaline Phosphatase", "value": 290.00, "unit": "U/L", "refLow": 1, "refHigh": 114, "category": "Liver"}
+      ]
+    },
+    {
+      "id": 1739577600000,
+      "date": "2026-02-15",
+      "valueCount": 25,
+      "notes": "ALT 431 (down from 599). ALP 586. WBC still high (51.2). NT-proBNP normal (432). Low sodium/chloride.",
+      "values": [
+        {"key": "bilirubin", "name": "Bilirubin", "value": 0.25, "unit": "mg/dL", "refLow": 0.2, "refHigh": 0.7, "category": "Liver"},
+        {"key": "totalprotein", "name": "Total Protein", "value": 5.25, "unit": "g/dL", "refLow": 6.4, "refHigh": 8.3, "category": "Protein"},
+        {"key": "albumin", "name": "Albumin", "value": 2.23, "unit": "g/dL", "refLow": 2.3, "refHigh": 3.1, "category": "Liver"},
+        {"key": "globulin", "name": "Globulin", "value": 3.02, "unit": "g/dL", "refLow": 2.4, "refHigh": 4.4, "category": "Protein"},
+        {"key": "ast", "name": "AST (SGOT)", "value": 85.70, "unit": "U/L", "refLow": 13, "refHigh": 56, "category": "Liver"},
+        {"key": "alt", "name": "ALT (SGPT)", "value": 431.60, "unit": "U/L", "refLow": 10, "refHigh": 88, "category": "Liver"},
+        {"key": "alp", "name": "Alkaline Phosphatase", "value": 586.00, "unit": "U/L", "refLow": 1, "refHigh": 114, "category": "Liver"},
+        {"key": "urea", "name": "Urea", "value": 44.50, "unit": "mg/dL", "refLow": 14, "refHigh": 51, "category": "Kidney"},
+        {"key": "bun", "name": "BUN", "value": 20.79, "unit": "mg/dL", "refLow": 7, "refHigh": 28, "category": "Kidney"},
+        {"key": "creatinine", "name": "Creatinine", "value": 0.78, "unit": "mg/dL", "refLow": 0.5, "refHigh": 1.4, "category": "Kidney"},
+        {"key": "calcium", "name": "Calcium", "value": 8.7, "unit": "mg/dL", "refLow": 9.1, "refHigh": 11.7, "category": "Electrolytes"},
+        {"key": "phosphorus", "name": "Phosphorus", "value": 5.04, "unit": "mg/dL", "refLow": 2.9, "refHigh": 5.3, "category": "Kidney"},
+        {"key": "sodium", "name": "Sodium", "value": 134.7, "unit": "mEq/L", "refLow": 142, "refHigh": 152, "category": "Electrolytes"},
+        {"key": "potassium", "name": "Potassium", "value": 4.74, "unit": "mEq/L", "refLow": 3.9, "refHigh": 5.1, "category": "Electrolytes"},
+        {"key": "chloride", "name": "Chloride", "value": 99.3, "unit": "mEq/L", "refLow": 102, "refHigh": 117, "category": "Electrolytes"},
+        {"key": "hemoglobin", "name": "Hemoglobin", "value": 12.90, "unit": "g/dL", "refLow": 12, "refHigh": 19, "category": "CBC"},
+        {"key": "rbc", "name": "Red Blood Cells", "value": 5.35, "unit": "x10⁶/µL", "refLow": 5.0, "refHigh": 7.9, "category": "CBC"},
+        {"key": "wbc", "name": "White Blood Cells", "value": 51.20, "unit": "x10³/µL", "refLow": 6, "refHigh": 17, "category": "CBC"},
+        {"key": "pcv", "name": "PCV/Hematocrit", "value": 34.00, "unit": "%", "refLow": 35, "refHigh": 57, "category": "CBC"},
+        {"key": "platelets", "name": "Platelets", "value": 441.00, "unit": "x10³/µL", "refLow": 200, "refHigh": 600, "category": "CBC"},
+        {"key": "ntprobnp", "name": "NT-proBNP", "value": 432, "unit": "pmol/L", "refLow": 0, "refHigh": 900, "category": "Cardiac"}
+      ]
+    },
+    {
+      "id": 1740096000000,
+      "date": "2026-02-21",
+      "valueCount": 18,
+      "notes": "ALP 1026 (!). Bilirubin up again (1.60). Protein/albumin very low. Pancreatic lipase normal (149). Tick fever PCR negative.",
+      "values": [
+        {"key": "bilirubin", "name": "Bilirubin", "value": 1.60, "unit": "mg/dL", "refLow": 0.2, "refHigh": 0.7, "category": "Liver"},
+        {"key": "totalprotein", "name": "Total Protein", "value": 4.80, "unit": "g/dL", "refLow": 6.4, "refHigh": 8.3, "category": "Protein"},
+        {"key": "albumin", "name": "Albumin", "value": 1.74, "unit": "g/dL", "refLow": 2.3, "refHigh": 3.1, "category": "Liver"},
+        {"key": "globulin", "name": "Globulin", "value": 3.06, "unit": "g/dL", "refLow": 2.4, "refHigh": 4.4, "category": "Protein"},
+        {"key": "ast", "name": "AST (SGOT)", "value": 110.60, "unit": "U/L", "refLow": 13, "refHigh": 56, "category": "Liver"},
+        {"key": "alt", "name": "ALT (SGPT)", "value": 334.10, "unit": "U/L", "refLow": 10, "refHigh": 88, "category": "Liver"},
+        {"key": "alp", "name": "Alkaline Phosphatase", "value": 1026.00, "unit": "U/L", "refLow": 1, "refHigh": 114, "category": "Liver"},
+        {"key": "urea", "name": "Urea", "value": 37.60, "unit": "mg/dL", "refLow": 14, "refHigh": 51, "category": "Kidney"},
+        {"key": "bun", "name": "BUN", "value": 17.57, "unit": "mg/dL", "refLow": 7, "refHigh": 28, "category": "Kidney"},
+        {"key": "creatinine", "name": "Creatinine", "value": 0.61, "unit": "mg/dL", "refLow": 0.5, "refHigh": 1.4, "category": "Kidney"},
+        {"key": "calcium", "name": "Calcium", "value": 7.4, "unit": "mg/dL", "refLow": 9.1, "refHigh": 11.7, "category": "Electrolytes"},
+        {"key": "phosphorus", "name": "Phosphorus", "value": 4.64, "unit": "mg/dL", "refLow": 2.9, "refHigh": 5.3, "category": "Kidney"},
+        {"key": "sodium", "name": "Sodium", "value": 136.3, "unit": "mEq/L", "refLow": 142, "refHigh": 152, "category": "Electrolytes"},
+        {"key": "potassium", "name": "Potassium", "value": 4.38, "unit": "mEq/L", "refLow": 3.9, "refHigh": 5.1, "category": "Electrolytes"},
+        {"key": "chloride", "name": "Chloride", "value": 102.7, "unit": "mEq/L", "refLow": 102, "refHigh": 117, "category": "Electrolytes"},
+        {"key": "lipase", "name": "Pancreatic Lipase", "value": 149.0, "unit": "µg/L", "refLow": 0, "refHigh": 200, "category": "Pancreas"}
+      ]
+    },
+    {
+      "id": 1740355200000,
+      "date": "2026-02-24",
+      "valueCount": 25,
+      "notes": "CRITICAL - Total protein 3.48 (critically low). Severe anemia: HGB 9.3, RBC 3.87. Thrombocytopenia: platelets 73. WBC 69.8.",
+      "values": [
+        {"key": "bilirubin", "name": "Bilirubin", "value": 0.54, "unit": "mg/dL", "refLow": 0.2, "refHigh": 0.7, "category": "Liver"},
+        {"key": "totalprotein", "name": "Total Protein", "value": 3.48, "unit": "g/dL", "refLow": 6.4, "refHigh": 8.3, "category": "Protein"},
+        {"key": "albumin", "name": "Albumin", "value": 1.61, "unit": "g/dL", "refLow": 2.3, "refHigh": 3.1, "category": "Liver"},
+        {"key": "globulin", "name": "Globulin", "value": 1.87, "unit": "g/dL", "refLow": 2.4, "refHigh": 4.4, "category": "Protein"},
+        {"key": "ast", "name": "AST (SGOT)", "value": 66.90, "unit": "U/L", "refLow": 13, "refHigh": 56, "category": "Liver"},
+        {"key": "alt", "name": "ALT (SGPT)", "value": 151.40, "unit": "U/L", "refLow": 10, "refHigh": 88, "category": "Liver"},
+        {"key": "alp", "name": "Alkaline Phosphatase", "value": 1009.00, "unit": "U/L", "refLow": 1, "refHigh": 114, "category": "Liver"},
+        {"key": "urea", "name": "Urea", "value": 34.00, "unit": "mg/dL", "refLow": 14, "refHigh": 51, "category": "Kidney"},
+        {"key": "bun", "name": "BUN", "value": 15.89, "unit": "mg/dL", "refLow": 7, "refHigh": 28, "category": "Kidney"},
+        {"key": "creatinine", "name": "Creatinine", "value": 0.57, "unit": "mg/dL", "refLow": 0.5, "refHigh": 1.4, "category": "Kidney"},
+        {"key": "calcium", "name": "Calcium", "value": 7.7, "unit": "mg/dL", "refLow": 9.1, "refHigh": 11.7, "category": "Electrolytes"},
+        {"key": "phosphorus", "name": "Phosphorus", "value": 2.41, "unit": "mg/dL", "refLow": 2.9, "refHigh": 5.3, "category": "Kidney"},
+        {"key": "sodium", "name": "Sodium", "value": 138.6, "unit": "mEq/L", "refLow": 142, "refHigh": 152, "category": "Electrolytes"},
+        {"key": "potassium", "name": "Potassium", "value": 3.82, "unit": "mEq/L", "refLow": 3.9, "refHigh": 5.1, "category": "Electrolytes"},
+        {"key": "chloride", "name": "Chloride", "value": 105.9, "unit": "mEq/L", "refLow": 102, "refHigh": 117, "category": "Electrolytes"},
+        {"key": "hemoglobin", "name": "Hemoglobin", "value": 9.30, "unit": "g/dL", "refLow": 12, "refHigh": 19, "category": "CBC"},
+        {"key": "rbc", "name": "Red Blood Cells", "value": 3.87, "unit": "x10⁶/µL", "refLow": 5.0, "refHigh": 7.9, "category": "CBC"},
+        {"key": "wbc", "name": "White Blood Cells", "value": 69.80, "unit": "x10³/µL", "refLow": 6, "refHigh": 17, "category": "CBC"},
+        {"key": "pcv", "name": "PCV/Hematocrit", "value": 24.80, "unit": "%", "refLow": 35, "refHigh": 57, "category": "CBC"},
+        {"key": "platelets", "name": "Platelets", "value": 73.00, "unit": "x10³/µL", "refLow": 200, "refHigh": 600, "category": "CBC"}
+      ]
+    },
+    {
+      "id": 1740528000000,
+      "date": "2026-02-26",
+      "valueCount": 12,
+      "notes": "Worsening: HGB 8.1, RBC 3.50, WBC 86.7, platelets 64. Severe anemia + thrombocytopenia + leukocytosis. On plasma + erythopoietin.",
+      "values": [
+        {"key": "hemoglobin", "name": "Hemoglobin", "value": 8.10, "unit": "g/dL", "refLow": 12, "refHigh": 19, "category": "CBC"},
+        {"key": "rbc", "name": "Red Blood Cells", "value": 3.50, "unit": "x10⁶/µL", "refLow": 5.0, "refHigh": 7.9, "category": "CBC"},
+        {"key": "wbc", "name": "White Blood Cells", "value": 86.70, "unit": "x10³/µL", "refLow": 6, "refHigh": 17, "category": "CBC"},
+        {"key": "pcv", "name": "PCV/Hematocrit", "value": 23.00, "unit": "%", "refLow": 35, "refHigh": 57, "category": "CBC"},
+        {"key": "mcv", "name": "MCV", "value": 65.70, "unit": "fL", "refLow": 60, "refHigh": 77, "category": "CBC"},
+        {"key": "mch", "name": "MCH", "value": 23.10, "unit": "pg", "refLow": 19.5, "refHigh": 24.5, "category": "CBC"},
+        {"key": "mchc", "name": "MCHC", "value": 35.20, "unit": "g/dL", "refLow": 30, "refHigh": 36.3, "category": "CBC"},
+        {"key": "platelets", "name": "Platelets", "value": 64.00, "unit": "x10³/µL", "refLow": 200, "refHigh": 600, "category": "CBC"},
+        {"key": "neutrophils", "name": "Neutrophils", "value": 81, "unit": "%", "refLow": 60, "refHigh": 75, "category": "CBC"},
+        {"key": "lymphocytes", "name": "Lymphocytes", "value": 13, "unit": "%", "refLow": 12, "refHigh": 30, "category": "CBC"},
+        {"key": "monocytes", "name": "Monocytes", "value": 5, "unit": "%", "refLow": 2, "refHigh": 10, "category": "CBC"}
+      ]
+    }
+  ],
+  "values": {
+    "bilirubin": {
+      "name": "Bilirubin", "unit": "mg/dL", "category": "Liver", "refLow": 0.2, "refHigh": 0.7,
+      "readings": [
+        {"date": "2026-01-19", "value": 0.20},
+        {"date": "2026-02-04", "value": 3.47},
+        {"date": "2026-02-07", "value": 0.39},
+        {"date": "2026-02-12", "value": 0.22},
+        {"date": "2026-02-15", "value": 0.25},
+        {"date": "2026-02-21", "value": 1.60},
+        {"date": "2026-02-24", "value": 0.54}
+      ]
+    },
+    "alt": {
+      "name": "ALT (SGPT)", "unit": "U/L", "category": "Liver", "refLow": 10, "refHigh": 88,
+      "readings": [
+        {"date": "2026-01-19", "value": 101.90},
+        {"date": "2026-02-04", "value": 529.60},
+        {"date": "2026-02-07", "value": 191.30},
+        {"date": "2026-02-12", "value": 599.40},
+        {"date": "2026-02-15", "value": 431.60},
+        {"date": "2026-02-21", "value": 334.10},
+        {"date": "2026-02-24", "value": 151.40}
+      ]
+    },
+    "ast": {
+      "name": "AST (SGOT)", "unit": "U/L", "category": "Liver", "refLow": 13, "refHigh": 56,
+      "readings": [
+        {"date": "2026-01-19", "value": 67.70},
+        {"date": "2026-02-04", "value": 270.30},
+        {"date": "2026-02-07", "value": 52.70},
+        {"date": "2026-02-12", "value": 97.40},
+        {"date": "2026-02-15", "value": 85.70},
+        {"date": "2026-02-21", "value": 110.60},
+        {"date": "2026-02-24", "value": 66.90}
+      ]
+    },
+    "alp": {
+      "name": "Alkaline Phosphatase", "unit": "U/L", "category": "Liver", "refLow": 1, "refHigh": 114,
+      "readings": [
+        {"date": "2026-01-19", "value": 30.00},
+        {"date": "2026-02-04", "value": 363.00},
+        {"date": "2026-02-07", "value": 343.00},
+        {"date": "2026-02-12", "value": 290.00},
+        {"date": "2026-02-15", "value": 586.00},
+        {"date": "2026-02-21", "value": 1026.00},
+        {"date": "2026-02-24", "value": 1009.00}
+      ]
+    },
+    "albumin": {
+      "name": "Albumin", "unit": "g/dL", "category": "Liver", "refLow": 2.3, "refHigh": 3.1,
+      "readings": [
+        {"date": "2026-01-19", "value": 2.03},
+        {"date": "2026-02-04", "value": 1.90},
+        {"date": "2026-02-07", "value": 2.10},
+        {"date": "2026-02-12", "value": 2.25},
+        {"date": "2026-02-15", "value": 2.23},
+        {"date": "2026-02-21", "value": 1.74},
+        {"date": "2026-02-24", "value": 1.61}
+      ]
+    },
+    "totalprotein": {
+      "name": "Total Protein", "unit": "g/dL", "category": "Protein", "refLow": 6.4, "refHigh": 8.3,
+      "readings": [
+        {"date": "2026-01-19", "value": 5.75},
+        {"date": "2026-02-04", "value": 5.26},
+        {"date": "2026-02-07", "value": 5.18},
+        {"date": "2026-02-12", "value": 6.02},
+        {"date": "2026-02-15", "value": 5.25},
+        {"date": "2026-02-21", "value": 4.80},
+        {"date": "2026-02-24", "value": 3.48}
+      ]
+    },
+    "hemoglobin": {
+      "name": "Hemoglobin", "unit": "g/dL", "category": "CBC", "refLow": 12, "refHigh": 19,
+      "readings": [
+        {"date": "2026-02-07", "value": 11.60},
+        {"date": "2026-02-15", "value": 12.90},
+        {"date": "2026-02-24", "value": 9.30},
+        {"date": "2026-02-26", "value": 8.10}
+      ]
+    },
+    "rbc": {
+      "name": "Red Blood Cells", "unit": "x10⁶/µL", "category": "CBC", "refLow": 5.0, "refHigh": 7.9,
+      "readings": [
+        {"date": "2026-02-07", "value": 5.29},
+        {"date": "2026-02-15", "value": 5.35},
+        {"date": "2026-02-24", "value": 3.87},
+        {"date": "2026-02-26", "value": 3.50}
+      ]
+    },
+    "wbc": {
+      "name": "White Blood Cells", "unit": "x10³/µL", "category": "CBC", "refLow": 6, "refHigh": 17,
+      "readings": [
+        {"date": "2026-02-07", "value": 43.89},
+        {"date": "2026-02-15", "value": 51.20},
+        {"date": "2026-02-24", "value": 69.80},
+        {"date": "2026-02-26", "value": 86.70}
+      ]
+    },
+    "platelets": {
+      "name": "Platelets", "unit": "x10³/µL", "category": "CBC", "refLow": 200, "refHigh": 600,
+      "readings": [
+        {"date": "2026-02-07", "value": 225.00},
+        {"date": "2026-02-15", "value": 441.00},
+        {"date": "2026-02-24", "value": 73.00},
+        {"date": "2026-02-26", "value": 64.00}
+      ]
+    },
+    "pcv": {
+      "name": "PCV/Hematocrit", "unit": "%", "category": "CBC", "refLow": 35, "refHigh": 57,
+      "readings": [
+        {"date": "2026-02-07", "value": 37.30},
+        {"date": "2026-02-15", "value": 34.00},
+        {"date": "2026-02-24", "value": 24.80},
+        {"date": "2026-02-26", "value": 23.00}
+      ]
+    },
+    "creatinine": {
+      "name": "Creatinine", "unit": "mg/dL", "category": "Kidney", "refLow": 0.5, "refHigh": 1.4,
+      "readings": [
+        {"date": "2026-01-19", "value": 1.14},
+        {"date": "2026-02-07", "value": 0.84},
+        {"date": "2026-02-15", "value": 0.78},
+        {"date": "2026-02-21", "value": 0.61},
+        {"date": "2026-02-24", "value": 0.57}
+      ]
+    },
+    "bun": {
+      "name": "BUN", "unit": "mg/dL", "category": "Kidney", "refLow": 7, "refHigh": 28,
+      "readings": [
+        {"date": "2026-01-19", "value": 14.91},
+        {"date": "2026-02-07", "value": 16.12},
+        {"date": "2026-02-15", "value": 20.79},
+        {"date": "2026-02-21", "value": 17.57},
+        {"date": "2026-02-24", "value": 15.89}
+      ]
+    },
+    "calcium": {
+      "name": "Calcium", "unit": "mg/dL", "category": "Electrolytes", "refLow": 9.1, "refHigh": 11.7,
+      "readings": [
+        {"date": "2026-01-19", "value": 7.8},
+        {"date": "2026-02-07", "value": 9.0},
+        {"date": "2026-02-15", "value": 8.7},
+        {"date": "2026-02-21", "value": 7.4},
+        {"date": "2026-02-24", "value": 7.7}
+      ]
+    },
+    "sodium": {
+      "name": "Sodium", "unit": "mEq/L", "category": "Electrolytes", "refLow": 142, "refHigh": 152,
+      "readings": [
+        {"date": "2026-01-19", "value": 140.7},
+        {"date": "2026-02-07", "value": 141.5},
+        {"date": "2026-02-15", "value": 134.7},
+        {"date": "2026-02-21", "value": 136.3},
+        {"date": "2026-02-24", "value": 138.6}
+      ]
+    },
+    "potassium": {
+      "name": "Potassium", "unit": "mEq/L", "category": "Electrolytes", "refLow": 3.9, "refHigh": 5.1,
+      "readings": [
+        {"date": "2026-01-19", "value": 4.44},
+        {"date": "2026-02-07", "value": 4.62},
+        {"date": "2026-02-15", "value": 4.74},
+        {"date": "2026-02-21", "value": 4.38},
+        {"date": "2026-02-24", "value": 3.82}
+      ]
+    },
+    "globulin": {
+      "name": "Globulin", "unit": "g/dL", "category": "Protein", "refLow": 2.4, "refHigh": 4.4,
+      "readings": [
+        {"date": "2026-01-19", "value": 3.72},
+        {"date": "2026-02-04", "value": 3.36},
+        {"date": "2026-02-07", "value": 3.08},
+        {"date": "2026-02-12", "value": 3.77},
+        {"date": "2026-02-15", "value": 3.02},
+        {"date": "2026-02-21", "value": 3.06},
+        {"date": "2026-02-24", "value": 1.87}
+      ]
+    }
+  },
+  "weights": []
+}
