@@ -4,7 +4,7 @@
       "id": 1737244800000,
       "date": "2026-01-19",
       "valueCount": 20,
-      "notes": "Baseline labs. Vitamin D deficient (17.2). Mild liver enzyme elevation. Low calcium.",
+      "notes": "⚠️ INITIAL: Stopped eating. Mild SGOT/SGPT elevation. Vitamin D deficient. Low calcium & albumin.",
       "values": [
         {"key": "bilirubin", "name": "Bilirubin", "value": 0.20, "unit": "mg/dL", "refLow": 0.2, "refHigh": 0.7, "category": "Liver"},
         {"key": "totalprotein", "name": "Total Protein", "value": 5.75, "unit": "g/dL", "refLow": 6.4, "refHigh": 8.3, "category": "Protein"},
@@ -28,7 +28,7 @@
       "id": 1738627200000,
       "date": "2026-02-04",
       "valueCount": 10,
-      "notes": "CRISIS - Severe liver dysfunction. Bilirubin 3.47 (jaundice), ALT 529, AST 270. Liver in distress.",
+      "notes": "🔴 CRISIS: Jaundice developed post-surgery. Bilirubin 3.47 (5x normal), ALT 529, AST 270. Severe liver stress.",
       "values": [
         {"key": "bilirubin", "name": "Bilirubin", "value": 3.47, "unit": "mg/dL", "refLow": 0.2, "refHigh": 0.7, "category": "Liver"},
         {"key": "totalprotein", "name": "Total Protein", "value": 5.26, "unit": "g/dL", "refLow": 6.4, "refHigh": 8.3, "category": "Protein"},
@@ -43,7 +43,7 @@
       "id": 1738886400000,
       "date": "2026-02-07",
       "valueCount": 25,
-      "notes": "Post-crisis. Bilirubin normalized. ALT still high (191). WBC elevated (43.89) - infection/inflammation response. First CBC.",
+      "notes": "✅ RESPONDING: Amoxirum + D5 working. Bilirubin normalized. AST normalized. ALT improving. WBC elevated (inflammation). First CBC.",
       "values": [
         {"key": "bilirubin", "name": "Bilirubin", "value": 0.39, "unit": "mg/dL", "refLow": 0.2, "refHigh": 0.7, "category": "Liver"},
         {"key": "totalprotein", "name": "Total Protein", "value": 5.18, "unit": "g/dL", "refLow": 6.4, "refHigh": 8.3, "category": "Protein"},
@@ -73,7 +73,7 @@
       "id": 1739318400000,
       "date": "2026-02-12",
       "valueCount": 7,
-      "notes": "ALT spiked again (599!) - highest ever. AST 97. Liver struggling.",
+      "notes": "⚠️ SETBACK: Treatment stopped → ALT spiked to 599 (highest ever). Liver struggling again.",
       "values": [
         {"key": "bilirubin", "name": "Bilirubin", "value": 0.22, "unit": "mg/dL", "refLow": 0.2, "refHigh": 0.7, "category": "Liver"},
         {"key": "totalprotein", "name": "Total Protein", "value": 6.02, "unit": "g/dL", "refLow": 6.4, "refHigh": 8.3, "category": "Protein"},
@@ -88,7 +88,7 @@
       "id": 1739577600000,
       "date": "2026-02-15",
       "valueCount": 25,
-      "notes": "ALT 431 (down from 599). ALP 586. WBC still high (51.2). NT-proBNP normal (432). Low sodium/chloride.",
+      "notes": "💊 MEROPENEM STARTED: Jaundice returned. ALT 431 (improving). ALP climbing. NT-proBNP normal (heart OK). Showed improvement, eating.",
       "values": [
         {"key": "bilirubin", "name": "Bilirubin", "value": 0.25, "unit": "mg/dL", "refLow": 0.2, "refHigh": 0.7, "category": "Liver"},
         {"key": "totalprotein", "name": "Total Protein", "value": 5.25, "unit": "g/dL", "refLow": 6.4, "refHigh": 8.3, "category": "Protein"},
@@ -117,7 +117,7 @@
       "id": 1740096000000,
       "date": "2026-02-21",
       "valueCount": 18,
-      "notes": "ALP 1026 (!). Bilirubin up again (1.60). Protein/albumin very low. Pancreatic lipase normal (149). Tick fever PCR negative.",
+      "notes": "⚠️ ALP PEAK: 1026 (9x normal). Bilirubin up again. Severe protein wasting. Tick fever PCR: ALL NEGATIVE. Lipase normal.",
       "values": [
         {"key": "bilirubin", "name": "Bilirubin", "value": 1.60, "unit": "mg/dL", "refLow": 0.2, "refHigh": 0.7, "category": "Liver"},
         {"key": "totalprotein", "name": "Total Protein", "value": 4.80, "unit": "g/dL", "refLow": 6.4, "refHigh": 8.3, "category": "Protein"},
@@ -141,7 +141,7 @@
       "id": 1740355200000,
       "date": "2026-02-24",
       "valueCount": 25,
-      "notes": "CRITICAL - Total protein 3.48 (critically low). Severe anemia: HGB 9.3, RBC 3.87. Thrombocytopenia: platelets 73. WBC 69.8.",
+      "notes": "🔴 NEW CRISIS: Severe anemia (HGB 9.3) + thrombocytopenia (platelets 73). Total protein critically low (3.48). Started PLASMA + ERYTHOPOIETIN.",
       "values": [
         {"key": "bilirubin", "name": "Bilirubin", "value": 0.54, "unit": "mg/dL", "refLow": 0.2, "refHigh": 0.7, "category": "Liver"},
         {"key": "totalprotein", "name": "Total Protein", "value": 3.48, "unit": "g/dL", "refLow": 6.4, "refHigh": 8.3, "category": "Protein"},
@@ -169,7 +169,7 @@
       "id": 1740528000000,
       "date": "2026-02-26",
       "valueCount": 12,
-      "notes": "Worsening: HGB 8.1, RBC 3.50, WBC 86.7, platelets 64. Severe anemia + thrombocytopenia + leukocytosis. On plasma + erythopoietin.",
+      "notes": "🔴 CURRENT: Anemia worsening (HGB 8.1). Platelets 64. WBC 86.7 (extreme). RR better in AM (cyclic). Appetite fluctuates. Energy ↓ past 4 days.",
       "values": [
         {"key": "hemoglobin", "name": "Hemoglobin", "value": 8.10, "unit": "g/dL", "refLow": 12, "refHigh": 19, "category": "CBC"},
         {"key": "rbc", "name": "Red Blood Cells", "value": 3.50, "unit": "x10⁶/µL", "refLow": 5.0, "refHigh": 7.9, "category": "CBC"},

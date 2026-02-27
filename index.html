@@ -154,6 +154,10 @@
                     <span class="text-lg sm:text-base">📋</span>
                     <span class="hidden sm:inline">History</span>
                 </button>
+                <button onclick="showTab('timeline')" id="tab-timeline" class="tab-btn flex flex-col sm:flex-row items-center gap-1 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all" style="color: var(--text-secondary)">
+                    <span class="text-lg sm:text-base">📖</span>
+                    <span class="hidden sm:inline">Story</span>
+                </button>
                 <button onclick="showTab('settings')" id="tab-settings" class="tab-btn flex flex-col sm:flex-row items-center gap-1 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all" style="color: var(--text-secondary)">
                     <span class="text-lg sm:text-base">⚙️</span>
                     <span class="hidden sm:inline">Settings</span>
@@ -285,6 +289,127 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                 </div>
                 <div id="history-list" class="space-y-4">
                     <p class="text-center py-12" style="color: var(--text-muted)">No reports saved yet.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline/Story Tab -->
+        <div id="view-timeline" class="tab-view hidden">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="text-xl font-semibold mb-2">Pepper's Story</h2>
+                <p class="text-sm mb-6" style="color: var(--text-muted)">Clinical timeline for veterinary reference</p>
+
+                <!-- Timeline -->
+                <div class="space-y-4">
+                    <div class="card rounded-2xl card-shadow p-4 border-l-4" style="border-color: #6b7280;">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xs px-2 py-1 rounded-full" style="background: var(--bg-secondary)">Early Jan</span>
+                            <span class="font-semibold">Initial Presentation</span>
+                        </div>
+                        <p class="text-sm" style="color: var(--text-secondary)">Stopped eating. Labs showed <strong>mild SGOT/SGPT elevation</strong>. Vitamin D deficient. Low calcium and albumin noted.</p>
+                    </div>
+
+                    <div class="card rounded-2xl card-shadow p-4 border-l-4" style="border-color: #f59e0b;">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xs px-2 py-1 rounded-full" style="background: var(--bg-secondary)">Jan 23</span>
+                            <span class="font-semibold">Pyometra & Surgery</span>
+                        </div>
+                        <p class="text-sm" style="color: var(--text-secondary)">USG diagnosed <strong>pyometra</strong>. Emergency spay performed same evening. Histopathology found <strong>benign granulosa cell tumor</strong> in ovary. Post-op: eating but <strong>respiratory rate elevated</strong> and stayed high.</p>
+                    </div>
+
+                    <div class="card rounded-2xl card-shadow p-4 border-l-4" style="border-color: #ef4444;">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xs px-2 py-1 rounded-full" style="background: #fee2e2; color: #ef4444;">Feb 4</span>
+                            <span class="font-semibold">Liver Crisis</span>
+                        </div>
+                        <p class="text-sm" style="color: var(--text-secondary)"><strong>Jaundice developed.</strong> Bilirubin 3.47 (5x normal). ALT 529, AST 270 — severe liver stress. Albumin critically low at 1.90.</p>
+                    </div>
+
+                    <div class="card rounded-2xl card-shadow p-4 border-l-4" style="border-color: #10b981;">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xs px-2 py-1 rounded-full" style="background: var(--bg-secondary)">Feb 4-7</span>
+                            <span class="font-semibold">Treatment Response</span>
+                        </div>
+                        <p class="text-sm" style="color: var(--text-secondary)">Started <strong>Amoxirum + D5</strong>. Good response — bilirubin normalized (0.39), AST normalized (52.7), ALT improving. However, WBC elevated (43.89) indicating ongoing inflammation.</p>
+                    </div>
+
+                    <div class="card rounded-2xl card-shadow p-4 border-l-4" style="border-color: #f59e0b;">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xs px-2 py-1 rounded-full" style="background: var(--bg-secondary)">Feb 12</span>
+                            <span class="font-semibold">Setback</span>
+                        </div>
+                        <p class="text-sm" style="color: var(--text-secondary)">Treatment stopped. <strong>ALT spiked to 599</strong> — highest recorded. Liver struggling again.</p>
+                    </div>
+
+                    <div class="card rounded-2xl card-shadow p-4 border-l-4" style="border-color: #8b5cf6;">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xs px-2 py-1 rounded-full" style="background: var(--bg-secondary)">Feb 15</span>
+                            <span class="font-semibold">Treatment Change</span>
+                        </div>
+                        <p class="text-sm" style="color: var(--text-secondary)">Jaundice returned. <strong>Meropenem started</strong> (broad-spectrum antibiotic). ALT down to 431. ALP climbing (586). NT-proBNP normal — heart okay. Showed improvement, eating again.</p>
+                    </div>
+
+                    <div class="card rounded-2xl card-shadow p-4 border-l-4" style="border-color: #f59e0b;">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xs px-2 py-1 rounded-full" style="background: var(--bg-secondary)">Feb 21</span>
+                            <span class="font-semibold">ALP Peak</span>
+                        </div>
+                        <p class="text-sm" style="color: var(--text-secondary)"><strong>ALP hit 1,026</strong> (9x normal). Bilirubin elevated again (1.60). Severe protein wasting — albumin 1.74, total protein 4.80. Tick fever PCR negative. Pancreatic lipase normal.</p>
+                    </div>
+
+                    <div class="card rounded-2xl card-shadow p-4 border-l-4" style="border-color: #ef4444;">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xs px-2 py-1 rounded-full" style="background: #fee2e2; color: #ef4444;">Feb 24</span>
+                            <span class="font-semibold">Anemia & Thrombocytopenia</span>
+                        </div>
+                        <p class="text-sm" style="color: var(--text-secondary)"><strong>New crisis:</strong> HGB 9.3, RBC 3.87, PCV 24.8% — severe anemia. Platelets crashed to 73 — thrombocytopenia. WBC 69.8. Total protein critically low at 3.48. Started <strong>plasma transfusions + erythopoietin</strong>.</p>
+                    </div>
+
+                    <div class="card rounded-2xl card-shadow p-4 border-l-4" style="border-color: #ef4444;">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xs px-2 py-1 rounded-full" style="background: #fee2e2; color: #ef4444;">Feb 26</span>
+                            <span class="font-semibold">Current Status</span>
+                        </div>
+                        <p class="text-sm" style="color: var(--text-secondary)">Anemia worsening: <strong>HGB 8.1</strong>, RBC 3.50, PCV 23%. Platelets 64. WBC 86.7 (extreme). On daily IV fluids, plasma, erythopoietin, meropenem. <strong>RR better in mornings</strong> (cyclic). Appetite fluctuates. Energy declining past 4 days.</p>
+                    </div>
+                </div>
+
+                <!-- Current Treatment -->
+                <div class="card rounded-2xl card-shadow p-4 mt-6" style="background: linear-gradient(135deg, var(--accent-light), var(--bg-secondary));">
+                    <h3 class="font-semibold mb-3">Current Treatment Protocol</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-full text-xs font-medium" style="background: var(--bg-card);">💉 IV Fluids (daily)</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium" style="background: var(--bg-card);">💊 Meropenem</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium" style="background: var(--bg-card);">🩸 Erythopoietin</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium" style="background: var(--bg-card);">🩸 Plasma transfusions</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium" style="background: var(--bg-card);">💚 Livpural</span>
+                    </div>
+                </div>
+
+                <!-- Key Concerns -->
+                <div class="card rounded-2xl card-shadow p-4 mt-4">
+                    <h3 class="font-semibold mb-3 text-red-500">⚠️ Key Concerns</h3>
+                    <ul class="text-sm space-y-2" style="color: var(--text-secondary);">
+                        <li>• <strong>Progressive anemia</strong> — HGB: 11.6 → 8.1</li>
+                        <li>• <strong>Severe thrombocytopenia</strong> — Platelets: 225 → 64</li>
+                        <li>• <strong>Extreme leukocytosis</strong> — WBC: 43.9 → 86.7</li>
+                        <li>• <strong>Persistent liver stress</strong> — ALP >1000</li>
+                        <li>• <strong>Protein wasting</strong> — Total protein: 5.75 → 3.48</li>
+                        <li>• <strong>Hypocalcemia</strong> — Ca persistently 7.4-7.8</li>
+                    </ul>
+                </div>
+
+                <!-- Positive Signs -->
+                <div class="card rounded-2xl card-shadow p-4 mt-4">
+                    <h3 class="font-semibold mb-3" style="color: var(--accent);">✅ Positive Signs</h3>
+                    <ul class="text-sm space-y-2" style="color: var(--text-secondary);">
+                        <li>• Kidney function normal (creatinine, BUN in range)</li>
+                        <li>• Cardiac function normal (NT-proBNP negative)</li>
+                        <li>• No tick-borne disease (PCR negative)</li>
+                        <li>• No pancreatitis (lipase normal)</li>
+                        <li>• Appetite present intermittently</li>
+                        <li>• Still fighting 💪</li>
+                    </ul>
                 </div>
             </div>
         </div>
