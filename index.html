@@ -17,10 +17,10 @@
             theme: {
                 extend: {
                     colors: {
-                        cream: '#fefdfb',
-                        warmgray: { 50: '#faf9f7', 100: '#f5f3f0', 200: '#e8e6e1', 300: '#d3d0c9' },
-                        sage: { 50: '#f6f9f6', 100: '#e8f0e8', 200: '#c8dcc8', 300: '#9fc49f', 400: '#404040', 500: '#333333' },
-                        amber: { 50: '#fffbeb', 100: '#fef3c7', 200: '#fde68a', 300: '#fcd34d', 400: '#fbbf24', 500: '#f59e0b' },
+                        cream: '#fafafa',
+                        warmgray: { 50: '#fafafa', 100: '#f5f5f5', 200: '#e5e5e5', 300: '#d4d4d4' },
+                        sage: { 50: '#fafafa', 100: '#f5f5f5', 200: '#e5e5e5', 300: '#a3a3a3', 400: '#404040', 500: '#262626' },
+                        amber: { 50: '#fafafa', 100: '#f5f5f5', 200: '#e5e5e5', 300: '#a3a3a3', 400: '#525252', 500: '#262626' },
                         coral: { 50: '#fef2f2', 100: '#fee2e2', 200: '#fecaca', 300: '#fca5a5', 400: '#f87171', 500: '#ef4444' }
                     }
                 }
@@ -100,6 +100,117 @@
             box-shadow: 0 0 0 3px var(--accent-light);
         }
         
+        /* Prayer Section Styles */
+        .prayers-section {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prayers-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+            animation: shimmer 15s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30%, 30%); }
+        }
+
+        .prayer-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .prayer-card:nth-child(2) { animation-delay: -1s; }
+        .prayer-card:nth-child(3) { animation-delay: -2s; }
+        .prayer-card:nth-child(4) { animation-delay: -3s; }
+        .prayer-card:nth-child(5) { animation-delay: -4s; }
+        .prayer-card:nth-child(6) { animation-delay: -5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .prayer-card:hover {
+            transform: scale(1.02) translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .prayer-heart {
+            animation: pulse-heart 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-heart {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.15); opacity: 1; }
+        }
+
+        .location-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .location-dot::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--accent);
+            animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes ping {
+            75%, 100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        .globe-icon {
+            animation: slow-spin 30s linear infinite;
+        }
+
+        @keyframes slow-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .prayer-carousel {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding: 8px 0;
+        }
+
+        .prayer-carousel::-webkit-scrollbar { display: none; }
+        .prayer-carousel > div { scroll-snap-align: start; }
+
+        .dark .prayers-section {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+        }
+
+        .dark .prayer-card {
+            background: #1e1e1e;
+            border-color: #333;
+        }
+        
         .btn-primary {
             background: var(--accent);
             color: white;
@@ -160,6 +271,130 @@
 
     <!-- Main Content -->
     <main class="max-w-6xl mx-auto px-4 py-4 pb-24 sm:pb-6">
+        
+        <!-- Prayers from Around the World -->
+        <section class="prayers-section rounded-2xl p-4 mb-6">
+            <div class="flex items-center justify-between mb-4 relative z-10">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-rose-500 flex items-center justify-center shadow-lg">
+                        <span class="text-xl prayer-heart">🙏</span>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-base">Prayers from Around the World</h2>
+                        <p class="text-xs" style="color: var(--text-muted)">People who love Sidd & Shagun, praying for Pepper</p>
+                    </div>
+                </div>
+                <div class="globe-icon text-2xl opacity-60">🌍</div>
+            </div>
+
+            <div class="prayer-carousel relative z-10">
+                <!-- Darren - Florida -->
+                <div class="prayer-card rounded-xl p-3 min-w-[200px] sm:min-w-[220px] flex-shrink-0">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">DM</div>
+                        <div class="min-w-0">
+                            <p class="font-semibold text-sm truncate">Darren Michael Shaw</p>
+                            <div class="flex items-center gap-1 mt-0.5">
+                                <span class="location-dot flex-shrink-0"></span>
+                                <span class="text-xs truncate" style="color: var(--text-muted)">Florida, USA</span>
+                            </div>
+                            <p class="text-[10px] mt-1.5 leading-tight" style="color: var(--text-secondary)">Friend & Brother in Christ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- David & Ceci - Florida -->
+                <div class="prayer-card rounded-xl p-3 min-w-[200px] sm:min-w-[220px] flex-shrink-0">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">D&C</div>
+                        <div class="min-w-0">
+                            <p class="font-semibold text-sm truncate">Dr. David & Ceci Hoskins</p>
+                            <div class="flex items-center gap-1 mt-0.5">
+                                <span class="location-dot flex-shrink-0"></span>
+                                <span class="text-xs truncate" style="color: var(--text-muted)">Florida, USA</span>
+                            </div>
+                            <p class="text-[10px] mt-1.5 leading-tight" style="color: var(--text-secondary)">Founders, Honey Lake & Sanctuary Clinics</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chad - Florida -->
+                <div class="prayer-card rounded-xl p-3 min-w-[200px] sm:min-w-[220px] flex-shrink-0">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">CR</div>
+                        <div class="min-w-0">
+                            <p class="font-semibold text-sm truncate">Chad Richard</p>
+                            <div class="flex items-center gap-1 mt-0.5">
+                                <span class="location-dot flex-shrink-0"></span>
+                                <span class="text-xs truncate" style="color: var(--text-muted)">Florida, USA</span>
+                            </div>
+                            <p class="text-[10px] mt-1.5 leading-tight" style="color: var(--text-secondary)">CEO, Honey Lake Clinic • His dog was also named Pepper 🐕</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jeremiah - Virginia -->
+                <div class="prayer-card rounded-xl p-3 min-w-[200px] sm:min-w-[220px] flex-shrink-0">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-indigo-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">J</div>
+                        <div class="min-w-0">
+                            <p class="font-semibold text-sm truncate">Jeremiah</p>
+                            <div class="flex items-center gap-1 mt-0.5">
+                                <span class="location-dot flex-shrink-0"></span>
+                                <span class="text-xs truncate" style="color: var(--text-muted)">Lynchburg, Virginia</span>
+                            </div>
+                            <p class="text-[10px] mt-1.5 leading-tight" style="color: var(--text-secondary)">Director, Christian Care Connect</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Johnny - Virginia -->
+                <div class="prayer-card rounded-xl p-3 min-w-[200px] sm:min-w-[220px] flex-shrink-0">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-rose-400 to-pink-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">JS</div>
+                        <div class="min-w-0">
+                            <p class="font-semibold text-sm truncate">Johnny Smulik</p>
+                            <div class="flex items-center gap-1 mt-0.5">
+                                <span class="location-dot flex-shrink-0"></span>
+                                <span class="text-xs truncate" style="color: var(--text-muted)">Lynchburg, Virginia</span>
+                            </div>
+                            <p class="text-[10px] mt-1.5 leading-tight" style="color: var(--text-secondary)">VP Technology, AACC</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ken & Frida - India -->
+                <div class="prayer-card rounded-xl p-3 min-w-[200px] sm:min-w-[220px] flex-shrink-0">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">K&F</div>
+                        <div class="min-w-0">
+                            <p class="font-semibold text-sm truncate">Ken & Frieda McRae</p>
+                            <div class="flex items-center gap-1 mt-0.5">
+                                <span class="location-dot flex-shrink-0"></span>
+                                <span class="text-xs truncate" style="color: var(--text-muted)">Selaqui, India</span>
+                            </div>
+                            <p class="text-[10px] mt-1.5 leading-tight" style="color: var(--text-secondary)">Founders, Shishya Society (since 1979)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-center gap-4 mt-4 text-xs relative z-10" style="color: var(--text-muted)">
+                <span class="flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                    Florida (3)
+                </span>
+                <span class="flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                    Virginia (2)
+                </span>
+                <span class="flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-orange-500"></span>
+                    India (2)
+                </span>
+            </div>
+        </section>
+        
         <!-- Dashboard Tab -->
         <div id="view-dashboard" class="tab-view">
             <!-- Quick Status -->
@@ -1028,13 +1263,13 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                     datasets: [{
                         label: 'Weight (kg)',
                         data: weights.map(w => w.value),
-                        borderColor: '#404040',
-                        backgroundColor: 'rgba(107, 163, 107, 0.1)',
+                        borderColor: '#262626',
+                        backgroundColor: 'rgba(160, 160, 160, 0.15)',
                         borderWidth: 2,
                         fill: true,
                         tension: 0.3,
                         pointRadius: 5,
-                        pointBackgroundColor: '#404040',
+                        pointBackgroundColor: '#262626',
                         pointBorderColor: '#fff',
                         pointBorderWidth: 2
                     }]
@@ -1182,8 +1417,8 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                     datasets: [{
                         label: val.name,
                         data: readings.map(r => r.value),
-                        borderColor: '#404040',
-                        backgroundColor: 'rgba(107, 163, 107, 0.1)',
+                        borderColor: '#262626',
+                        backgroundColor: 'rgba(160, 160, 160, 0.15)',
                         borderWidth: 2,
                         fill: true,
                         tension: 0.3,
@@ -1207,7 +1442,7 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
                                     type: 'box',
                                     yMin: ref.low,
                                     yMax: ref.high,
-                                    backgroundColor: isDark ? 'rgba(107, 163, 107, 0.15)' : 'rgba(107, 163, 107, 0.1)',
+                                    backgroundColor: isDark ? 'rgba(160, 160, 160, 0.2)' : 'rgba(160, 160, 160, 0.15)',
                                     borderWidth: 0
                                 }
                             }
