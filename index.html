@@ -2451,20 +2451,33 @@ Creatinine: 1.4 (0.5-1.8 mg/dL)
             if (e.target.id === 'interpretation-modal') closeModal();
         });
 
-        // Auto-load data on first visit
+        // Auto-load and sync data from JSON file
         async function autoLoadData() {
-            const data = getData();
-            if (data.reports.length === 0) {
-                try {
-                    const response = await fetch('pepper-data.json');
-                    if (response.ok) {
-                        const preloadData = await response.json();
-                        saveData(preloadData);
-                        console.log('✅ Auto-loaded Pepper lab data');
-                    }
-                } catch (e) {
-                    console.log('No preload data');
+            try {
+                const response = await fetch('pepper-data.json?t=' + Date.now());
+                if (response.ok) {
+                    const jsonData = await response.json();
+                    const localData = getData();
+                    
+                    // Merge: use JSON file as source of truth, but keep local-only entries
+                    const jsonReportIds = new Set(jsonData.reports.map(r => r.id));
+                    const localOnlyReports = localData.reports.filter(r => !jsonReportIds.has(r.id));
+                    
+                    // Combine: JSON reports + any local-only reports
+                    const mergedReports = [...jsonData.reports, ...localOnlyReports];
+                    mergedReports.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    
+                    const mergedData = {
+                        reports: mergedReports,
+                        values: jsonData.values || localData.values,
+                        weights: jsonData.weights || localData.weights
+                    };
+                    
+                    saveData(mergedData);
+                    console.log('✅ Synced with pepper-data.json:', mergedReports.length, 'reports');
                 }
+            } catch (e) {
+                console.log('Using local data only');
             }
             renderDashboard();
             renderWeightChart();
