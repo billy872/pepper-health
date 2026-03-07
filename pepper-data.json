@@ -4,7 +4,7 @@
       "id": 1737244800000,
       "date": "2026-01-19",
       "valueCount": 20,
-      "notes": "\u26a0\ufe0f INITIAL: Stopped eating. Mild SGOT/SGPT elevation. Vitamin D deficient. Low calcium & albumin.",
+      "notes": "⚠️ INITIAL: Stopped eating. Mild SGOT/SGPT elevation. Vitamin D deficient. Low calcium & albumin.",
       "values": [
         {
           "key": "bilirubin",
@@ -156,7 +156,7 @@
       "id": 1738627200000,
       "date": "2026-02-04",
       "valueCount": 10,
-      "notes": "\ud83d\udd34 CRISIS: Jaundice developed post-surgery. Bilirubin 3.47 (5x normal), ALT 529, AST 270. Severe liver stress.",
+      "notes": "🔴 CRISIS: Jaundice developed post-surgery. Bilirubin 3.47 (5x normal), ALT 529, AST 270. Severe liver stress.",
       "values": [
         {
           "key": "bilirubin",
@@ -227,7 +227,7 @@
       "id": 1738886400000,
       "date": "2026-02-07",
       "valueCount": 25,
-      "notes": "\u2705 RESPONDING: Amoxirum + D5 working. Bilirubin normalized. AST normalized. ALT improving. WBC elevated (inflammation). First CBC.",
+      "notes": "✅ RESPONDING: Amoxirum + D5 working. Bilirubin normalized. AST normalized. ALT improving. WBC elevated (inflammation). First CBC.",
       "values": [
         {
           "key": "bilirubin",
@@ -377,7 +377,7 @@
           "key": "rbc",
           "name": "Red Blood Cells",
           "value": 5.29,
-          "unit": "x10\u2076/\u00b5L",
+          "unit": "x10⁶/µL",
           "refLow": 5.0,
           "refHigh": 7.9,
           "category": "CBC"
@@ -386,7 +386,7 @@
           "key": "wbc",
           "name": "White Blood Cells",
           "value": 43.89,
-          "unit": "x10\u00b3/\u00b5L",
+          "unit": "x10³/µL",
           "refLow": 6,
           "refHigh": 17,
           "category": "CBC"
@@ -404,7 +404,7 @@
           "key": "platelets",
           "name": "Platelets",
           "value": 225.0,
-          "unit": "x10\u00b3/\u00b5L",
+          "unit": "x10³/µL",
           "refLow": 200,
           "refHigh": 600,
           "category": "CBC"
@@ -433,7 +433,7 @@
       "id": 1739318400000,
       "date": "2026-02-12",
       "valueCount": 7,
-      "notes": "\u26a0\ufe0f SETBACK: Treatment stopped \u2192 ALT spiked to 599 (highest ever). Liver struggling again.",
+      "notes": "⚠️ SETBACK: Treatment stopped → ALT spiked to 599 (highest ever). Liver struggling again.",
       "values": [
         {
           "key": "bilirubin",
@@ -504,7 +504,7 @@
       "id": 1739577600000,
       "date": "2026-02-15",
       "valueCount": 25,
-      "notes": "\ud83d\udc8a MEROPENEM STARTED: Jaundice returned. ALT 431 (improving). ALP climbing. NT-proBNP normal (heart OK). Showed improvement, eating.",
+      "notes": "💊 MEROPENEM STARTED: Jaundice returned. ALT 431 (improving). ALP climbing. NT-proBNP normal (heart OK). Showed improvement, eating.",
       "values": [
         {
           "key": "bilirubin",
@@ -654,7 +654,7 @@
           "key": "rbc",
           "name": "Red Blood Cells",
           "value": 5.35,
-          "unit": "x10\u2076/\u00b5L",
+          "unit": "x10⁶/µL",
           "refLow": 5.0,
           "refHigh": 7.9,
           "category": "CBC"
@@ -663,7 +663,7 @@
           "key": "wbc",
           "name": "White Blood Cells",
           "value": 51.2,
-          "unit": "x10\u00b3/\u00b5L",
+          "unit": "x10³/µL",
           "refLow": 6,
           "refHigh": 17,
           "category": "CBC"
@@ -681,7 +681,7 @@
           "key": "platelets",
           "name": "Platelets",
           "value": 441.0,
-          "unit": "x10\u00b3/\u00b5L",
+          "unit": "x10³/µL",
           "refLow": 200,
           "refHigh": 600,
           "category": "CBC"
@@ -701,7 +701,7 @@
       "id": 1740096000000,
       "date": "2026-02-21",
       "valueCount": 18,
-      "notes": "\u26a0\ufe0f ALP PEAK: 1026 (9x normal). Bilirubin up again. Severe protein wasting. Tick fever PCR: ALL NEGATIVE. Lipase normal.",
+      "notes": "⚠️ ALP PEAK: 1026 (9x normal). Bilirubin up again. Severe protein wasting. Tick fever PCR: ALL NEGATIVE. Lipase normal.",
       "values": [
         {
           "key": "bilirubin",
@@ -842,7 +842,7 @@
           "key": "lipase",
           "name": "Pancreatic Lipase",
           "value": 149.0,
-          "unit": "\u00b5g/L",
+          "unit": "µg/L",
           "refLow": 0,
           "refHigh": 200,
           "category": "Pancreas"
@@ -853,7 +853,7 @@
       "id": 1740355200000,
       "date": "2026-02-24",
       "valueCount": 25,
-      "notes": "\ud83d\udd34 NEW CRISIS: Severe anemia (HGB 9.3) + thrombocytopenia (platelets 73). Total protein critically low (3.48). Started PLASMA + ERYTHOPOIETIN.",
+      "notes": "🔴 NEW CRISIS: Severe anemia (HGB 9.3) + thrombocytopenia (platelets 73). Total protein critically low (3.48). Started PLASMA + ERYTHOPOIETIN.",
       "values": [
         {
           "key": "bilirubin",
@@ -1003,7 +1003,7 @@
           "key": "rbc",
           "name": "Red Blood Cells",
           "value": 3.87,
-          "unit": "x10\u2076/\u00b5L",
+          "unit": "x10⁶/µL",
           "refLow": 5.0,
           "refHigh": 7.9,
           "category": "CBC"
@@ -1012,7 +1012,7 @@
           "key": "wbc",
           "name": "White Blood Cells",
           "value": 69.8,
-          "unit": "x10\u00b3/\u00b5L",
+          "unit": "x10³/µL",
           "refLow": 6,
           "refHigh": 17,
           "category": "CBC"
@@ -1030,7 +1030,7 @@
           "key": "platelets",
           "name": "Platelets",
           "value": 73.0,
-          "unit": "x10\u00b3/\u00b5L",
+          "unit": "x10³/µL",
           "refLow": 200,
           "refHigh": 600,
           "category": "CBC"
@@ -1041,7 +1041,7 @@
       "id": 1740528000000,
       "date": "2026-02-26",
       "valueCount": 12,
-      "notes": "\ud83d\udd34 CURRENT: Anemia worsening (HGB 8.1). Platelets 64. WBC 86.7 (extreme). RR better in AM (cyclic). Appetite fluctuates. Energy \u2193 past 4 days. NEW: Burping \u00d72 days, mild coughing \u00d71 day.",
+      "notes": "🔴 CURRENT: Anemia worsening (HGB 8.1). Platelets 64. WBC 86.7 (extreme). RR better in AM (cyclic). Appetite fluctuates. Energy ↓ past 4 days. NEW: Burping ×2 days, mild coughing ×1 day.",
       "values": [
         {
           "key": "hemoglobin",
@@ -1056,7 +1056,7 @@
           "key": "rbc",
           "name": "Red Blood Cells",
           "value": 3.5,
-          "unit": "x10\u2076/\u00b5L",
+          "unit": "x10⁶/µL",
           "refLow": 5.0,
           "refHigh": 7.9,
           "category": "CBC"
@@ -1065,7 +1065,7 @@
           "key": "wbc",
           "name": "White Blood Cells",
           "value": 86.7,
-          "unit": "x10\u00b3/\u00b5L",
+          "unit": "x10³/µL",
           "refLow": 6,
           "refHigh": 17,
           "category": "CBC"
@@ -1110,7 +1110,7 @@
           "key": "platelets",
           "name": "Platelets",
           "value": 64.0,
-          "unit": "x10\u00b3/\u00b5L",
+          "unit": "x10³/µL",
           "refLow": 200,
           "refHigh": 600,
           "category": "CBC"
@@ -1148,7 +1148,7 @@
       "id": 1741132800000,
       "date": "2026-03-05",
       "valueCount": 30,
-      "notes": "\ud83d\udd34 CRITICAL: WBC 115 (7x normal!). Severe anemia (HGB 8.7). Platelets 105. Bilirubin elevated. ALT 187. ALP 931 (8x normal). Protein critically low (3.77). Calcium 6.9 (very low).",
+      "notes": "🔴 CRITICAL: WBC 115 (7x normal!). Severe anemia (HGB 8.7). Platelets 105. Bilirubin elevated. ALT 187. ALP 931 (8x normal). Protein critically low (3.77). Calcium 6.9 (very low).",
       "values": [
         {
           "key": "bilirubin",
@@ -1325,7 +1325,7 @@
           "key": "rbc",
           "name": "Red Blood Cells",
           "value": 3.51,
-          "unit": "x10\u2076/\u00b5L",
+          "unit": "x10⁶/µL",
           "refLow": 5.0,
           "refHigh": 7.9,
           "category": "CBC"
@@ -1334,7 +1334,7 @@
           "key": "wbc",
           "name": "White Blood Cells",
           "value": 115.0,
-          "unit": "x10\u00b3/\u00b5L",
+          "unit": "x10³/µL",
           "refLow": 6,
           "refHigh": 17,
           "category": "CBC"
@@ -1379,7 +1379,7 @@
           "key": "platelets",
           "name": "Platelets",
           "value": 105.0,
-          "unit": "x10\u00b3/\u00b5L",
+          "unit": "x10³/µL",
           "refLow": 200,
           "refHigh": 600,
           "category": "CBC"
@@ -1418,6 +1418,185 @@
           "unit": "%",
           "refLow": 2,
           "refHigh": 10,
+          "category": "CBC"
+        }
+      ]
+    },
+    {
+      "id": 1741305600000,
+      "date": "2026-03-07",
+      "valueCount": 20,
+      "notes": "🚨 EMERGENCY: HGB crashed to 5.8 (was 8.7). RBC 2.45 (half normal). PCV 16.1. WBC 120 (7x normal). Platelets 120 (microscopy). Normocytic normochromic anemia. Leucocytosis. Thrombocytopenia.",
+      "values": [
+        {
+          "key": "hemoglobin",
+          "name": "Hemoglobin",
+          "value": 5.8,
+          "unit": "g/dL",
+          "refLow": 12,
+          "refHigh": 19,
+          "category": "CBC"
+        },
+        {
+          "key": "rbc",
+          "name": "Red Blood Cells",
+          "value": 2.45,
+          "unit": "x10⁶/µL",
+          "refLow": 5.0,
+          "refHigh": 7.9,
+          "category": "CBC"
+        },
+        {
+          "key": "wbc",
+          "name": "White Blood Cells",
+          "value": 120.0,
+          "unit": "x10³/µL",
+          "refLow": 6,
+          "refHigh": 17,
+          "category": "CBC"
+        },
+        {
+          "key": "pcv",
+          "name": "PCV/Hematocrit",
+          "value": 16.1,
+          "unit": "%",
+          "refLow": 35,
+          "refHigh": 57,
+          "category": "CBC"
+        },
+        {
+          "key": "mcv",
+          "name": "MCV",
+          "value": 65.7,
+          "unit": "fL",
+          "refLow": 60,
+          "refHigh": 77,
+          "category": "CBC"
+        },
+        {
+          "key": "mch",
+          "name": "MCH",
+          "value": 23.7,
+          "unit": "pg",
+          "refLow": 19.5,
+          "refHigh": 24.5,
+          "category": "CBC"
+        },
+        {
+          "key": "mchc",
+          "name": "MCHC",
+          "value": 36.0,
+          "unit": "g/dL",
+          "refLow": 30,
+          "refHigh": 36.3,
+          "category": "CBC"
+        },
+        {
+          "key": "platelets",
+          "name": "Platelets (Microscopy)",
+          "value": 120.0,
+          "unit": "x10³/µL",
+          "refLow": 200,
+          "refHigh": 600,
+          "category": "CBC"
+        },
+        {
+          "key": "plateletsmachine",
+          "name": "Platelets (Machine)",
+          "value": 44.0,
+          "unit": "x10³/µL",
+          "refLow": 200,
+          "refHigh": 600,
+          "category": "CBC"
+        },
+        {
+          "key": "neutrophils",
+          "name": "Neutrophils",
+          "value": 76,
+          "unit": "%",
+          "refLow": 60,
+          "refHigh": 75,
+          "category": "CBC"
+        },
+        {
+          "key": "lymphocytes",
+          "name": "Lymphocytes",
+          "value": 17,
+          "unit": "%",
+          "refLow": 12,
+          "refHigh": 30,
+          "category": "CBC"
+        },
+        {
+          "key": "eosinophils",
+          "name": "Eosinophils",
+          "value": 2,
+          "unit": "%",
+          "refLow": 2,
+          "refHigh": 9,
+          "category": "CBC"
+        },
+        {
+          "key": "monocytes",
+          "name": "Monocytes",
+          "value": 5,
+          "unit": "%",
+          "refLow": 2,
+          "refHigh": 10,
+          "category": "CBC"
+        },
+        {
+          "key": "basophils",
+          "name": "Basophils",
+          "value": 0,
+          "unit": "%",
+          "refLow": 0,
+          "refHigh": 1,
+          "category": "CBC"
+        },
+        {
+          "key": "absneutrophils",
+          "name": "Abs. Neutrophils",
+          "value": 91.2,
+          "unit": "x10³/µL",
+          "refLow": 3.6,
+          "refHigh": 12.72,
+          "category": "CBC"
+        },
+        {
+          "key": "abslymphocytes",
+          "name": "Abs. Lymphocytes",
+          "value": 20.4,
+          "unit": "x10³/µL",
+          "refLow": 0.72,
+          "refHigh": 5.1,
+          "category": "CBC"
+        },
+        {
+          "key": "abseosinophils",
+          "name": "Abs. Eosinophils",
+          "value": 2.4,
+          "unit": "x10³/µL",
+          "refLow": 0.12,
+          "refHigh": 1.53,
+          "category": "CBC"
+        },
+        {
+          "key": "absmonocytes",
+          "name": "Abs. Monocytes",
+          "value": 6.0,
+          "unit": "x10³/µL",
+          "refLow": 0.12,
+          "refHigh": 1.7,
+          "category": "CBC"
+        },
+        {
+          "key": "absbasophils",
+          "name": "Abs. Basophils",
+          "value": 0,
+          "unit": "x10³/µL",
+          "refLow": 0,
+          "refHigh": 0.0,
           "category": "CBC"
         }
       ]
@@ -1696,12 +1875,16 @@
         {
           "date": "2026-03-05",
           "value": 8.7
+        },
+        {
+          "date": "2026-03-07",
+          "value": 5.8
         }
       ]
     },
     "rbc": {
       "name": "Red Blood Cells",
-      "unit": "x10\u2076/\u00b5L",
+      "unit": "x10⁶/µL",
       "category": "CBC",
       "refLow": 5.0,
       "refHigh": 7.9,
@@ -1725,12 +1908,16 @@
         {
           "date": "2026-03-05",
           "value": 3.51
+        },
+        {
+          "date": "2026-03-07",
+          "value": 2.45
         }
       ]
     },
     "wbc": {
       "name": "White Blood Cells",
-      "unit": "x10\u00b3/\u00b5L",
+      "unit": "x10³/µL",
       "category": "CBC",
       "refLow": 6,
       "refHigh": 17,
@@ -1754,12 +1941,16 @@
         {
           "date": "2026-03-05",
           "value": 115.0
+        },
+        {
+          "date": "2026-03-07",
+          "value": 120.0
         }
       ]
     },
     "platelets": {
       "name": "Platelets",
-      "unit": "x10\u00b3/\u00b5L",
+      "unit": "x10³/µL",
       "category": "CBC",
       "refLow": 200,
       "refHigh": 600,
@@ -1783,6 +1974,10 @@
         {
           "date": "2026-03-05",
           "value": 105.0
+        },
+        {
+          "date": "2026-03-07",
+          "value": 120.0
         }
       ]
     },
@@ -1812,6 +2007,10 @@
         {
           "date": "2026-03-05",
           "value": 23.1
+        },
+        {
+          "date": "2026-03-07",
+          "value": 16.1
         }
       ]
     },
