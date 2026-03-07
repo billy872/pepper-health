@@ -1426,7 +1426,7 @@
       "id": 1741305600000,
       "date": "2026-03-07",
       "valueCount": 20,
-      "notes": "🚨 EMERGENCY: HGB crashed to 5.8 (was 8.7). RBC 2.45 (half normal). PCV 16.1. WBC 120 (7x normal). Platelets 120 (microscopy). Normocytic normochromic anemia. Leucocytosis. Thrombocytopenia.",
+      "notes": "🚨 EMERGENCY: HGB crashed to 5.8 (was 8.7). RBC 2.45 (half normal). PCV 16.1. WBC 120 (7x normal). Platelets 120 (microscopy). Normocytic normochromic anemia. Leucocytosis. Thrombocytopenia. 💉 250ml BLOOD TRANSFUSION administered.",
       "values": [
         {
           "key": "hemoglobin",
@@ -1598,6 +1598,15 @@
           "refLow": 0,
           "refHigh": 0.0,
           "category": "CBC"
+        },
+        {
+          "key": "transfusion",
+          "name": "Blood Transfusion",
+          "value": 250,
+          "unit": "mL",
+          "refLow": 0,
+          "refHigh": 0,
+          "category": "Treatment"
         }
       ]
     }
